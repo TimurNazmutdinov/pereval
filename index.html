@@ -11,9 +11,9 @@
 <meta name="apple-mobile-web-app-title" content="Перевал">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-v3.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32-v3.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-v3.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap&subset=cyrillic" rel="stylesheet">
@@ -166,9 +166,15 @@ h2.sec{font-size:15px;font-weight:600;margin:0 0 10px;color:var(--sub)}
 .seg button[aria-pressed=true]{background:var(--ink);color:#fff}
 .flybtn{border:0;box-shadow:0 1px 4px rgba(28,42,51,.25);background:var(--blaze);color:var(--blaze-ink);font-size:14px;font-weight:700;padding:9px 16px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
 .seg button:focus-visible,.flybtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.fly-info{position:absolute;z-index:2;left:12px;bottom:34px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);color:var(--ink);box-shadow:0 1px 4px rgba(28,42,51,.18);border-radius:12px;padding:8px 12px;display:none;gap:16px;font-variant-numeric:tabular-nums}
+.fly-info{position:absolute;z-index:2;left:12px;right:12px;bottom:34px;max-width:460px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);color:var(--ink);box-shadow:0 2px 10px rgba(28,42,51,.22);border-radius:14px;padding:10px 12px;display:none;flex-direction:column;gap:8px;font-variant-numeric:tabular-nums}
 .fly-info b{font-family:var(--disp);font-weight:500;font-size:17px}
 .fly-info span{display:block;font-size:12px;color:var(--sub)}
+.flyst{display:flex;gap:20px}
+#flyPos{width:100%;accent-color:#F2762E;margin:0}
+.flyrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flyp{border:0;border-radius:999px;width:38px;height:34px;background:var(--ink);color:#fff;font-size:13px;cursor:pointer;flex:none}
+.flyrow .seg{box-shadow:none;background:var(--page);border:1px solid var(--line)}
+.flyrow .seg button{padding:6px 10px;font-size:13px}
 .mapmsg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--sub)}
 .mk{font:600 13px/1 var(--text);padding:5px 8px;border-radius:999px;color:#14191E;box-shadow:0 2px 6px rgba(0,0,0,.35);white-space:nowrap;cursor:pointer;border:2px solid #fff;font-variant-numeric:tabular-nums}
 .mk.w{border-color:#FF3B30}
@@ -357,6 +363,7 @@ body.navmode{overflow:hidden}
 .dbtns button[aria-pressed=true]{background:#E8E8E8;color:#000}
 #navExit2{background:#5A120D;border-color:#5A120D}
 .wtxt{color:#B3261E}
+.me.small{width:16px;height:16px;border-width:2px;box-shadow:0 0 0 4px rgba(26,115,232,.22)}
 .me{width:22px;height:22px;border-radius:50%;background:#1A73E8;border:3px solid #fff;box-shadow:0 0 0 6px rgba(26,115,232,.25),0 1px 4px rgba(0,0,0,.4)}
 /* dialogs */
 dialog{border:0;border-radius:18px;padding:0;width:min(560px,calc(100vw - 24px));max-height:calc(100vh - 40px);color:var(--ink);box-shadow:0 20px 60px rgba(28,42,51,.35)}
@@ -391,7 +398,7 @@ dialog>*{margin-left:18px;margin-right:18px}
   <div class="hero-photo" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div>
   <div class="wrap">
     <button type="button" class="libbtn" id="btnLib"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Мои маршруты<span id="libCount"></span></button>
-    <div class="brand"><img src="icons/icon.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p></div></div>
+    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p></div></div>
     <button type="button" class="installbtn" id="btnInstall" hidden>Установить приложение</button>
     <div class="tabs" role="tablist" aria-label="Разделы">
       <button type="button" role="tab" id="tbPlan" aria-controls="tabPlan" aria-selected="true">Построить маршрут</button>
@@ -402,12 +409,12 @@ dialog>*{margin-left:18px;margin-right:18px}
     <p class="lead">Загрузите трек или постройте его на соседней вкладке, укажите старт и темп. Покажем погоду в каждой точке пути в тот момент, когда вы до неё дойдёте.</p>
     <div class="plan">
       <label class="upload" id="fTrack"><input type="file" id="inTrack" accept=".gpx,.fit,.tcx,.zip,application/gpx+xml,application/vnd.garmin.tcx+xml,application/zip,application/x-zip-compressed,application/octet-stream,application/xml,text/xml"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6-11 4 6 3-4 5 9z"/></svg><i>Загрузить трек<em>GPX, FIT, TCX или ZIP</em></i></span></label>
-      <div class="fld"><label for="inStart">Старт</label><input type="datetime-local" id="inStart"></div>
+      <div class="fld"><label for="inStart">Старт</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="datetime-local" id="inStart"></div>
       <div class="plan-row">
-        <div class="fld"><label for="inFlat">По ровному, км/ч</label><input type="number" id="inFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
-        <div class="fld"><label for="inClimb">Подъём, м/ч</label><input type="number" id="inClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
+        <div class="fld"><label for="inFlat">По ровному, км/ч</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
+        <div class="fld"><label for="inClimb">Подъём, м/ч</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
       </div>
-      <div class="fld"><label for="inBreak">Привалы, мин в час</label><input type="number" id="inBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
+      <div class="fld"><label for="inBreak">Привалы, мин в час</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
     </div>
     <div class="altrow">
       <label class="switch"><input type="checkbox" id="inAlt" checked><span class="knob" aria-hidden="true"></span><span>Поправка на высоту выше 2500 м</span></label>
@@ -422,8 +429,8 @@ dialog>*{margin-left:18px;margin-right:18px}
     </div>
     <div class="mdrow">
       <label class="switch"><input type="checkbox" id="inMulti"><span class="knob" aria-hidden="true"></span><span>Поход на несколько дней</span></label>
-      <div class="fld mdf" hidden><label for="inDayH">Ходовых часов в день</label><input type="number" id="inDayH" min="2" max="14" step="0.5" value="7" inputmode="decimal"></div>
-      <div class="fld mdf" hidden><label for="inDayStart">Выход каждое утро</label><input type="time" id="inDayStart" value="08:00"></div>
+      <div class="fld mdf" hidden><label for="inDayH">Ходовых часов в день</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inDayH" min="2" max="14" step="0.5" value="7" inputmode="decimal"></div>
+      <div class="fld mdf" hidden><label for="inDayStart">Выход каждое утро</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="time" id="inDayStart" value="08:00"></div>
     </div>
     <div class="figs" id="stats"></div>
     </div>
@@ -448,18 +455,18 @@ dialog>*{margin-left:18px;margin-right:18px}
         <div class="mapmsg hidden" id="pMapMsg"></div>
       </div>
       <aside class="pside">
-        <form class="search" id="pSearch" role="search">
-          <input type="search" id="pQuery" placeholder="Найти место: вершина, посёлок, перевал" aria-label="Найти место на карте">
+        <form class="search" id="pSearch" role="search" autocomplete="off">
+          <input autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" type="search" id="pQuery" placeholder="Найти место: вершина, посёлок, перевал" aria-label="Найти место на карте">
           <button type="submit">Найти</button>
         </form>
-        <div class="pfield"><label for="pName">Название маршрута</label><input type="text" id="pName" maxlength="60" placeholder="Мой маршрут"></div>
+        <div class="pfield"><label for="pName">Название маршрута</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="text" id="pName" maxlength="60" placeholder="Мой маршрут"></div>
         <div class="pmode"><span>Прокладывать</span><div class="seg light" id="pMode"><button type="button" data-v="trail" aria-pressed="true">по тропам</button><button type="button" data-v="line" aria-pressed="false">напрямую</button></div></div>
         <fieldset class="ppace">
           <legend>Темп</legend>
           <div class="ppace-grid">
-            <div><label for="pFlat">По ровному<span>км/ч</span></label><input type="number" id="pFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
-            <div><label for="pClimb">Подъём<span>м в час</span></label><input type="number" id="pClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
-            <div><label for="pBreak">Привалы<span>мин в час</span></label><input type="number" id="pBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
+            <div><label for="pFlat">По ровному<span>км/ч</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
+            <div><label for="pClimb">Подъём<span>м в час</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
+            <div><label for="pBreak">Привалы<span>мин в час</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
           </div>
           <label class="switch small"><input type="checkbox" id="pAlt" checked><span class="knob" aria-hidden="true"></span><span>Поправка на высоту выше 2500 м</span></label>
         </fieldset>
@@ -516,7 +523,14 @@ dialog>*{margin-left:18px;margin-right:18px}
           <button type="button" class="flybtn" id="btnFly"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Пролететь маршрут</span></button>
         </div>
         <div class="mapmsg hidden" id="mapMsg"></div>
-        <div class="fly-info" id="flyInfo"></div>
+        <div class="fly-info" id="flyInfo">
+          <div class="flyst"><div><b id="flyKm">0 км</b><span>пройдено</span></div><div><b id="flyEle">—</b><span>высота</span></div></div>
+          <input type="range" id="flyPos" min="0" max="1000" step="1" value="0" aria-label="Положение на маршруте">
+          <div class="flyrow">
+            <button type="button" class="flyp" id="flyPause" aria-label="Пауза">❚❚</button>
+            <div class="seg" id="flySpd" role="group" aria-label="Скорость пролёта"><button type="button" data-v="0.5">0,5×</button><button type="button" data-v="1">1×</button><button type="button" data-v="2">2×</button><button type="button" data-v="4">4×</button><button type="button" data-v="8">8×</button></div>
+          </div>
+        </div>
         <div class="navtop" id="navTop" hidden>
           <div class="navcol"><div class="navstats" id="navStats"><span class="navwait">Ищу сигнал GPS…</span></div><div class="navoff" id="navOff" role="alert" hidden></div></div>
           <div class="navbtns"><button type="button" id="navFollow" aria-pressed="true">Следовать</button><button type="button" id="navDark" aria-pressed="false">Тёмный экран</button><button type="button" id="navKeep" aria-pressed="false">Экран гаснет</button><button type="button" id="navExit">Выйти</button></div>
@@ -578,10 +592,10 @@ dialog>*{margin-left:18px;margin-right:18px}
 <dialog id="cardDlg" aria-labelledby="cardTitle">
   <div class="dlg-head"><h2 id="cardTitle">Карточка безопасности</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
   <p class="note">Оставьте её близким или в журнале выхода. Откроется окно печати: можно распечатать или выбрать «Сохранить как PDF».</p>
-  <label class="dfld"><span>Участники</span><textarea id="cdPeople" rows="2" placeholder="Имена, кто идёт"></textarea></label>
-  <label class="dfld"><span>Телефон для связи в походе</span><input type="tel" id="cdPhone" placeholder="+7 …"></label>
-  <label class="dfld"><span>Контрольное время возвращения</span><input type="datetime-local" id="cdCtrl"></label>
-  <label class="dfld"><span>Заметки (снаряжение, запасной путь, машина)</span><textarea id="cdNotes" rows="2"></textarea></label>
+  <label class="dfld"><span>Участники</span><textarea autocomplete="off" autocorrect="off" spellcheck="false" id="cdPeople" rows="2" placeholder="Имена, кто идёт"></textarea></label>
+  <label class="dfld"><span>Телефон для связи в походе</span><input autocomplete="tel" type="tel" id="cdPhone" placeholder="+7 …"></label>
+  <label class="dfld"><span>Контрольное время возвращения</span><input autocomplete="off" autocorrect="off" spellcheck="false" type="datetime-local" id="cdCtrl"></label>
+  <label class="dfld"><span>Заметки (снаряжение, запасной путь, машина)</span><textarea autocomplete="off" autocorrect="off" spellcheck="false" id="cdNotes" rows="2"></textarea></label>
   <div class="dlg-foot"><button type="button" class="act" data-close>Отмена</button><button type="button" class="act primary" id="cdGo">Сформировать</button></div>
 </dialog>
 
@@ -938,7 +952,7 @@ function initMap(){
   const me=map;
   clearTimeout(mapWatch);mapWatch=setTimeout(()=>{if(map===me&&!mapReady)mapMsg('Карта долго не загружается. Проверьте интернет.',true)},15000);
   map.on('webglcontextlost',()=>{if(map===me){mapReady=false;mapMsg('Телефон остановил отрисовку карты, чтобы сберечь память.',true)}});
-  ['mousedown','touchstart','wheel'].forEach(ev=>map.on(ev,()=>{if(fly)stopFly(false)}));
+  ['mousedown','touchstart','wheel'].forEach(ev=>map.on(ev,()=>{if(fly&&!fly.paused)flyPause(true)}));
 }
 function setDim(d,instant){is3d=d;if(!mapReady)return;
   try{map.setTerrain(d?{source:'dem',exaggeration:1.35}:null)}catch(e){}
@@ -960,22 +974,45 @@ function pointAt(d){const P=T.pts;let lo=0,hi=P.length-1;while(hi-lo>1){const m=
   const a=P[lo],b=P[hi],f=b.d>a.d?(d-a.d)/(b.d-a.d):0;return{lat:a.lat+(b.lat-a.lat)*f,lon:a.lon+(b.lon-a.lon)*f,e:a.ele+(b.ele-a.ele)*f,i:hi}}
 function brg(a,b){const r=Math.PI/180,y=Math.sin((b.lon-a.lon)*r)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos((b.lon-a.lon)*r);return Math.atan2(y,x)/r}
 function lerpAng(a,b,f){let d=((b-a+540)%360)-180;return a+d*f}
+const FLY_SPD=(()=>{try{return +localStorage.getItem('fly-spd')||2}catch(e){return 2}})();
+let flySpd=FLY_SPD;
+function flyRender(d,dt){
+  const total=T.dist;d=Math.max(0,Math.min(total,d));
+  const a=pointAt(d),b=pointAt(Math.min(total,d+Math.max(300,total*0.04)));const tb=brg(a,b);
+  fly.br=fly.br==null?tb:lerpAng(fly.br,tb,dt==null?1:1-Math.exp(-dt/700));
+  map.jumpTo({center:[a.lon,a.lat],bearing:fly.br,pitch:62,zoom:fly.zoom});
+  const now=performance.now();
+  if(now-fly.ui>200||dt==null){fly.ui=now;map.getSource('prog').setData(routeGeo(a.i+1));
+    $('flyKm').textContent=km(d);$('flyEle').textContent=nf0.format(a.e)+' м';$('flyPos').value=Math.round(d/total*1000)}
+}
+function flyLoop(ts){
+  if(!fly||fly.paused)return;
+  const dt=fly.last==null?16:Math.min(250,ts-fly.last);fly.last=ts;
+  fly.d+=T.dist/40000*flySpd*dt;
+  flyRender(fly.d,dt);
+  if(fly.d>=T.dist){stopFly(true);return}
+  fly.raf=requestAnimationFrame(flyLoop);
+}
+function flyPause(p){if(!fly)return;fly.paused=p;$('flyPause').textContent=p?'▶':'❚❚';$('flyPause').setAttribute('aria-label',p?'Продолжить':'Пауза');
+  if(!p){fly.last=null;cancelAnimationFrame(fly.raf);fly.raf=requestAnimationFrame(flyLoop)}}
 function startFly(){
   if(!mapReady)return;if(fly){stopFly(true);return}
   if(!is3d){is3d=true;pressSeg('segDim','3d');setDim(true,true)}
-  const total=T.dist,dur=Math.max(25000,Math.min(75000,total/1000*3500)),zoom=total>25000?13.2:total>10000?13.8:14.4;
-  let t0=null,br=null;fly={raf:0};$('btnFly').lastChild.textContent='Остановить';$('flyInfo').style.display='flex';
-  const frame=ts=>{if(!fly)return;if(t0==null)t0=ts;const f=Math.min(1,(ts-t0)/dur),d=f*total;
-    const a=pointAt(d),b=pointAt(Math.min(total,d+Math.max(400,total*0.05)));const tb=brg(a,b);
-    br=br==null?tb:lerpAng(br,tb,0.035);
-    map.jumpTo({center:[a.lon,a.lat],bearing:br,pitch:66,zoom});
-    map.getSource('prog').setData(routeGeo(a.i+1));
-    $('flyInfo').innerHTML='<div><b>'+km(d)+'</b><span>пройдено</span></div><div><b>'+nf0.format(a.e)+' м</b><span>высота</span></div>';
-    if(f<1)fly.raf=requestAnimationFrame(frame);else stopFly(true)};
-  fly.raf=requestAnimationFrame(frame);
+  const total=T.dist;
+  fly={raf:0,d:0,br:null,last:null,ui:0,paused:false,zoom:total>25000?13.2:total>10000?13.8:14.4,px:map.getPixelRatio?map.getPixelRatio():null};
+  try{map.setPixelRatio(1)}catch(e){}
+  $('btnFly').lastChild.textContent='Остановить';$('flyInfo').style.display='flex';
+  pressSeg('flySpd',String(flySpd));$('flyPause').textContent='❚❚';
+  flyRender(0,null);fly.raf=requestAnimationFrame(flyLoop);
 }
-function stopFly(reset){if(!fly)return;cancelAnimationFrame(fly.raf);fly=null;$('btnFly').lastChild.textContent='Пролететь маршрут';$('flyInfo').style.display='none';
+function stopFly(reset){if(!fly)return;cancelAnimationFrame(fly.raf);const px=fly.px;fly=null;
+  try{if(px)map.setPixelRatio(px)}catch(e){}
+  $('btnFly').lastChild.textContent='Пролететь маршрут';$('flyInfo').style.display='none';
   if(reset){map.getSource('prog').setData(routeGeo(1));overview(1200)}}
+$('flyPause').onclick=()=>flyPause(!fly.paused);
+$('flySpd').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;flySpd=+v;pressSeg('flySpd',v);try{localStorage.setItem('fly-spd',v)}catch(_){}};
+$('flyPos').oninput=()=>{if(!fly)return;fly.d=(+$('flyPos').value)/1000*T.dist;flyRender(fly.d,null)};
+$('flyPos').addEventListener('pointerdown',()=>{if(fly&&!fly.paused)flyPause(true)});
 function pressSeg(id,v){[...$(id).children].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)))}
 $('segBase').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;baseSel=v;pressSeg('segBase',v);setBase(v)};
 $('segDim').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;pressSeg('segDim',v);if(fly)stopFly(false);setDim(v==='3d')};
@@ -1032,12 +1069,14 @@ $('tbWx').onclick=()=>setTab('wx');
 $('tbPlan').parentElement.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=$('tbPlan').getAttribute('aria-selected')==='true'?'wx':'plan';setTab(n);$(n==='plan'?'tbPlan':'tbWx').focus()}});
 
 /* ---------- planner ---------- */
-const PL={view:null,base:'topo',dim:'2d',wps:[],geom:null,mode:'trail',map:null,ready:false,markers:[],req:0,ignoreAt:0,timer:0,popup:null};
+const PL={located:false,touched:false,meLL:null,meMk:null,view:null,base:'topo',dim:'2d',wps:[],geom:null,mode:'trail',map:null,ready:false,markers:[],req:0,ignoreAt:0,timer:0,popup:null};
 function pStatus(t,err){$('pStatus').textContent=t||'';$('pStatus').classList.toggle('err',!!err);$('pStatus').hidden=!t}
 function plInit(){
   if(PL.map){setTimeout(()=>PL.map.resize(),0);return}
   show('pMapMsg',0);
   if(!window.maplibregl){$('pMapMsg').textContent='Карта не загрузилась: нет связи с интернетом.';show('pMapMsg',1);return}
+  if(!PL.view){try{PL.view=JSON.parse(localStorage.getItem('pl-view')||'null')}catch(e){}}
+  const firstOpen=!PL.located;PL.located=true;
   try{PL.map=new maplibregl.Map({container:'pmap',style:JSON.parse(JSON.stringify(STYLE)),pixelRatio:Math.min(2,window.devicePixelRatio||1),fadeDuration:0,center:PL.view?PL.view.c:[42.5,43.3],zoom:PL.view?PL.view.z:9,pitch:PL.view?PL.view.p:0,bearing:PL.view?PL.view.b:0,maxPitch:80,attributionControl:false})}
   catch(e){$('pMapMsg').textContent='Карта не запустилась на этом устройстве (нужна поддержка WebGL).';show('pMapMsg',1);return}
   const m=PL.map;
@@ -1053,6 +1092,13 @@ function plInit(){
     PL.ready=true;plDraw();plMarkers();
   });
   m.on('webglcontextlost',()=>{if(PL.map===m){destroyPlMap();$('pMapMsg').textContent='Телефон остановил отрисовку карты. Переключите вкладку туда и обратно, чтобы перезапустить её.';show('pMapMsg',1)}});
+  let vt=0;m.on('moveend',()=>{clearTimeout(vt);vt=setTimeout(()=>{try{const c=m.getCenter();localStorage.setItem('pl-view',JSON.stringify({c:[c.lng,c.lat],z:m.getZoom(),p:0,b:0}))}catch(e){}},800)});
+  ['dragstart','zoomstart'].forEach(ev=>m.on(ev,e=>{if(e.originalEvent)PL.touched=true}));
+  if(firstOpen&&navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{
+      if(!PL.map||PL.touched||PL.wps.length)return;PL.map.jumpTo({center:[p.coords.longitude,p.coords.latitude],zoom:12});
+      const el=document.createElement('div');el.className='me small';el.setAttribute('aria-label','Вы здесь');PL.meMk=new maplibregl.Marker({element:el}).setLngLat([p.coords.longitude,p.coords.latitude]).addTo(PL.map);PL.meLL=[p.coords.longitude,p.coords.latitude]},
+    ()=>{},{enableHighAccuracy:false,timeout:10000,maximumAge:600000})}
+  else if(PL.meLL){const el=document.createElement('div');el.className='me small';PL.meMk=new maplibregl.Marker({element:el}).setLngLat(PL.meLL).addTo(m)}
   m.on('click',e=>{if(Date.now()-PL.ignoreAt<600)return;if(PL.popup){PL.popup.remove();PL.popup=null;return}
     PL.wps.push({lat:e.lngLat.lat,lon:e.lngLat.lng});plChanged()});
 }

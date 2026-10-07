@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><clipPath id="c"><rect width="96" height="96" rx="22"/></clipPath></defs><g clip-path="url(#c)"><defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D97E6"/><stop offset=".42" stop-color="#9CCAEE"/><stop offset=".68" stop-color="#F8D9A0"/></linearGradient>
+<radialGradient id="sun" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#FFE07A"/><stop offset="1" stop-color="#F6A146"/></radialGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE9A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A8" stop-opacity="0"/></radialGradient>
+<linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86A867"/><stop offset="1" stop-color="#4F7A4C"/></linearGradient>
+<linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E8A55"/><stop offset="1" stop-color="#2E5A3A"/></linearGradient>
+<linearGradient id="h3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3F6B44"/><stop offset="1" stop-color="#1D3D2A"/></linearGradient>
+<linearGradient id="trail" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D2"/><stop offset="1" stop-color="#F9DDA8"/></linearGradient>
+</defs>
+<rect width="96" height="96" fill="url(#sky)"/>
+<circle cx="56" cy="44" r="26" fill="url(#glow)"/>
+<circle cx="56" cy="44" r="15.5" fill="url(#sun)"/>
+<path d="M-2 56 L10 52 L24 40 L34 47 L40 46 L46 52 L-2 70Z" fill="#8DB3DD"/>
+<path d="M60 58 L74 44 L82 48 L98 56 L98 70 L60 70Z" fill="#86AEDA"/>
+<path d="M74 44 L77 52 L80 49 L82 48Z" fill="#F4F1EA"/>
+<path d="M-2 64 C6 62 14 60 22 56 L38 31 L44 36 L56 50 L63 41 L70 49 L82 57 C88 60 94 63 98 64 L98 80 L-2 80Z" fill="#2F5577"/>
+<path d="M38 31 L44 36 L49 42 L45 41 L46 48 L41 42 L35 49 L33.5 44 L29.5 47 Z" fill="#FBF3E4"/>
+<path d="M63 41 L70 49 L67 48 L66 52 L63 47 L59 51 L60 46 Z" fill="#FBF3E4"/>
+<path d="M38 31 L44 36 L48 41 L44 40 L45 46 L48 52 L56 50 L44 36Z" fill="#244563" opacity=".35"/>
+<path d="M-2 76 C14 66 30 63 46 66 C60 69 74 64 98 62 L98 98 L-2 98Z" fill="url(#h1)"/>
+<path d="M-2 84 C18 76 34 76 50 80 C64 83 80 76 98 73 L98 98 L-2 98Z" fill="url(#h2)"/>
+<path d="M-2 92 C14 86 30 86 44 90 C62 95 80 86 98 84 L98 98 L-2 98Z" fill="url(#h3)"/>
+<path d="M20 98 C30 89 47 88.5 47.5 83 C48 78.5 40 78.4 42.5 73.4 C44.5 69.6 51 68.2 57 67.2 L58.8 68.2 C54.5 69.6 50.6 71 50.2 73.4 C49.6 76.6 58.6 77.8 58.2 84 C57.6 91.5 46 93 44 98 Z" fill="url(#trail)"/>
+</g></svg>

@@ -1,13 +1,13 @@
 /* Перевал: работа без интернета.
    При обновлении приложения увеличьте номер версии ниже (v1 → v2),
    тогда у всех появится предложение обновиться. */
-const VERSION = 'pereval-v1';
+const VERSION = 'pereval-v4';
 const RUNTIME = 'pereval-runtime';
 const SHELL = [
   './', './index.html', './manifest.webmanifest',
-  './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png',
-  './icons/maskable-192.png', './icons/maskable-512.png',
-  './icons/apple-touch-icon.png', './icons/favicon-32.png'
+  './icons/icon-v3.svg', './icons/icon-192-v3.png', './icons/icon-512-v3.png',
+  './icons/maskable-192-v3.png', './icons/maskable-512-v3.png',
+  './icons/apple-touch-icon-v3.png', './icons/favicon-32-v3.png'
 ];
 /* шрифты и фото в шапке: кэшируем при первой загрузке */
 const RUNTIME_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'commons.wikimedia.org', 'upload.wikimedia.org'];
