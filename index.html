@@ -206,6 +206,14 @@ h2.sec{font-size:15px;font-weight:600;margin:0 0 10px;color:var(--sub)}
 .tl-meta span b{color:var(--ink);font-weight:500}
 .tl-warn{margin-top:8px;font-size:14px;font-weight:600;color:var(--amber-ink);background:var(--amber-bg);border-radius:8px;padding:4px 8px;display:inline-block}
 .hidden{display:none!important}
+.stepper{display:flex;align-items:stretch;min-width:0}
+.stepper input{flex:1;min-width:0;width:100%;text-align:center;border-radius:0!important;border-left:0!important;border-right:0!important;caret-color:transparent}
+.stepper button{flex:none;width:40px;border:1px solid #C9D5DD;background:#fff;color:var(--ink);font-size:20px;font-weight:600;cursor:pointer;touch-action:manipulation;user-select:none}
+.stepper button:first-child{border-radius:10px 0 0 10px}
+.stepper button:last-child{border-radius:0 10px 10px 0}
+.stepper button:active{background:var(--mist)}
+.stepper button:focus-visible{outline:2px solid var(--blaze);outline-offset:-2px}
+.ppace .stepper button{width:30px;font-size:18px;border-color:var(--line)}
 .ppace{border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px;margin:0;display:grid;gap:10px}
 .ppace legend{font-size:13px;font-weight:600;color:var(--sub);padding:0 4px}
 .ppace-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -271,6 +279,7 @@ h2.sec{font-size:15px;font-weight:600;margin:0 0 10px;color:var(--sub)}
 .brand{display:flex;align-items:center;gap:14px}
 .brand img{border-radius:14px;box-shadow:0 2px 8px rgba(28,42,51,.18);flex:none}
 .brand h1{margin:0}
+.ver{margin:2px 0 0;font-size:12px;color:var(--sub)}
 .tagline{margin:4px 0 0;color:#33444F;font-size:15px;font-weight:500}
 .installbtn{margin-top:14px;border:0;border-radius:999px;padding:10px 16px;font:inherit;font-weight:700;font-size:15px;background:var(--ink);color:#fff;cursor:pointer}
 .installbtn:focus-visible{outline:2px solid var(--blaze);outline-offset:2px}
@@ -374,6 +383,27 @@ dialog>*{margin-left:18px;margin-right:18px}
 .x{border:0;background:var(--page);width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer}
 .dlg-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:14px;margin-bottom:16px}
 .libsum{font-size:14px;color:var(--sub);background:var(--page);border-radius:10px;padding:10px 12px}
+#libDlg{width:min(1080px,calc(100vw - 16px))}
+.libwrap{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:12px}
+.libtab{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+.libtab th,.libtab td{padding:10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.libtab thead th{font-size:12px;font-weight:600;color:var(--sub);background:var(--page);white-space:nowrap}
+.libtab tbody tr:last-child>*{border-bottom:0}
+.libtab .nm{position:sticky;left:0;z-index:1;background:#fff;min-width:170px;max-width:220px;font-weight:400;box-shadow:1px 0 0 var(--line)}
+.libtab thead th:first-child{position:sticky;left:0;z-index:2}
+.libtab .nm b{display:block;font-size:15px}
+.libtab small{display:block;font-size:12px;color:var(--sub);margin-top:2px}
+.libtab .num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.libtab .lay{white-space:nowrap}
+.lsz{display:block;font-variant-numeric:tabular-nums;margin-bottom:6px}
+.none{color:var(--sub)}
+.libhint{display:none;font-size:12px;color:var(--sub);margin-top:6px}
+@media (max-width:760px){.libhint{display:block}#libDlg{width:calc(100vw - 12px)}dialog>*{margin-left:12px;margin-right:12px}}
+.libtab .acts{display:flex;flex-wrap:wrap;gap:6px;min-width:250px}
+.mini{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:600;border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.mini.primary{background:var(--blaze);border-color:var(--blaze);color:var(--blaze-ink)}
+.mini.danger{color:#B3261E;border-color:#E9B4AF}
+.mini:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .liblist{list-style:none;padding:0;display:grid;gap:10px;margin-top:12px}
 .liblist li{border:1px solid var(--line);border-radius:14px;padding:12px}
 .liblist h3{margin:0;font-size:16px}
@@ -398,7 +428,7 @@ dialog>*{margin-left:18px;margin-right:18px}
   <div class="hero-photo" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div>
   <div class="wrap">
     <button type="button" class="libbtn" id="btnLib"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Мои маршруты<span id="libCount"></span></button>
-    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p></div></div>
+    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p><p class="ver">Версия 5</p></div></div>
     <button type="button" class="installbtn" id="btnInstall" hidden>Установить приложение</button>
     <div class="tabs" role="tablist" aria-label="Разделы">
       <button type="button" role="tab" id="tbPlan" aria-controls="tabPlan" aria-selected="true">Построить маршрут</button>
@@ -519,7 +549,7 @@ dialog>*{margin-left:18px;margin-right:18px}
         <div id="map"></div>
         <div class="mapbar">
           <div class="seg" id="segBase"><button type="button" data-v="sat" aria-pressed="true">Спутник</button><button type="button" data-v="topo" aria-pressed="false">Топо</button></div>
-          <div class="seg" id="segDim"><button type="button" data-v="3d" aria-pressed="true">3D</button><button type="button" data-v="2d" aria-pressed="false">2D</button></div>
+          <div class="seg" id="segDim"><button type="button" data-v="3d" aria-pressed="false">3D</button><button type="button" data-v="2d" aria-pressed="true">2D</button></div>
           <button type="button" class="flybtn" id="btnFly"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Пролететь маршрут</span></button>
         </div>
         <div class="mapmsg hidden" id="mapMsg"></div>
@@ -573,7 +603,8 @@ dialog>*{margin-left:18px;margin-right:18px}
 <dialog id="libDlg" aria-labelledby="libTitle">
   <div class="dlg-head"><h2 id="libTitle">Мои маршруты</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
   <div class="libsum" id="libSum"></div>
-  <ul class="liblist" id="libList"></ul>
+  <div class="libwrap" id="libList"></div>
+  <p class="libhint">Таблицу можно листать вбок.</p>
   <div class="dlg-foot">
     <button type="button" class="act" id="libDelDem">Удалить весь 3D-рельеф</button>
     <button type="button" class="act" id="libDelTiles">Удалить все офлайн-карты</button>
@@ -910,7 +941,7 @@ function renderProfile(){
 }
 
 /* ---------- map ---------- */
-let map=null,mapReady=false,is3d=true,markers=[],fly=null,baseSel='sat',mapWatch=0;
+let map=null,mapReady=false,is3d=false,markers=[],fly=null,baseSel='sat',mapWatch=0;
 const STYLE={version:8,sources:{
   sat:{type:'raster',tiles:['cache://sat/{z}/{x}/{y}'],tileSize:256,maxzoom:19,attribution:'Снимки © Esri, Maxar, Earthstar Geographics'},
   topo:{type:'raster',tiles:['cache://topo/{z}/{x}/{y}'],tileSize:256,maxzoom:17,attribution:'© OpenStreetMap, SRTM, OpenTopoMap (CC-BY-SA)'},
@@ -954,7 +985,20 @@ function initMap(){
   map.on('webglcontextlost',()=>{if(map===me){mapReady=false;mapMsg('Телефон остановил отрисовку карты, чтобы сберечь память.',true)}});
   ['mousedown','touchstart','wheel'].forEach(ev=>map.on(ev,()=>{if(fly&&!fly.paused)flyPause(true)}));
 }
+let NO3D=(()=>{try{return localStorage.getItem('no3d')==='1'}catch(e){return false}})();
+function check3d(m,onFail){
+  if(!m||!m.painter||!m.painter.context)return;const gl=m.painter.context.gl;
+  m.once('idle',()=>{if(!m.getTerrain||!m.getTerrain())return;
+    m.once('render',()=>{try{const W=gl.drawingBufferWidth,H=gl.drawingBufferHeight,px=new Uint8Array(4);let blank=0;
+      [[.5,.5],[.3,.65],[.7,.35],[.5,.85],[.2,.25],[.8,.75]].forEach(([fx,fy])=>{gl.readPixels(Math.floor(W*fx),Math.floor(H*fy),1,1,gl.RGBA,gl.UNSIGNED_BYTE,px);if(px[3]===0||px[0]+px[1]+px[2]<6)blank++});
+      if(blank>=5)onFail()}catch(e){}});
+    m.triggerRepaint()});
+}
+function fail3d(){NO3D=true;try{localStorage.setItem('no3d','1')}catch(e){}
+  if(mapReady){pressSeg('segDim','2d');setDim(false,false)}
+  toast('3D-рельеф не отобразился на этом телефоне, поэтому включён режим 2D. Рельеф виден на топокарте тенями.',{bad:true})}
 function setDim(d,instant){is3d=d;if(!mapReady)return;
+  if(d)check3d(map,fail3d);
   try{map.setTerrain(d?{source:'dem',exaggeration:1.35}:null)}catch(e){}
   if(instant)overview(0);else map.easeTo({pitch:d?55:0,bearing:d?map.getBearing():0,duration:700})}
 function setBase(b){if(!mapReady)return;map.setLayoutProperty('sat','visibility',b==='sat'?'visible':'none');
@@ -967,7 +1011,7 @@ function placeMarkers(){
     const html='<b>'+cpName(c,k)+'</b>, '+when(c.at)+'<br>'+km(p.d)+', '+nf0.format(p.ele)+' м'+
       (x?'<br>'+wmo(x.code)[0]+', '+Math.round(x.t)+'° (ощущается '+Math.round(x.a)+'°)<br>Ветер '+Math.round(x.ws)+' м/с, порывы '+Math.round(x.wg)+'<br>Осадки '+(x.pp!=null?x.pp+'%':'—'):'')+
       (c.warn&&c.warn.length?'<br><b style="color:#B3261E">⚠ '+esc(c.warn.join(', '))+'</b>':'');
-    const m=new maplibregl.Marker({element:el}).setLngLat([p.lon,p.lat]).setPopup(new maplibregl.Popup({offset:14,maxWidth:'240px'}).setHTML(html)).addTo(map);markers.push(m)});
+    const m=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([p.lon,p.lat]).setPopup(new maplibregl.Popup({offset:14,maxWidth:'240px'}).setHTML(html)).addTo(map);markers.push(m)});
   if(NAV&&!NAVOPT.wx)wxMarkersVisible(false);
 }
 function pointAt(d){const P=T.pts;let lo=0,hi=P.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(P[m].d<d)lo=m;else hi=m}
@@ -997,7 +1041,7 @@ function flyPause(p){if(!fly)return;fly.paused=p;$('flyPause').textContent=p?'�
   if(!p){fly.last=null;cancelAnimationFrame(fly.raf);fly.raf=requestAnimationFrame(flyLoop)}}
 function startFly(){
   if(!mapReady)return;if(fly){stopFly(true);return}
-  if(!is3d){is3d=true;pressSeg('segDim','3d');setDim(true,true)}
+  if(!is3d&&!NO3D){is3d=true;pressSeg('segDim','3d');setDim(true,true)}
   const total=T.dist;
   fly={raf:0,d:0,br:null,last:null,ui:0,paused:false,zoom:total>25000?13.2:total>10000?13.8:14.4,px:map.getPixelRatio?map.getPixelRatio():null};
   try{map.setPixelRatio(1)}catch(e){}
@@ -1015,7 +1059,7 @@ $('flyPos').oninput=()=>{if(!fly)return;fly.d=(+$('flyPos').value)/1000*T.dist;f
 $('flyPos').addEventListener('pointerdown',()=>{if(fly&&!fly.paused)flyPause(true)});
 function pressSeg(id,v){[...$(id).children].forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)))}
 $('segBase').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;baseSel=v;pressSeg('segBase',v);setBase(v)};
-$('segDim').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;pressSeg('segDim',v);if(fly)stopFly(false);setDim(v==='3d')};
+$('segDim').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;if(v==='3d'){NO3D=false;try{localStorage.removeItem('no3d')}catch(_){}}pressSeg('segDim',v);if(fly)stopFly(false);setDim(v==='3d')};
 $('btnFly').onclick=startFly;
 
 /* ---------- flow ---------- */
@@ -1096,9 +1140,9 @@ function plInit(){
   ['dragstart','zoomstart'].forEach(ev=>m.on(ev,e=>{if(e.originalEvent)PL.touched=true}));
   if(firstOpen&&navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{
       if(!PL.map||PL.touched||PL.wps.length)return;PL.map.jumpTo({center:[p.coords.longitude,p.coords.latitude],zoom:12});
-      const el=document.createElement('div');el.className='me small';el.setAttribute('aria-label','Вы здесь');PL.meMk=new maplibregl.Marker({element:el}).setLngLat([p.coords.longitude,p.coords.latitude]).addTo(PL.map);PL.meLL=[p.coords.longitude,p.coords.latitude]},
+      const el=document.createElement('div');el.className='me small';el.setAttribute('aria-label','Вы здесь');PL.meMk=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([p.coords.longitude,p.coords.latitude]).addTo(PL.map);PL.meLL=[p.coords.longitude,p.coords.latitude]},
     ()=>{},{enableHighAccuracy:false,timeout:10000,maximumAge:600000})}
-  else if(PL.meLL){const el=document.createElement('div');el.className='me small';PL.meMk=new maplibregl.Marker({element:el}).setLngLat(PL.meLL).addTo(m)}
+  else if(PL.meLL){const el=document.createElement('div');el.className='me small';PL.meMk=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat(PL.meLL).addTo(m)}
   m.on('click',e=>{if(Date.now()-PL.ignoreAt<600)return;if(PL.popup){PL.popup.remove();PL.popup=null;return}
     PL.wps.push({lat:e.lngLat.lat,lon:e.lngLat.lng});plChanged()});
 }
@@ -1117,7 +1161,7 @@ function plMarkers(){
   PL.wps.forEach((w,i)=>{const el=document.createElement('div');el.className='wp'+(i===0?' s':i===n-1&&n>1?' e':'');el.textContent=i+1;
     el.setAttribute('aria-label','Точка '+(i+1));
     ['mousedown','touchstart'].forEach(ev=>el.addEventListener(ev,()=>{PL.ignoreAt=Date.now()},{passive:true}));
-    const mk=new maplibregl.Marker({element:el,draggable:true}).setLngLat([w.lon,w.lat]).addTo(PL.map);
+    const mk=new maplibregl.Marker({element:el,draggable:true,opacityWhenCovered:'1'}).setLngLat([w.lon,w.lat]).addTo(PL.map);
     let moved=false;
     mk.on('dragstart',()=>{moved=true});
     mk.on('dragend',()=>{const ll=mk.getLngLat();PL.wps[i]={lat:ll.lat,lon:ll.lng};PL.ignoreAt=Date.now();plChanged()});
@@ -1199,7 +1243,8 @@ $('pMode').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v||v===P
 $('pBase').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v||!PL.ready)return;PL.base=v;plPress('pBase',v);const m=PL.map;
   m.setLayoutProperty('sat','visibility',v==='sat'?'visible':'none');m.setLayoutProperty('topo','visibility',v==='topo'?'visible':'none');m.setLayoutProperty('hs','visibility',v==='topo'?'visible':'none')};
 $('pDim').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v||!PL.ready)return;PL.dim=v;plPress('pDim',v);
-  try{PL.map.setTerrain(v==='3d'?{source:'dem',exaggeration:1.35}:null)}catch(_){}PL.map.easeTo({pitch:v==='3d'?55:0,duration:600})};
+  try{PL.map.setTerrain(v==='3d'?{source:'dem',exaggeration:1.35}:null)}catch(_){}PL.map.easeTo({pitch:v==='3d'?55:0,duration:600});
+  if(v==='3d')check3d(PL.map,()=>{PL.dim='2d';plPress('pDim','2d');try{PL.map.setTerrain(null)}catch(_){}PL.map.easeTo({pitch:0,duration:300});NO3D=true;try{localStorage.setItem('no3d','1')}catch(e){}toast('3D-рельеф не отобразился на этом телефоне, поэтому включён режим 2D.',{bad:true})})};
 $('pUndo').onclick=()=>{PL.wps.pop();plChanged()};
 $('pRev').onclick=()=>{PL.wps.reverse();plChanged()};
 $('pLoop').onclick=()=>{if(PL.wps.length>1){PL.wps.push({...PL.wps[0]});plChanged()}};
@@ -1338,19 +1383,24 @@ async function libRender(){
   const tb=rs.reduce((a,r)=>a+(r.pack?r.pack.bytes:0),0),db3=rs.reduce((a,r)=>a+(r.pack&&r.pack.lb?r.pack.lb.dem||0:0),0);
   let est='';try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();est=' Всего данных приложения в браузере: '+mb(e.usage||0)+'.'}}catch(e){}
   $('libSum').textContent=rs.length?('Маршрутов: '+rs.length+'. Офлайн-карты занимают '+mb(tb)+(db3?', из них 3D-рельеф '+mb(db3):'')+'.'+est):'Пока ничего не сохранено. Нажмите «Сохранить маршрут» на вкладке погоды или «Сохранить в Мои маршруты» при построении.';
-  ul.innerHTML=rs.map(r=>{const dt=new Date(r.updated).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
-    return'<li data-id="'+r.id+'"><h3>'+esc(r.name)+'</h3><p class="meta">'+km(r.dist)+(r.gain!=null?', +'+nf0.format(r.gain)+' м':'')+', сохранён '+dt+'</p><div class="tags">'+
-      '<span class="tag on">Трек: '+nf0.format(r.pts.length)+' точек</span>'+
-      (r.pack?r.pack.layers.map(l=>'<span class="tag on lay">'+LNAME[l]+(r.pack.lb?': '+mb(r.pack.lb[l]||0):'')+'<button type="button" class="tagx" data-a="dl" data-l="'+l+'" aria-label="Удалить '+LNAME[l]+' у этого маршрута">×</button></span>').join(''):'<span class="tag">Без офлайн-карты</span>')+
-      (r.wx?'<span class="tag on">Прогноз от '+new Date(r.wx.fetched).toLocaleDateString('ru-RU',{day:'numeric',month:'short'})+'</span>':'')+
-      (r.pois?'<span class="tag on">Вода и приюты: '+r.pois.length+'</span>':'')+'</div><div class="row">'+
-      '<button type="button" class="act primary" data-a="open">Открыть</button><button type="button" class="act" data-a="nav">Навигация</button>'+
-      (r.pack?(r.pack.layers.includes('dem')?'<button type="button" class="act" data-a="dl" data-l="dem">Удалить 3D-рельеф'+(r.pack.lb?' ('+mb(r.pack.lb.dem||0)+')':'')+'</button>':'')+'<button type="button" class="act" data-a="deltiles">Удалить всю офлайн-карту</button>':'<button type="button" class="act" data-a="pack">Скачать для офлайна</button>')+
-      '<button type="button" class="act" data-a="ren">Переименовать</button><button type="button" class="act danger" data-a="del">Удалить</button></div></li>'}).join('');
+  if(!rs.length){ul.innerHTML='';return}
+  const cell=(r,l)=>{const has=r.pack&&r.pack.layers.includes(l);if(!has)return'<td class="lay"><span class="none">нет</span></td>';
+    const sz=r.pack.lb?mb(r.pack.lb[l]||0):'есть';
+    return'<td class="lay"><span class="lsz">'+sz+'</span><button type="button" class="mini danger" data-a="dl" data-l="'+l+'">'+(l==='dem'?'Удалить рельеф':'Удалить')+'</button></td>'};
+  ul.innerHTML='<table class="libtab"><thead><tr><th scope="col">Маршрут</th><th scope="col">Длина, набор</th><th scope="col">3D-рельеф</th><th scope="col">Снимки</th><th scope="col">Топокарта</th><th scope="col">Прогноз</th><th scope="col">Действия</th></tr></thead><tbody>'+
+    rs.map(r=>{const dt=new Date(r.updated).toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});const full=r.pack&&['dem','sat','topo'].every(l=>r.pack.layers.includes(l));
+      return'<tr data-id="'+r.id+'"><th scope="row" class="nm"><b>'+esc(r.name)+'</b><small>'+dt+', трек '+nf0.format(r.pts.length)+' точек'+(r.pois?', вода и приюты: '+r.pois.length:'')+'</small></th>'+
+        '<td class="num">'+km(r.dist)+'<small>'+(r.gain!=null?'+'+nf0.format(r.gain)+' м':'—')+'</small></td>'+cell(r,'dem')+cell(r,'sat')+cell(r,'topo')+
+        '<td>'+(r.wx?new Date(r.wx.fetched).toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'<span class="none">нет</span>')+'</td>'+
+        '<td class="acts"><button type="button" class="mini primary" data-a="open">Открыть</button><button type="button" class="mini" data-a="nav">Навигация</button>'+
+        (full?'':'<button type="button" class="mini" data-a="pack">'+(r.pack?'Докачать карты':'Скачать карты')+'</button>')+
+        (r.pack?'<button type="button" class="mini" data-a="deltiles">Удалить все карты</button>':'')+
+        '<button type="button" class="mini" data-a="ren">Переименовать</button><button type="button" class="mini danger" data-a="del">Удалить маршрут</button></td></tr>'}).join('')+
+    '</tbody></table>';
 }
 $('btnLib').onclick=openLib;
 $('libList').onclick=async e=>{
-  const b=e.target.closest('button[data-a]');if(!b)return;const id=b.closest('li').dataset.id,a=b.dataset.a;const r=await dbRoute(id);if(!r)return;
+  const b=e.target.closest('button[data-a]');if(!b)return;const id=b.closest('[data-id]').dataset.id,a=b.dataset.a;const r=await dbRoute(id);if(!r)return;
   if(a==='open'||a==='nav'||a==='pack'){$('libDlg').close();await openRoute(r);if(a==='nav')startNav();if(a==='pack')askPack();return}
   if(a==='dl'){const l=b.dataset.l;if(!confirm('Удалить '+LNAME[l]+' у маршрута «'+r.name+'»? Трек, прогноз и остальные слои останутся.'))return;await dropLayer(r,l);await dbTileCount()}
   if(a==='deltiles'){if(!confirm('Удалить офлайн-карту маршрута «'+r.name+'»? Сам маршрут и прогноз останутся.'))return;await dbDelTilesOf(id);r.pack=null;await dbPutRoute(r);await dbTileCount()}
@@ -1400,7 +1450,8 @@ async function runPack(layers){
   await Promise.all([worker(),worker(),worker(),worker()]);
   const cancelled=PACK.cancel;PACK=null;show('packBar',0);
   if(cancelled){await dbDelTilesOf(rec.id);await dbTileCount();toast('Скачивание отменено.');return}
-  const r2=await dbRoute(rec.id);r2.pack={bytes,tiles:done-fail,layers,date:Date.now(),lb};await dbPutRoute(r2);await dbTileCount();libCount();
+  const r2=await dbRoute(rec.id);const old=r2.pack;const L2=[...new Set([...(old?old.layers:[]),...layers])];const lb2=Object.assign({sat:0,topo:0,dem:0},(old&&old.lb)||{});layers.forEach(l=>{lb2[l]=lb[l]});
+  r2.pack={bytes:L2.reduce((a,l)=>a+(lb2[l]||0),0),tiles:(old?old.tiles:0)+done-fail,layers:L2,date:Date.now(),lb:lb2};await dbPutRoute(r2);await dbTileCount();libCount();
   toast(fail>list.length*0.1?'Офлайн-карта сохранена не полностью: '+fail+' плиток не скачались. Можно повторить позже.':'Готово: маршрут, прогноз и карта ('+mb(bytes)+') доступны без интернета в «Мои маршруты».');
 }
 
@@ -1464,7 +1515,7 @@ function renderPois(){
 function placePois(){
   if(!mapReady||!T)return;poiMarkers.forEach(m=>m.remove());poiMarkers=[];
   (T.pois||[]).forEach(p=>{const el=document.createElement('div');el.className='poim';el.textContent=p.ic;el.title=p.name||p.kind;
-    poiMarkers.push(new maplibregl.Marker({element:el}).setLngLat([p.lon,p.lat]).setPopup(new maplibregl.Popup({offset:14}).setHTML('<b>'+esc(p.name||p.kind)+'</b><br>'+esc(p.kind)+', '+km(p.d)+' от старта'+(p.ele?'<br>'+esc(p.ele)+' м':''))).addTo(map))});
+    poiMarkers.push(new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([p.lon,p.lat]).setPopup(new maplibregl.Popup({offset:14}).setHTML('<b>'+esc(p.name||p.kind)+'</b><br>'+esc(p.kind)+', '+km(p.d)+' от старта'+(p.ele?'<br>'+esc(p.ele)+' м':''))).addTo(map))});
 }
 
 /* ---------- navigation (battery-aware) ---------- */
@@ -1564,7 +1615,7 @@ function onNavPos(pos){
   $('navOff').hidden=!NAV.off;if(NAV.off)$('navOff').textContent=offTxt;
   $('navBot').innerHTML=nxTxt;$('navBot').hidden=false;
   if(!mapReady)return;
-  if(!NAV.me){const el=document.createElement('div');el.className='me';el.setAttribute('aria-label','Вы здесь');NAV.me=new maplibregl.Marker({element:el}).setLngLat([q.lon,q.lat]).addTo(map)}else NAV.me.setLngLat([q.lon,q.lat]);
+  if(!NAV.me){const el=document.createElement('div');el.className='me';el.setAttribute('aria-label','Вы здесь');NAV.me=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([q.lon,q.lat]).addTo(map)}else NAV.me.setLngLat([q.lon,q.lat]);
   if(moved){map.getSource('trail').setData(lineGeo(NAV.trail));map.getSource('prog').setData(routeGeo(r.i+2))}
   if(NAV.follow){
     const ahead=pointAt(Math.min(T.dist,r.d+150));const b=NAVOPT.d3&&r.dist<100&&r.d<T.dist-20?brg(q,ahead):0;
@@ -1661,6 +1712,19 @@ if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostnam
     setInterval(()=>reg.update().catch(()=>{}),3600000);
   }).catch(()=>{});
 }
+/* ---------- steppers instead of keyboard for numbers ---------- */
+document.querySelectorAll('input[type=number]').forEach(inp=>{
+  const w=document.createElement('div');w.className='stepper';inp.parentNode.insertBefore(w,inp);
+  const mk=(txt,dir,lab)=>{const b=document.createElement('button');b.type='button';b.textContent=txt;b.setAttribute('aria-label',lab);let t=0,iv=0;
+    const step=()=>{dir>0?inp.stepUp():inp.stepDown();inp.dispatchEvent(new Event('input',{bubbles:true}))};
+    const stop=()=>{clearTimeout(t);clearInterval(iv)};
+    b.addEventListener('pointerdown',e=>{e.preventDefault();step();t=setTimeout(()=>{iv=setInterval(step,110)},420)});
+    ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,stop));
+    b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();step()}});
+    return b};
+  w.append(mk('−',-1,'Меньше'),inp,mk('+',1,'Больше'));
+  inp.readOnly=true;inp.setAttribute('inputmode','none');inp.tabIndex=-1;
+});
 plButtons();
 setTab('plan');
 
