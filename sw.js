@@ -1,6 +1,6 @@
 /* Перевал: работа без интернета и обновления.
    При каждом обновлении приложения увеличивайте номер версии ниже. */
-const VERSION = 'pereval-v5';
+const VERSION = 'pereval-v7';
 const RUNTIME = 'pereval-runtime';
 const SHELL = [
   './', './index.html', './manifest.webmanifest',

@@ -207,23 +207,27 @@ h2.sec{font-size:15px;font-weight:600;margin:0 0 10px;color:var(--sub)}
 .tl-warn{margin-top:8px;font-size:14px;font-weight:600;color:var(--amber-ink);background:var(--amber-bg);border-radius:8px;padding:4px 8px;display:inline-block}
 .hidden{display:none!important}
 .stepper{display:flex;align-items:stretch;min-width:0}
-.stepper input{flex:1;min-width:0;width:100%;text-align:center;border-radius:0!important;border-left:0!important;border-right:0!important;caret-color:transparent}
+.stepper input{flex:1;min-width:56px;width:100%;padding-left:2px!important;padding-right:2px!important;font-size:17px;text-align:center;border-radius:0!important;border-left:0!important;border-right:0!important;caret-color:transparent}
+.stepper input{padding-top:0!important;padding-bottom:0!important;line-height:1.2;min-height:46px}
 .stepper button{flex:none;width:40px;border:1px solid #C9D5DD;background:#fff;color:var(--ink);font-size:20px;font-weight:600;cursor:pointer;touch-action:manipulation;user-select:none}
 .stepper button:first-child{border-radius:10px 0 0 10px}
 .stepper button:last-child{border-radius:0 10px 10px 0}
 .stepper button:active{background:var(--mist)}
 .stepper button:focus-visible{outline:2px solid var(--blaze);outline-offset:-2px}
-.ppace .stepper button{width:30px;font-size:18px;border-color:var(--line)}
-.ppace{border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px;margin:0;display:grid;gap:10px}
+.ppace .stepper button{width:44px;font-size:20px;border-color:var(--line)}
+.planner>*,.pside>*{min-width:0}
+.ppace{min-width:0;min-inline-size:0;border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px;margin:0;display:grid;gap:10px}
 .ppace legend{font-size:13px;font-weight:600;color:var(--sub);padding:0 4px}
-.ppace-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.ppace-grid label{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px;line-height:1.25}
+.ppace-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.ppace-grid>div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ppace-grid .stepper{width:168px;flex:none}
+.ppace-grid label{display:block;font-size:14px;font-weight:500;color:var(--ink);margin:0;line-height:1.25}
 .ppace-grid label span{display:block;font-size:12px;font-weight:400;color:var(--sub)}
 .ppace-grid input{width:100%;border:1px solid var(--line);background:var(--page);color:var(--ink);border-radius:10px;padding:9px 10px;font-variant-numeric:tabular-nums}
 .ppace-grid input:focus{outline:2px solid var(--blaze);outline-offset:0}
 .switch.small{font-size:14px;padding:6px 12px 6px 6px;background:var(--page);border-color:var(--line);justify-self:start}
 .altrow{margin-top:16px;display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px 24px}
-.switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:500;color:var(--ink);background:rgba(255,255,255,.92);border:1px solid #C9D5DD;border-radius:999px;padding:8px 14px 8px 8px}
+.switch{max-width:100%;display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:500;color:var(--ink);background:rgba(255,255,255,.92);border:1px solid #C9D5DD;border-radius:999px;padding:8px 14px 8px 8px}
 .switch input{position:absolute;opacity:0;width:1px;height:1px}
 .switch .knob{width:38px;height:22px;border-radius:999px;background:#C9D5DD;position:relative;flex:none;transition:background .15s}
 .switch .knob::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
@@ -300,7 +304,8 @@ h2.sec{font-size:15px;font-weight:600;margin:0 0 10px;color:var(--sub)}
 .packbar button{position:relative;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer}
 .toast{position:fixed;z-index:2000;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));width:max-content;max-width:calc(100vw - 24px);display:flex;align-items:center;gap:10px;margin:0;background:#1D5E40;color:#fff;border-radius:14px;padding:12px 16px;font-weight:600;box-shadow:0 8px 28px rgba(28,42,51,.35)}
 .toast.bad{background:#8C1D18}
-.toast button{border:0;background:rgba(255,255,255,.18);color:#fff;font:inherit;font-size:14px;border-radius:999px;padding:6px 12px;cursor:pointer}
+.toast svg{flex:none;width:22px;height:22px}
+.toast button{border:0;background:#fff;color:#1D5E40;font-weight:700;font:inherit;font-size:14px;border-radius:999px;padding:6px 12px;cursor:pointer}
 body.navmode .toast{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
 main.wrap>*,.tabpanel>*,.duo>*{min-width:0}
 .card2{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
@@ -333,7 +338,7 @@ main.wrap>*,.tabpanel>*,.duo>*{min-width:0}
 /* navigation */
 body.navmode{overflow:hidden}
 .mapbox.nav{position:fixed;inset:0;z-index:1000;height:auto;min-height:0;border-radius:0;border:0}
-.mapbox.nav .mapbar{display:none}
+.mapbox.nav .mapbar,.mapbox.nav .maplibregl-ctrl-top-right{display:none}
 .navtop{position:absolute;z-index:3;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top,0px));display:flex;gap:8px;align-items:flex-start}
 .navstats{background:rgba(255,255,255,.95);border-radius:16px;box-shadow:0 2px 10px rgba(28,42,51,.2);padding:10px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:6px 12px}
 .navstats div b{display:block;font-family:var(--disp);font-weight:500;font-size:19px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
@@ -345,9 +350,11 @@ body.navmode{overflow:hidden}
 #navExit{background:#B3261E;color:#fff}
 .navcol{flex:1;display:grid;gap:8px;min-width:0}
 .navoff{background:#B3261E;color:#fff;font-weight:700;border-radius:12px;padding:10px 14px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.navbot{position:absolute;z-index:3;left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.95);border-radius:16px;box-shadow:0 2px 10px rgba(28,42,51,.2);padding:10px 14px;font-size:14px}
+.navbottom{position:absolute;z-index:3;left:10px;right:10px;bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.navbottom>*{pointer-events:auto}
+.navbot{position:static;background:rgba(255,255,255,.95);border-radius:16px;box-shadow:0 2px 10px rgba(28,42,51,.2);padding:10px 14px;font-size:14px}
 .navbot b{font-size:15px}
-.navctl{position:absolute;z-index:3;left:10px;right:10px;bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
+.navctl{position:static;display:flex;flex-wrap:wrap;gap:6px;padding:2px}
 .navctl::-webkit-scrollbar{display:none}
 .navctl .seg{flex:none;background:rgba(255,255,255,.95);box-shadow:0 2px 10px rgba(28,42,51,.2)}
 .navctl .seg button{font-size:13px;padding:8px 11px;white-space:nowrap}
@@ -381,25 +388,36 @@ dialog>*{margin-left:18px;margin-right:18px}
 .dlg-head{display:flex;justify-content:space-between;align-items:center;margin-top:14px;margin-bottom:8px}
 .dlg-head h2{margin:0;font-size:19px}
 .x{border:0;background:var(--page);width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer}
+dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
+@media (max-width:760px){dialog>.note,dialog>.pkest,dialog>p{margin-left:12px;margin-right:12px}}
 .dlg-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:14px;margin-bottom:16px}
 .libsum{font-size:14px;color:var(--sub);background:var(--page);border-radius:10px;padding:10px 12px}
 #libDlg{width:min(1080px,calc(100vw - 16px))}
-.libwrap{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:12px}
-.libtab{border-collapse:collapse;width:100%;min-width:900px;font-size:14px}
+.libwrap{margin-top:12px}
+.libtab{border-collapse:collapse;width:100%;font-size:14px}
 .libtab th,.libtab td{padding:10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 .libtab thead th{font-size:12px;font-weight:600;color:var(--sub);background:var(--page);white-space:nowrap}
-.libtab tbody tr:last-child>*{border-bottom:0}
-.libtab .nm{position:sticky;left:0;z-index:1;background:#fff;min-width:170px;max-width:220px;font-weight:400;box-shadow:1px 0 0 var(--line)}
-.libtab thead th:first-child{position:sticky;left:0;z-index:2}
-.libtab .nm b{display:block;font-size:15px}
+.libtab .nm{font-weight:400;min-width:240px}
+.libtab .nm b{display:block;font-size:16px}
 .libtab small{display:block;font-size:12px;color:var(--sub);margin-top:2px}
 .libtab .num{white-space:nowrap;font-variant-numeric:tabular-nums}
-.libtab .lay{white-space:nowrap}
-.lsz{display:block;font-variant-numeric:tabular-nums;margin-bottom:6px}
+.lsz{font-variant-numeric:tabular-nums;white-space:nowrap}
+.libtab td .mini{margin-top:6px}
 .none{color:var(--sub)}
-.libhint{display:none;font-size:12px;color:var(--sub);margin-top:6px}
-@media (max-width:760px){.libhint{display:block}#libDlg{width:calc(100vw - 12px)}dialog>*{margin-left:12px;margin-right:12px}}
-.libtab .acts{display:flex;flex-wrap:wrap;gap:6px;min-width:250px}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+@media (max-width:760px){
+  .libtab thead{display:none}
+  .libtab,.libtab tbody,.libtab tr,.libtab th,.libtab td{display:block;width:100%}
+  .libtab tr{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+  .libtab .nm{border-bottom:1px solid var(--line);background:#fff;min-width:0}
+  .libtab td{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;padding:8px 10px;border-bottom:1px solid var(--line)}
+  .libtab td .mini{flex:none}
+  .libtab td:last-child{border-bottom:0}
+  .libtab td::before{content:attr(data-label);color:var(--sub);font-size:13px;flex:none}
+  .libtab td>span{margin-left:auto}
+  .libtab td>span.lsz+button{margin-left:0}
+  .libtab td .mini{margin-top:0}
+}
 .mini{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:600;border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap}
 .mini.primary{background:var(--blaze);border-color:var(--blaze);color:var(--blaze-ink)}
 .mini.danger{color:#B3261E;border-color:#E9B4AF}
@@ -428,7 +446,7 @@ dialog>*{margin-left:18px;margin-right:18px}
   <div class="hero-photo" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div>
   <div class="wrap">
     <button type="button" class="libbtn" id="btnLib"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Мои маршруты<span id="libCount"></span></button>
-    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p><p class="ver">Версия 5</p></div></div>
+    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p><p class="ver">Версия 7</p></div></div>
     <button type="button" class="installbtn" id="btnInstall" hidden>Установить приложение</button>
     <div class="tabs" role="tablist" aria-label="Разделы">
       <button type="button" role="tab" id="tbPlan" aria-controls="tabPlan" aria-selected="true">Построить маршрут</button>
@@ -570,6 +588,7 @@ dialog>*{margin-left:18px;margin-right:18px}
           <p class="dhint">Тёмный экран почти не тратит заряд на OLED-экранах, а карта в это время не рисуется. Если экран погаснет, приложение перестанет следить за маршрутом до следующего включения: телефоны не дают сайтам работать с GPS в фоне.</p>
           <div class="dbtns"><button type="button" id="navMap">Показать карту</button><button type="button" id="navKeep2" aria-pressed="false">Экран гаснет</button><button type="button" id="navExit2">Выйти</button></div>
         </div>
+        <div class="navbottom">
         <div class="navbot" id="navBot" hidden></div>
         <div class="navctl" id="navCtl" hidden>
           <div class="seg" id="navBase" role="group" aria-label="Основа карты"><button type="button" data-v="topo" aria-pressed="true">Карта</button><button type="button" data-v="sat" aria-pressed="false">Снимок</button></div>
@@ -577,6 +596,7 @@ dialog>*{margin-left:18px;margin-right:18px}
           <button type="button" class="navtg" id="nav3d" aria-pressed="false">2D</button>
           <div class="seg" id="navGps" role="group" aria-label="Режим GPS"><button type="button" data-v="live" aria-pressed="true">GPS постоянно</button><button type="button" data-v="manual" aria-pressed="false">По кнопке</button></div>
           <button type="button" class="navtg locate" id="navLocate" hidden>Где я?</button>
+        </div>
         </div>
       </div>
       <p class="maphint">Наклоняйте карту двумя пальцами. Нажмите на температуру, чтобы увидеть подробности.</p>
@@ -604,7 +624,7 @@ dialog>*{margin-left:18px;margin-right:18px}
   <div class="dlg-head"><h2 id="libTitle">Мои маршруты</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
   <div class="libsum" id="libSum"></div>
   <div class="libwrap" id="libList"></div>
-  <p class="libhint">Таблицу можно листать вбок.</p>
+  
   <div class="dlg-foot">
     <button type="button" class="act" id="libDelDem">Удалить весь 3D-рельеф</button>
     <button type="button" class="act" id="libDelTiles">Удалить все офлайн-карты</button>
@@ -966,6 +986,7 @@ function initMap(){
   try{
     map=new maplibregl.Map({container:'map',style:JSON.parse(JSON.stringify(STYLE)),pixelRatio:Math.min(2,window.devicePixelRatio||1),fadeDuration:0,bounds:bounds(),fitBoundsOptions:{padding:50},maxPitch:80,attributionControl:false});
   }catch(e){mapMsg('Карта не запустилась на этом устройстве (нужна поддержка WebGL).');return}
+  map.on('error',()=>{});
   map.addControl(new maplibregl.AttributionControl({compact:true}));
   map.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
   map.on('load',()=>{
@@ -1124,6 +1145,7 @@ function plInit(){
   try{PL.map=new maplibregl.Map({container:'pmap',style:JSON.parse(JSON.stringify(STYLE)),pixelRatio:Math.min(2,window.devicePixelRatio||1),fadeDuration:0,center:PL.view?PL.view.c:[42.5,43.3],zoom:PL.view?PL.view.z:9,pitch:PL.view?PL.view.p:0,bearing:PL.view?PL.view.b:0,maxPitch:80,attributionControl:false})}
   catch(e){$('pMapMsg').textContent='Карта не запустилась на этом устройстве (нужна поддержка WebGL).';show('pMapMsg',1);return}
   const m=PL.map;
+  m.on('error',()=>{});
   m.addControl(new maplibregl.AttributionControl({compact:true}));
   m.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-right');
   try{m.addControl(new maplibregl.GeolocateControl({positionOptions:{enableHighAccuracy:true},fitBoundsOptions:{maxZoom:13}}),'top-right')}catch(e){}
@@ -1384,18 +1406,19 @@ async function libRender(){
   let est='';try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();est=' Всего данных приложения в браузере: '+mb(e.usage||0)+'.'}}catch(e){}
   $('libSum').textContent=rs.length?('Маршрутов: '+rs.length+'. Офлайн-карты занимают '+mb(tb)+(db3?', из них 3D-рельеф '+mb(db3):'')+'.'+est):'Пока ничего не сохранено. Нажмите «Сохранить маршрут» на вкладке погоды или «Сохранить в Мои маршруты» при построении.';
   if(!rs.length){ul.innerHTML='';return}
-  const cell=(r,l)=>{const has=r.pack&&r.pack.layers.includes(l);if(!has)return'<td class="lay"><span class="none">нет</span></td>';
+  const cell=(r,l,lab)=>{const has=r.pack&&r.pack.layers.includes(l);
+    if(!has)return'<td data-label="'+lab+'"><span class="none">нет</span></td>';
     const sz=r.pack.lb?mb(r.pack.lb[l]||0):'есть';
-    return'<td class="lay"><span class="lsz">'+sz+'</span><button type="button" class="mini danger" data-a="dl" data-l="'+l+'">'+(l==='dem'?'Удалить рельеф':'Удалить')+'</button></td>'};
-  ul.innerHTML='<table class="libtab"><thead><tr><th scope="col">Маршрут</th><th scope="col">Длина, набор</th><th scope="col">3D-рельеф</th><th scope="col">Снимки</th><th scope="col">Топокарта</th><th scope="col">Прогноз</th><th scope="col">Действия</th></tr></thead><tbody>'+
+    return'<td data-label="'+lab+'"><span class="lsz">'+sz+'</span> <button type="button" class="mini danger" data-a="dl" data-l="'+l+'" aria-label="Удалить '+LNAME[l]+' у маршрута «'+esc(r.name)+'»">'+(l==='dem'?'Удалить рельеф':'Удалить')+'</button></td>'};
+  ul.innerHTML='<table class="libtab"><thead><tr><th scope="col">Маршрут</th><th scope="col">Длина, набор</th><th scope="col">3D-рельеф</th><th scope="col">Снимки</th><th scope="col">Топокарта</th><th scope="col">Прогноз</th></tr></thead><tbody>'+
     rs.map(r=>{const dt=new Date(r.updated).toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});const full=r.pack&&['dem','sat','topo'].every(l=>r.pack.layers.includes(l));
-      return'<tr data-id="'+r.id+'"><th scope="row" class="nm"><b>'+esc(r.name)+'</b><small>'+dt+', трек '+nf0.format(r.pts.length)+' точек'+(r.pois?', вода и приюты: '+r.pois.length:'')+'</small></th>'+
-        '<td class="num">'+km(r.dist)+'<small>'+(r.gain!=null?'+'+nf0.format(r.gain)+' м':'—')+'</small></td>'+cell(r,'dem')+cell(r,'sat')+cell(r,'topo')+
-        '<td>'+(r.wx?new Date(r.wx.fetched).toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'<span class="none">нет</span>')+'</td>'+
-        '<td class="acts"><button type="button" class="mini primary" data-a="open">Открыть</button><button type="button" class="mini" data-a="nav">Навигация</button>'+
+      return'<tr data-id="'+r.id+'"><th scope="row" class="nm"><b>'+esc(r.name)+'</b><small>'+dt+', трек '+nf0.format(r.pts.length)+' точек'+(r.pois?', вода и приюты: '+r.pois.length:'')+'</small>'+
+        '<div class="acts"><button type="button" class="mini primary" data-a="open">Открыть</button><button type="button" class="mini" data-a="nav">Навигация</button>'+
         (full?'':'<button type="button" class="mini" data-a="pack">'+(r.pack?'Докачать карты':'Скачать карты')+'</button>')+
         (r.pack?'<button type="button" class="mini" data-a="deltiles">Удалить все карты</button>':'')+
-        '<button type="button" class="mini" data-a="ren">Переименовать</button><button type="button" class="mini danger" data-a="del">Удалить маршрут</button></td></tr>'}).join('')+
+        '<button type="button" class="mini" data-a="ren">Переименовать</button><button type="button" class="mini danger" data-a="del">Удалить маршрут</button></div></th>'+
+        '<td data-label="Длина, набор" class="num">'+km(r.dist)+(r.gain!=null?', +'+nf0.format(r.gain)+' м':'')+'</td>'+cell(r,'dem','3D-рельеф')+cell(r,'sat','Снимки')+cell(r,'topo','Топокарта')+
+        '<td data-label="Прогноз">'+(r.wx?'от '+new Date(r.wx.fetched).toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'<span class="none">нет</span>')+'</td></tr>'}).join('')+
     '</tbody></table>';
 }
 $('btnLib').onclick=openLib;
@@ -1597,7 +1620,7 @@ function onNavPos(pos){
   const off=r.dist>100&&c.accuracy<r.dist;
   if(off&&!NAV.off){NAV.off=true;try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}beep()}
   if(r.dist<70)NAV.off=false;
-  const offTxt='Вы ушли с маршрута на '+Math.round(r.dist)+' м. Ближайшая точка маршрута — на '+km(r.d)+'.';
+  const offTxt=(r.dist<1000?'Вы ушли с маршрута на '+Math.round(r.dist)+' м':'До маршрута '+km(r.dist))+'. Ближайшая точка маршрута — на '+km(r.d)+' от старта.';
   const nx=T.cps.find(cp=>P[cp.i].d>r.d+20);let nxTxt='<b>Финиш рядом.</b>';
   if(nx){const k=T.cps.indexOf(nx),dh=Math.max(0,P[nx.i].h-hAtD(r.d)),x=nx.wx;
     nxTxt='<b>Дальше: '+cpName(nx,k)+'</b> через '+km(P[nx.i].d-r.d)+', около '+new Date(now+dh*3600000).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})+', '+nf0.format(P[nx.i].ele)+' м'+
