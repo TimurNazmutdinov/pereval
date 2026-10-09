@@ -439,137 +439,250 @@ dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
 .dfld{display:grid;gap:4px;margin-top:10px;margin-bottom:0}
 .dfld span{font-size:13px;color:var(--sub)}
 .dfld input,.dfld textarea{font:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--page);color:var(--ink)}
+
+/* ===== v8 layout ===== */
+:root{--tabh:64px;--surface:#FFFFFF}
+:root[data-theme="dark"]{--page:#10171C;--surface:#18222A;--ink:#E6ECEF;--sub:#9AA8B2;--line:#2A3740;--mist:#22303A;--granite:#E6ECEF;--granite-2:#22303A;--snow:#18222A;--amber-bg:#2B2210;--amber-ink:#F6CF8A;--amber-bar:#E0962A;--err:#F2918A;color-scheme:dark}
+html,body{background:var(--page)}
+body{padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px))}
+.hero,.credit{display:none}
+.view{display:block}
+.view[hidden]{display:none!important}
+/* map view */
+.vmap{position:relative;height:calc(100vh - var(--tabh) - env(safe-area-inset-bottom,0px));height:calc(100dvh - var(--tabh) - env(safe-area-inset-bottom,0px));overflow:hidden}
+.vmap .pmapbox{position:absolute;inset:0;height:auto;min-height:0;border-radius:0;border:0}
+.fsearch{position:absolute;z-index:3;top:calc(10px + env(safe-area-inset-top,0px));left:10px;right:10px;max-width:520px;display:flex;gap:0;box-shadow:0 2px 10px rgba(28,42,51,.18);border-radius:12px}
+.fsearch input{border-radius:12px 0 0 12px!important;border:0!important;background:var(--surface)!important;min-height:46px;font-size:16px}
+.fsearch button{border-radius:0 12px 12px 0!important;padding:0 14px!important}
+.fabs{position:absolute;z-index:3;left:10px;top:calc(66px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:8px}
+.seg.vert{flex-direction:column;border-radius:12px}
+.seg.vert button{border-radius:10px;padding:7px 10px;font-size:13px}
+.vmap .maplibregl-ctrl-top-right{top:calc(56px + env(safe-area-inset-top,0px))}
+.notebar{position:absolute;z-index:5;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top,0px));max-width:520px;min-height:46px;background:var(--ink);color:var(--surface);border-radius:12px;padding:10px 12px;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.notebar button{border:0;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;background:var(--surface);color:var(--ink);cursor:pointer}
+.sheet{position:absolute;z-index:4;left:0;right:0;bottom:0;background:var(--surface);border-radius:18px 18px 0 0;box-shadow:0 -4px 20px rgba(28,42,51,.18);max-height:78%;overflow-y:auto;padding:0 14px 12px;overscroll-behavior:contain}
+@media (min-width:900px){.sheet{left:12px;right:auto;bottom:12px;width:390px;border-radius:18px;max-height:calc(100% - 90px)}}
+.handle{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;border:0;background:transparent;padding:8px 0 6px;cursor:pointer;color:var(--sub);font:inherit;font-size:12px}
+.handle span{width:40px;height:5px;border-radius:3px;background:var(--line)}
+.handle b{font-weight:600}
+.sheet .pstatus{margin:2px 0 8px}
+.sheet .pfigs{margin-bottom:8px}
+.sheet-more{display:grid;gap:12px;padding-bottom:10px}
+.sheet-more[hidden]{display:none}
+.sheet-go{position:sticky;bottom:0;display:flex;gap:8px;background:var(--surface);padding:8px 0 2px}
+.sheet-go .pgo{flex:1;padding:13px}
+.chipbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;font-size:14px;border-radius:12px;padding:0 12px;cursor:pointer;white-space:nowrap}
+.prow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.prow .pgpx{margin:0;flex:1;min-width:140px}
+.prow .upload.small{margin:0;flex:1;min-width:140px}
+.prow .upload.small span{width:100%;justify-content:center;background:var(--surface);color:var(--ink);border:1px solid var(--line);font-weight:600;font-size:14px;min-height:42px}
+.diff{border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.4}
+.diff b{font-weight:700}
+.diff.d1{background:#DDF3E7;color:#1D5E40}.diff.d2{background:#FFF1D6;color:#6E4200}.diff.d3{background:#FBE0DD;color:#8C1D18}
+.diff ul{margin:6px 0 0;padding-left:18px}
+/* route view */
+.vroute,.vpage{max-width:1100px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 20px;display:grid;gap:16px}
+.vroute>*,.vpage>*{min-width:0}
+.rhead{display:grid;gap:10px}
+.rtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.rtop h1{font-family:var(--disp);font-weight:600;font-size:24px;line-height:1.15;margin:4px 0 0;letter-spacing:-.01em;overflow-wrap:anywhere}
+.chipup{flex:none}
+.chipup span{min-height:40px!important;padding:8px 12px!important;font-size:14px;border-radius:12px!important;gap:8px!important}
+.chipup span em{display:none}
+.chipup span{background:var(--surface)!important;color:var(--ink)!important;border:1px solid var(--line);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;min-height:40px}
+.chip input{border:0;background:transparent;color:var(--ink);font:inherit;font-weight:600;padding:0;min-width:0}
+.chip input:focus{outline:none}
+.chip:focus-within{outline:2px solid var(--blaze);outline-offset:1px}
+.ptitle{font-family:var(--disp);font-weight:600;font-size:24px;margin:4px 0 0}
+#sumCard .figs{display:flex;flex-wrap:wrap;gap:12px 22px;margin:0}
+#sumCard .fig b{color:var(--ink);font-size:20px}
+#sumCard .fig span{color:var(--sub)}
+#verdict{display:grid;gap:10px;margin-top:14px}
+.kit{background:var(--mist);border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.45}
+.kit b{font-weight:700}
+.actions{position:sticky;z-index:20;bottom:calc(var(--tabh) + 10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;flex-wrap:nowrap}
+.actions .act.primary{flex:1;justify-content:center;padding:14px;font-size:16px;border-radius:14px;box-shadow:0 4px 14px rgba(242,118,46,.35)}
+.actions .act.more{flex:none;width:54px;justify-content:center;border-radius:14px;padding:0;background:var(--surface);box-shadow:0 2px 10px rgba(28,42,51,.15)}
+.empty .erow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.loaded .empty{display:none}
+.mapbox .fullbtn{border:0;width:38px;height:34px;border-radius:999px;background:rgba(255,255,255,.95);color:var(--ink);display:inline-grid;place-items:center;cursor:pointer;box-shadow:0 1px 4px rgba(28,42,51,.18)}
+.fullx{display:none;position:absolute;z-index:6;right:12px;top:calc(12px + env(safe-area-inset-top,0px));width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:var(--surface);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.mapbox.full{position:fixed;inset:0;z-index:1200;height:auto;min-height:0;border-radius:0;border:0}
+.mapbox.full .fullx{display:block}
+.mapbox.full .fullbtn{display:none}
+.mapbox.full .mapbar{top:calc(12px + env(safe-area-inset-top,0px));right:64px}
+.mapbox.full .maplibregl-ctrl-top-right{top:calc(64px + env(safe-area-inset-top,0px))}
+body.mapfull,body.navmode{overflow:hidden}
+body.mapfull .tabbar,body.navmode .tabbar,body.mapfull .actions,body.navmode .actions{display:none}
+/* library + settings */
+.backup{display:flex;flex-wrap:wrap;gap:8px}
+.act.upl{position:relative;overflow:hidden}
+.act.upl input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.setcard{display:grid;gap:10px;justify-items:start}
+.setcard .sec{margin:0}
+.setcard .note{margin:0}
+/* tab bar */
+.tabbar{position:fixed;z-index:1100;left:0;right:0;bottom:0;display:flex;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabbar button{flex:1;height:var(--tabh);border:0;background:transparent;color:var(--sub);font:inherit;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;position:relative}
+.tabbar button[aria-current=page]{color:var(--ink)}
+.tabbar button[aria-current=page]::before{content:"";position:absolute;top:0;left:30%;right:30%;height:3px;border-radius:0 0 3px 3px;background:var(--blaze)}
+.tabbar button span:not(:empty){position:absolute;top:8px;left:calc(50% + 6px);background:var(--blaze);color:var(--blaze-ink);border-radius:999px;font-size:11px;padding:0 6px;line-height:16px}
+.tabbar button:focus-visible{outline:2px solid var(--blaze);outline-offset:-4px}
+/* dialogs as bottom sheets on phones */
+@media (max-width:640px){dialog{width:100vw;max-width:100vw;margin:auto 0 0;border-radius:18px 18px 0 0;max-height:88vh}}
+#paceDlg .ppace-grid{display:grid;gap:10px;margin:6px 18px 12px}
+#paceDlg .ppace-grid>div{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#paceDlg .ppace-grid label{font-size:15px;font-weight:500;color:var(--ink)}
+#paceDlg .ppace-grid label span{display:block;font-size:12px;font-weight:400;color:var(--sub)}
+#paceDlg .stepper{width:170px;flex:none}
+#paceDlg .switch{margin:0 18px 10px;display:flex;width:auto;background:var(--page);border-color:var(--line)}
+#paceDlg .method{margin:4px 18px 8px;max-width:none;background:var(--page);border-color:var(--line)}
+#paceDlg .timein{width:170px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--page);color:var(--ink);font:inherit;text-align:center}
+.menu{display:grid;margin-bottom:16px}
+.menu button{text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:16px;font-weight:500;padding:14px 4px;cursor:pointer}
+.menu button:last-child{border-bottom:0}
+.menu button:focus-visible{outline:2px solid var(--blaze);outline-offset:-2px}
+.ntphoto{display:flex;gap:10px;align-items:center;margin-top:10px}
+.ntphoto img{width:96px;height:96px;object-fit:cover;border-radius:10px}
+/* notes */
+.notes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.notes li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:8px;cursor:pointer}
+.notes li:last-child{border-bottom:0}
+.notes img,.notes .nic{width:56px;height:56px;border-radius:10px;object-fit:cover;background:var(--mist);display:grid;place-items:center;font-size:22px}
+.notes small{display:block;color:var(--sub);font-size:12px}
+.notem{width:30px;height:30px;border-radius:50%;background:#FFF7E0;border:2px solid #fff;display:grid;place-items:center;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:pointer}
+/* nav extras */
+.recbadge{background:#B3261E;color:#fff;border-radius:12px;padding:8px 12px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px}
+.recbadge::before{content:"";width:10px;height:10px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.recbadge::before{animation:none}}
+.navtg.rec[aria-pressed=true]{background:#B3261E;color:#fff}
+.navoff{display:flex;align-items:center;gap:12px}
+.navoff svg{flex:none;transition:transform .3s}
+/* onboarding */
+.onb{position:fixed;inset:0;z-index:3000;background:rgba(16,23,28,.55);display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.onb[hidden]{display:none}
+.onb-card{width:min(460px,100%);background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35);margin-bottom:env(safe-area-inset-bottom,0px)}
+.onb-photo{height:150px;background:#DCE7EE url("https://commons.wikimedia.org/wiki/Special:FilePath/Ushba.jpg?width=900") center 40%/cover no-repeat}
+.onb-body{padding:16px 18px 18px}
+.onb-step{margin:0;font-size:13px;color:var(--sub)}
+.onb-body h2{margin:4px 0 6px;font-size:20px}
+.onb-body p{margin:0 0 14px;line-height:1.5}
+.onb-btns{display:flex;justify-content:space-between;gap:8px}
+@media (min-width:700px){.onb{align-items:center}}
+/* dark theme fixes for hard-coded light surfaces */
+:root[data-theme="dark"] .seg,:root[data-theme="dark"] .navstats,:root[data-theme="dark"] .navbot,:root[data-theme="dark"] .navtg:not([aria-pressed=true]):not(.locate),:root[data-theme="dark"] .navbtns button:not([aria-pressed=true]):not(#navExit),:root[data-theme="dark"] .fly-info,:root[data-theme="dark"] .mini:not(.primary),:root[data-theme="dark"] .stepper button,:root[data-theme="dark"] .fullbtn,:root[data-theme="dark"] .switch,:root[data-theme="dark"] .method,:root[data-theme="dark"] .libtab .nm,:root[data-theme="dark"] .ptools button,:root[data-theme="dark"] .packbar button,:root[data-theme="dark"] .x,:root[data-theme="dark"] dialog{background:var(--surface)!important;color:var(--ink)!important}
+:root[data-theme="dark"] .seg button{color:var(--ink)}
+:root[data-theme="dark"] .seg button[aria-pressed=true],:root[data-theme="dark"] .seg.light button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+:root[data-theme="dark"] .stepper input,:root[data-theme="dark"] .fld input,:root[data-theme="dark"] .search input,:root[data-theme="dark"] .pfield input,:root[data-theme="dark"] .dfld input,:root[data-theme="dark"] .dfld textarea{background:var(--page)!important;color:var(--ink)!important;border-color:var(--line)!important}
+:root[data-theme="dark"] .search button{background:var(--blaze);color:var(--blaze-ink)}
+:root[data-theme="dark"] .tl-body,:root[data-theme="dark"] .card2,:root[data-theme="dark"] .prof,:root[data-theme="dark"] .pside,:root[data-theme="dark"] .day{background:var(--surface);color:var(--ink)}
+:root[data-theme="dark"] .tl li.w .tl-body{background:#2B2210}
+:root[data-theme="dark"] .tl-camp{background:#1E2A44;color:#C9D6F5}
+:root[data-theme="dark"] .toast{background:#1D5E40}
+:root[data-theme="dark"] .diff.d1{background:#173A2A;color:#BFE8D2}:root[data-theme="dark"] .diff.d2{background:#3A2C10;color:#F6D79A}:root[data-theme="dark"] .diff.d3{background:#43201D;color:#F5C2BC}
+:root[data-theme="dark"] .vd.good{background:#173A2A;color:#BFE8D2}:root[data-theme="dark"] .vd.ok{background:#3A2C10;color:#F6D79A}:root[data-theme="dark"] .vd.bad{background:#43201D;color:#F5C2BC}
+:root[data-theme="dark"] .maplibregl-popup-content{background:#18222A;color:#E6ECEF}
+:root[data-theme="dark"] .maplibregl-popup-tip{border-top-color:#18222A;border-bottom-color:#18222A}
+:root[data-theme="dark"] .maplibregl-ctrl-group{background:#18222A}
+:root[data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon{filter:invert(1)}
+:root[data-theme="dark"] .mapbox{background:#1A242C}
+:root[data-theme="dark"] .notem{background:#3A2C10;border-color:#18222A}
+
 </style>
 </head>
 <body>
-<header class="hero">
-  <div class="hero-photo" aria-hidden="true"></div><div class="hero-veil" aria-hidden="true"></div>
-  <div class="wrap">
-    <button type="button" class="libbtn" id="btnLib"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 12h16M4 19h10"/></svg>Мои маршруты<span id="libCount"></span></button>
-    <div class="brand"><img src="icons/icon-v3.svg" alt="" width="52" height="52"><div><h1>Перевал</h1><p class="tagline">Маршруты, погода и навигация в горах</p><p class="ver">Версия 7</p></div></div>
-    <button type="button" class="installbtn" id="btnInstall" hidden>Установить приложение</button>
-    <div class="tabs" role="tablist" aria-label="Разделы">
-      <button type="button" role="tab" id="tbPlan" aria-controls="tabPlan" aria-selected="true">Построить маршрут</button>
-      <button type="button" role="tab" id="tbWx" aria-controls="tabWx" aria-selected="false">Погода и рельеф</button>
+<div id="app">
+<section id="tabPlan" class="view vmap" aria-label="Карта и построение маршрута">
+  <div class="mapbox pmapbox">
+    <div id="pmap"></div>
+    <form class="search fsearch" id="pSearch" role="search" autocomplete="off">
+      <input autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" type="search" id="pQuery" placeholder="Найти место: вершина, посёлок, перевал" aria-label="Найти место на карте">
+      <button type="submit" aria-label="Найти"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    </form>
+    <div class="fabs">
+      <div class="seg vert" id="pBase"><button type="button" data-v="sat" aria-pressed="false">Снимок</button><button type="button" data-v="topo" aria-pressed="true">Карта</button></div>
+      <div class="seg vert" id="pDim"><button type="button" data-v="3d" aria-pressed="false">3D</button><button type="button" data-v="2d" aria-pressed="true">2D</button></div>
     </div>
-    <p class="lead" id="leadPlan">Нажимайте на карту, чтобы ставить точки. Путь проложится по тропам, а потом одной кнопкой откроется погода и рельеф по маршруту.</p>
-    <div id="wxHero" hidden>
-    <p class="lead">Загрузите трек или постройте его на соседней вкладке, укажите старт и темп. Покажем погоду в каждой точке пути в тот момент, когда вы до неё дойдёте.</p>
-    <div class="plan">
-      <label class="upload" id="fTrack"><input type="file" id="inTrack" accept=".gpx,.fit,.tcx,.zip,application/gpx+xml,application/vnd.garmin.tcx+xml,application/zip,application/x-zip-compressed,application/octet-stream,application/xml,text/xml"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6-11 4 6 3-4 5 9z"/></svg><i>Загрузить трек<em>GPX, FIT, TCX или ZIP</em></i></span></label>
-      <div class="fld"><label for="inStart">Старт</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="datetime-local" id="inStart"></div>
-      <div class="plan-row">
-        <div class="fld"><label for="inFlat">По ровному, км/ч</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
-        <div class="fld"><label for="inClimb">Подъём, м/ч</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
+    <div class="notebar hidden" id="pNoteBar">Нажмите на карту там, где нужна заметка <button type="button" id="pNoteCancel">Отмена</button></div>
+    <div class="mapmsg hidden" id="pMapMsg"></div>
+  </div>
+  <div class="sheet" id="pSheet">
+    <button type="button" class="handle" id="pHandle" aria-expanded="false" aria-controls="pMore"><span aria-hidden="true"></span><b id="pHandleTxt">Инструменты маршрута</b></button>
+    <p class="pstatus" id="pStatus" role="status">Нажмите на карту, чтобы поставить первую точку.</p>
+    <div class="pfigs" id="pStats"></div>
+    <div class="sheet-more" id="pMore" hidden>
+      <div id="pDiff"></div>
+      <div class="pprof" id="pProf"></div>
+      <div class="ptools">
+        <button type="button" id="pUndo">Отменить точку</button>
+        <button type="button" id="pRev">Развернуть</button>
+        <button type="button" id="pLoop">Вернуться к старту</button>
+        <button type="button" id="pClear">Очистить</button>
       </div>
-      <div class="fld"><label for="inBreak">Привалы, мин в час</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
+      <div class="pmode"><span>Прокладывать</span><div class="seg light" id="pMode"><button type="button" data-v="trail" aria-pressed="true">по тропам</button><button type="button" data-v="line" aria-pressed="false">напрямую</button></div></div>
+      <div class="pfield"><label for="pName">Название маршрута</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="text" id="pName" maxlength="60" placeholder="Мой маршрут"></div>
+      <div class="prow">
+        <label class="upload small"><input type="file" id="pEdit" accept=".gpx,.fit,.tcx,.zip,application/gpx+xml,application/vnd.garmin.tcx+xml,application/zip,application/x-zip-compressed,application/octet-stream,application/xml,text/xml"><span>Открыть трек для правки</span></label>
+        <button type="button" class="pgpx" id="pNoteMode">Добавить заметку</button>
+      </div>
+      <div class="prow">
+        <button type="button" class="pgpx" id="pSave" disabled>Сохранить в «Мои»</button>
+        <button type="button" class="pgpx" id="pGpx" disabled>Скачать GPX</button>
+      </div>
+      <p class="note">Нажимайте на карту, чтобы ставить точки. Точки можно перетаскивать, а нажатие на точку предлагает её удалить. Нажатие на линию маршрута добавляет точку в это место. Время учитывает крутизну по формуле Тоблера и ваш темп.</p>
     </div>
-    <div class="altrow">
-      <label class="switch"><input type="checkbox" id="inAlt" checked><span class="knob" aria-hidden="true"></span><span>Поправка на высоту выше 2500 м</span></label>
-      <details class="method"><summary>Как считается время и рельеф</summary>
-        <p><b>Рельеф учитывается.</b> Маршрут делится на участки примерно по 40 м, и для каждого считается крутизна: на сколько метров меняется высота на метр пути.</p>
-        <p>Скорость на участке считается по формуле пешеходной скорости Тоблера: <code>v = 6 · e<sup>−3,5 · |s + 0,05|</sup> км/ч</code>, где <code>s</code> — уклон. Быстрее всего человек идёт по лёгкому спуску около 3 %, а на крутых подъёмах и на крутых спусках замедляется. Формула подстроена под вашу скорость: на ровном участке она равна скорости «по ровному».</p>
-        <p>На подъёмах время не бывает меньше, чем набор высоты, делённый на вашу скорость подъёма. Привалы добавляются поверх.</p>
-        <p><b>Поправка на высоту.</b> Выше 2500 м воздух разрежен, и идти тяжелее. Если поправка включена, время на участках выше 2500 м растёт на 10 % за каждые 500 м: на 3000 м на 10 %, на 3500 м на 20 %, на 4000 м на 30 %. Это усреднённая оценка: для акклиматизированных людей замедление меньше, для тех, кто только приехал в горы, больше.</p>
-        <p>На профиле крутые участки от 25 % (около 14°) выделены жёлтым, от 40 % (около 22°) — красным.</p>
-        <p><b>Несколько дней.</b> Если включить этот режим, ходовое время каждого дня ограничивается заданным числом часов. Там, где день заканчивается, ставится ночёвка, а утром движение продолжается с указанного времени. Прогноз берётся и на вечер, и на утро у ночёвки.</p>
-      </details>
-    </div>
-    <div class="mdrow">
-      <label class="switch"><input type="checkbox" id="inMulti"><span class="knob" aria-hidden="true"></span><span>Поход на несколько дней</span></label>
-      <div class="fld mdf" hidden><label for="inDayH">Ходовых часов в день</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="inDayH" min="2" max="14" step="0.5" value="7" inputmode="decimal"></div>
-      <div class="fld mdf" hidden><label for="inDayStart">Выход каждое утро</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="time" id="inDayStart" value="08:00"></div>
-    </div>
-    <div class="figs" id="stats"></div>
+    <div class="sheet-go">
+      <button type="button" class="chipbtn" id="pPace">Темп</button>
+      <button type="button" class="pgo" id="pGo" disabled>Дальше: погода и рельеф</button>
     </div>
   </div>
-  <svg class="ridge" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 58 C120 40 210 22 330 34 C450 46 520 70 650 62 C780 54 850 24 980 28 C1110 32 1180 58 1300 54 C1370 52 1410 44 1440 40 L1440 110 L0 110 Z" fill="#F4F7F9" opacity=".45"/>
-    <path d="M0 76 C140 64 250 52 380 60 C510 68 600 86 740 80 C880 74 960 52 1090 56 C1220 60 1320 78 1440 70 L1440 110 L0 110 Z" fill="#F4F7F9" opacity=".75"/>
-    <path d="M0 94 C160 86 300 80 460 86 C620 92 720 100 880 96 C1040 92 1160 82 1300 86 C1370 88 1410 92 1440 92 L1440 110 L0 110 Z" fill="#F4F7F9"/>
-  </svg>
-  <p class="credit">Фото: <a href="https://commons.wikimedia.org/wiki/File:Ushba.jpg" target="_blank" rel="noopener">Stardancer, Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.ru" target="_blank" rel="noopener">CC BY-SA 3.0</a>, осветлено</p>
-</header>
+</section>
 
-<main class="wrap">
-  <section id="tabPlan" role="tabpanel" aria-labelledby="tbPlan" class="tabpanel">
-    <div class="planner">
-      <div class="mapbox pmapbox">
-        <div id="pmap"></div>
-        <div class="mapbar">
-          <div class="seg" id="pBase"><button type="button" data-v="sat" aria-pressed="false">Спутник</button><button type="button" data-v="topo" aria-pressed="true">Топо</button></div>
-          <div class="seg" id="pDim"><button type="button" data-v="3d" aria-pressed="false">3D</button><button type="button" data-v="2d" aria-pressed="true">2D</button></div>
-        </div>
-        <div class="mapmsg hidden" id="pMapMsg"></div>
-      </div>
-      <aside class="pside">
-        <form class="search" id="pSearch" role="search" autocomplete="off">
-          <input autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search" type="search" id="pQuery" placeholder="Найти место: вершина, посёлок, перевал" aria-label="Найти место на карте">
-          <button type="submit">Найти</button>
-        </form>
-        <div class="pfield"><label for="pName">Название маршрута</label><input autocomplete="off" autocorrect="off" spellcheck="false" type="text" id="pName" maxlength="60" placeholder="Мой маршрут"></div>
-        <div class="pmode"><span>Прокладывать</span><div class="seg light" id="pMode"><button type="button" data-v="trail" aria-pressed="true">по тропам</button><button type="button" data-v="line" aria-pressed="false">напрямую</button></div></div>
-        <fieldset class="ppace">
-          <legend>Темп</legend>
-          <div class="ppace-grid">
-            <div><label for="pFlat">По ровному<span>км/ч</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pFlat" min="1" max="12" step="0.5" value="4" inputmode="decimal"></div>
-            <div><label for="pClimb">Подъём<span>м в час</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pClimb" min="100" max="1500" step="50" value="400" inputmode="numeric"></div>
-            <div><label for="pBreak">Привалы<span>мин в час</span></label><input autocomplete="off" autocorrect="off" spellcheck="false" type="number" id="pBreak" min="0" max="30" step="5" value="10" inputmode="numeric"></div>
-          </div>
-          <label class="switch small"><input type="checkbox" id="pAlt" checked><span class="knob" aria-hidden="true"></span><span>Поправка на высоту выше 2500 м</span></label>
-        </fieldset>
-        <p class="pstatus" id="pStatus" role="status">Нажмите на карту, чтобы поставить первую точку.</p>
-        <div class="pfigs" id="pStats"></div>
-        <div class="pprof" id="pProf"></div>
-        <div class="ptools">
-          <button type="button" id="pUndo">Отменить точку</button>
-          <button type="button" id="pRev">Развернуть</button>
-          <button type="button" id="pLoop">Вернуться к старту</button>
-          <button type="button" id="pClear">Очистить</button>
-        </div>
-        <button type="button" class="pgo" id="pGo" disabled>Погода и рельеф по маршруту</button>
-        <button type="button" class="pgpx" id="pGpx" disabled>Скачать GPX</button>
-        <button type="button" class="pgpx" id="pSave" disabled>Сохранить в «Мои маршруты»</button>
-        <p class="note">Точки можно перетаскивать. Нажмите на точку, чтобы удалить её. Время учитывает рельеф: скорость на каждом участке зависит от крутизны по формуле Тоблера, подстроенной под ваш темп. Подробнее в блоке «Как считается время и рельеф» на вкладке погоды. Жёлтым и красным на профиле выделены крутые участки. При переходе к погоде темп переносится вместе с маршрутом. GPX можно загрузить в Garmin Connect как маршрут.</p>
-      </aside>
+<section id="tabWx" class="view vroute" hidden aria-label="Маршрут: погода и рельеф">
+  <header class="rhead">
+    <div class="rtop">
+      <h1 id="rName">Маршрут</h1>
+      <label class="upload chipup" id="fTrack"><input type="file" id="inTrack" accept=".gpx,.fit,.tcx,.zip,application/gpx+xml,application/vnd.garmin.tcx+xml,application/zip,application/x-zip-compressed,application/octet-stream,application/xml,text/xml"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg><i>Загрузить трек<em>GPX, FIT, TCX, ZIP</em></i></span></label>
     </div>
-  </section>
-  <section id="tabWx" role="tabpanel" aria-labelledby="tbWx" class="tabpanel" hidden>
+    <div class="chips">
+      <label class="chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><input autocomplete="off" type="datetime-local" id="inStart" aria-label="Дата и время старта"></label>
+      <button type="button" class="chip" id="rPace">Темп</button>
+    </div>
+  </header>
   <p class="status" id="status" role="status"></p>
-  <div class="actions hidden" id="actions">
-    <button type="button" class="act primary" id="btnNav"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l7 19-7-4-7 4z"/></svg>Навигация по GPS</button>
-    <button type="button" class="act" id="btnSave">Сохранить маршрут</button>
-    <button type="button" class="act" id="btnPack">Скачать для офлайна</button>
-    <button type="button" class="act" id="btnCard">Карточка безопасности</button>
-    <button type="button" class="act" id="btnPoster">Сделать постер</button>
-    <button type="button" class="act" id="btnGpx">Скачать GPX</button>
+  <div class="empty" id="empty">
+    <b>Здесь появится погода по пути</b>
+    <span>Постройте маршрут на карте, загрузите трек с часов или откройте сохранённый маршрут.</span>
+    <div class="erow"><button type="button" class="act primary" id="eMap">Построить на карте</button><button type="button" class="act" id="eLib">Мои маршруты</button></div>
   </div>
   <div class="packbar hidden" id="packBar"><div class="packfill" id="packFill"></div><span id="packTxt"></span><button type="button" id="packCancel">Отменить</button></div>
-  <div class="empty" id="empty"><b>Здесь появится прогноз по пути</b><span>Профиль высоты с погодой, карта в 3D с пролётом по маршруту и разбор каждой точки по времени.</span></div>
-  <div id="warnBox" class="hidden"></div>
-  <section class="card2 hidden" id="daysCard" aria-label="Лучший день для похода">
-    <h2 class="sec">Лучший день для похода</h2>
-    <p class="note" id="daysNote">Прогноз на две недели в высшей точке маршрута. Нажмите на день, чтобы выбрать его датой старта.</p>
-    <div class="days" id="days"></div>
+  <section class="card2 hidden" id="sumCard" aria-label="Сводка маршрута">
+    <div class="figs" id="stats"></div>
+    <div id="verdict"></div>
   </section>
-
+  <div id="warnBox" class="hidden"></div>
   <section class="prof hidden" id="profCard" aria-label="Профиль высоты и погода">
+    <h2 class="sec">Профиль и погода</h2>
     <div id="prof"></div>
     <div class="legend" aria-hidden="true">
       <span><i style="background:#F3CF5E"></i>ясно</span><span><i style="background:#B9C4CD"></i>облачно</span><span><i style="background:#5E95D6"></i>дождь</span><span><i style="background:#BFD6F0"></i>снег</span><span><i style="background:#8A73C9"></i>гроза</span>
     </div>
     <div class="legend" aria-hidden="true"><span><i style="background:#F2A322;height:4px"></i>крутой участок, от 25 % (14°)</span><span><i style="background:#C62828;height:4px"></i>очень крутой, от 40 % (22°)</span></div>
   </section>
-
   <div class="duo hidden" id="duo">
     <section id="mapCard">
       <div class="mapbox">
         <div id="map"></div>
         <div class="mapbar">
-          <div class="seg" id="segBase"><button type="button" data-v="sat" aria-pressed="true">Спутник</button><button type="button" data-v="topo" aria-pressed="false">Топо</button></div>
+          <div class="seg" id="segBase"><button type="button" data-v="sat" aria-pressed="true">Снимок</button><button type="button" data-v="topo" aria-pressed="false">Карта</button></div>
           <div class="seg" id="segDim"><button type="button" data-v="3d" aria-pressed="false">3D</button><button type="button" data-v="2d" aria-pressed="true">2D</button></div>
-          <button type="button" class="flybtn" id="btnFly"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Пролететь маршрут</span></button>
+          <button type="button" class="flybtn" id="btnFly"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Пролететь</span></button>
+          <button type="button" class="fullbtn" id="btnFull" aria-label="Карта на весь экран"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
         </div>
+        <button type="button" class="fullx" id="btnFullX" aria-label="Закрыть карту на весь экран">×</button>
         <div class="mapmsg hidden" id="mapMsg"></div>
         <div class="fly-info" id="flyInfo">
           <div class="flyst"><div><b id="flyKm">0 км</b><span>пройдено</span></div><div><b id="flyEle">—</b><span>высота</span></div></div>
@@ -580,17 +693,19 @@ dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
           </div>
         </div>
         <div class="navtop" id="navTop" hidden>
-          <div class="navcol"><div class="navstats" id="navStats"><span class="navwait">Ищу сигнал GPS…</span></div><div class="navoff" id="navOff" role="alert" hidden></div></div>
+          <div class="navcol"><div class="navstats" id="navStats"><span class="navwait">Ищу сигнал GPS…</span></div><div class="navoff" id="navOff" role="alert" hidden></div><div class="recbadge" id="recBadge" hidden></div></div>
           <div class="navbtns"><button type="button" id="navFollow" aria-pressed="true">Следовать</button><button type="button" id="navDark" aria-pressed="false">Тёмный экран</button><button type="button" id="navKeep" aria-pressed="false">Экран гаснет</button><button type="button" id="navExit">Выйти</button></div>
         </div>
         <div class="navdark" id="navDarkPane" hidden>
           <div id="navDarkStats"></div>
-          <p class="dhint">Тёмный экран почти не тратит заряд на OLED-экранах, а карта в это время не рисуется. Если экран погаснет, приложение перестанет следить за маршрутом до следующего включения: телефоны не дают сайтам работать с GPS в фоне.</p>
+          <p class="dhint">Тёмный экран почти не тратит заряд, а карта в это время не рисуется. Если экран погаснет, приложение перестанет следить за маршрутом до следующего включения: телефоны не дают сайтам работать в фоне.</p>
           <div class="dbtns"><button type="button" id="navMap">Показать карту</button><button type="button" id="navKeep2" aria-pressed="false">Экран гаснет</button><button type="button" id="navExit2">Выйти</button></div>
         </div>
         <div class="navbottom">
         <div class="navbot" id="navBot" hidden></div>
         <div class="navctl" id="navCtl" hidden>
+          <button type="button" class="navtg rec" id="navRec" aria-pressed="false">Запись трека</button>
+          <button type="button" class="navtg" id="navNote">Заметка здесь</button>
           <div class="seg" id="navBase" role="group" aria-label="Основа карты"><button type="button" data-v="topo" aria-pressed="true">Карта</button><button type="button" data-v="sat" aria-pressed="false">Снимок</button></div>
           <button type="button" class="navtg" id="navWx" aria-pressed="true">Погода</button>
           <button type="button" class="navtg" id="nav3d" aria-pressed="false">2D</button>
@@ -599,17 +714,23 @@ dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
         </div>
         </div>
       </div>
-      <p class="maphint">Наклоняйте карту двумя пальцами. Нажмите на температуру, чтобы увидеть подробности.</p>
+      <p class="maphint">Нажмите на температуру, чтобы увидеть подробности. Кнопка в углу карты открывает её на весь экран.</p>
     </section>
     <section aria-label="Погода по точкам маршрута">
       <h2 class="sec">По точкам маршрута</h2>
       <ol class="tl" id="cps"></ol>
     </section>
   </div>
+  <section class="card2 hidden" id="notesCard" aria-label="Заметки и фото"><h2 class="sec">Заметки и фото</h2><ul class="notes" id="notesList"></ul></section>
   <section class="card2 hidden" id="poiCard" aria-label="Вода, приюты и вершины по пути">
     <h2 class="sec">Вода, приюты и вершины по пути</h2>
     <ul class="pois" id="pois"></ul>
-    <p class="note" id="poiNote">Данные OpenStreetMap: родники, питьевая вода, приюты, укрытия, вершины и перевалы не дальше 400 м от маршрута. Проверяйте на месте: родник может пересохнуть.</p>
+    <p class="note" id="poiNote">Данные OpenStreetMap.</p>
+  </section>
+  <section class="card2 hidden" id="daysCard" aria-label="Лучший день для похода">
+    <h2 class="sec">Лучший день для похода</h2>
+    <p class="note" id="daysNote">Прогноз на две недели в высшей точке маршрута. Нажмите на день, чтобы выбрать его датой старта.</p>
+    <div class="days" id="days"></div>
   </section>
   <section class="card2 hidden" id="factCard" aria-label="План и факт">
     <h2 class="sec">План и факт</h2>
@@ -617,23 +738,125 @@ dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
     <label class="upload small"><input type="file" id="inFact" accept=".gpx,.fit,.tcx,.zip,application/gpx+xml,application/vnd.garmin.tcx+xml,application/zip,application/x-zip-compressed,application/octet-stream,application/xml,text/xml"><span>Загрузить пройденный трек</span></label>
     <div id="fact"></div>
   </section>
-  </section>
-</main>
-<div class="toast hidden" id="toast" role="status"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span id="toastTxt"></span><button type="button" id="toastAct" hidden></button></div>
-<dialog id="libDlg" aria-labelledby="libTitle">
-  <div class="dlg-head"><h2 id="libTitle">Мои маршруты</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
+  <div class="actions hidden" id="actions">
+    <button type="button" class="act primary" id="btnNav"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l7 19-7-4-7 4z"/></svg>Начать навигацию</button>
+    <button type="button" class="act more" id="btnMore" aria-label="Другие действия"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+  </div>
+</section>
+
+<section id="tabLib" class="view vpage" hidden aria-label="Мои маршруты">
+  <h1 class="ptitle">Мои маршруты</h1>
   <div class="libsum" id="libSum"></div>
+  <div class="backup">
+    <button type="button" class="act" id="btnBackup">Сохранить резервную копию</button>
+    <label class="act upl"><input type="file" id="inRestore" accept=".json,application/json">Восстановить из копии</label>
+  </div>
   <div class="libwrap" id="libList"></div>
-  
   <div class="dlg-foot">
     <button type="button" class="act" id="libDelDem">Удалить весь 3D-рельеф</button>
     <button type="button" class="act" id="libDelTiles">Удалить все офлайн-карты</button>
     <button type="button" class="act danger" id="libDelAll">Удалить всё</button>
   </div>
+</section>
+
+<section id="tabSet" class="view vpage" hidden aria-label="Настройки">
+  <h1 class="ptitle">Настройки</h1>
+  <div class="card2 setcard">
+    <h2 class="sec">Темп и время в пути</h2>
+    <p class="note" id="setPaceTxt"></p>
+    <button type="button" class="act" id="setPace">Изменить темп</button>
+  </div>
+  <div class="card2 setcard">
+    <h2 class="sec">Оформление</h2>
+    <div class="seg light" id="themeSeg" role="group" aria-label="Тема"><button type="button" data-v="light" aria-pressed="true">Светлая</button><button type="button" data-v="dark" aria-pressed="false">Тёмная</button><button type="button" data-v="auto" aria-pressed="false">Как в телефоне</button></div>
+    <p class="note">Тёмная тема меньше слепит вечером и на ночёвке и экономит заряд на OLED-экранах.</p>
+  </div>
+  <div class="card2 setcard">
+    <h2 class="sec">Данные</h2>
+    <p class="note">Маршруты, заметки и офлайн-карты хранятся в памяти браузера на этом телефоне. Обновления приложения их не стирают. Их сотрёт только очистка данных сайта в браузере или удаление приложения, поэтому время от времени сохраняйте резервную копию в «Мои маршруты».</p>
+    <p class="note" id="setStore"></p>
+  </div>
+  <div class="card2 setcard">
+    <h2 class="sec">Приложение</h2>
+    <div class="prow"><button type="button" class="act" id="btnTour">Показать обучение</button><button type="button" class="act primary" id="btnInstall" hidden>Установить приложение</button></div>
+    <p class="note">Перевал, версия 8. Карты © OpenStreetMap, OpenTopoMap (CC-BY-SA), снимки © Esri, Maxar, Earthstar Geographics. Рельеф: Mapzen Terrain Tiles. Погода: Open-Meteo. Маршруты по тропам: BRouter. Поиск: Nominatim. Фото: Stardancer, Wikimedia Commons, CC BY-SA 3.0.</p>
+  </div>
+</section>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="Разделы">
+  <button type="button" id="tbPlan" data-v="plan" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>Карта</button>
+  <button type="button" id="tbWx" data-v="wx"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6-11 4 6 3-4 5 9z"/></svg>Маршрут</button>
+  <button type="button" id="btnLib" data-v="lib"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Мои<span id="libCount"></span></button>
+  <button type="button" id="tbSet" data-v="set"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>Настройки</button>
+</nav>
+
+<div class="toast hidden" id="toast" role="status"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span id="toastTxt"></span><button type="button" id="toastAct" hidden></button></div>
+
+<div class="onb" id="onb" hidden role="dialog" aria-modal="true" aria-labelledby="onbTitle">
+  <div class="onb-card">
+    <div class="onb-photo" aria-hidden="true"></div>
+    <div class="onb-body">
+      <p class="onb-step" id="onbStep"></p>
+      <h2 id="onbTitle"></h2>
+      <p id="onbText"></p>
+      <div class="onb-btns"><button type="button" class="act" id="onbSkip">Пропустить</button><button type="button" class="act primary" id="onbNext">Дальше</button></div>
+    </div>
+  </div>
+</div>
+
+<dialog id="libDlg"></dialog>
+<dialog id="paceDlg" aria-labelledby="paceTitle">
+  <div class="dlg-head"><h2 id="paceTitle">Темп и время в пути</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
+  <div class="ppace-grid">
+    <div><label for="inFlat">По ровному<span>км/ч</span></label><input autocomplete="off" type="number" id="inFlat" min="1" max="12" step="0.5" value="4"></div>
+    <div><label for="inClimb">Подъём<span>м в час</span></label><input autocomplete="off" type="number" id="inClimb" min="100" max="1500" step="50" value="400"></div>
+    <div><label for="inBreak">Привалы<span>мин в час</span></label><input autocomplete="off" type="number" id="inBreak" min="0" max="30" step="5" value="10"></div>
+  </div>
+  <label class="switch"><input type="checkbox" id="inAlt" checked><span class="knob" aria-hidden="true"></span><span>Поправка на высоту выше 2500 м</span></label>
+  <label class="switch"><input type="checkbox" id="inMulti"><span class="knob" aria-hidden="true"></span><span>Поход на несколько дней</span></label>
+  <div class="ppace-grid mdf" hidden>
+    <div><label for="inDayH">Ходовых часов<span>в день</span></label><input autocomplete="off" type="number" id="inDayH" min="2" max="14" step="0.5" value="7"></div>
+    <div><label for="inDayStart">Выход<span>каждое утро</span></label><input autocomplete="off" type="time" id="inDayStart" value="08:00" class="timein"></div>
+  </div>
+  <details class="method"><summary>Как считается время и рельеф</summary>
+    <p><b>Рельеф учитывается.</b> Маршрут делится на участки примерно по 40 м, и для каждого считается крутизна.</p>
+    <p>Скорость на участке считается по формуле пешеходной скорости Тоблера: <code>v = 6 · e<sup>−3,5 · |s + 0,05|</sup> км/ч</code>, где <code>s</code> — уклон. Быстрее всего человек идёт по лёгкому спуску около 3 %, а на крутых подъёмах и спусках замедляется. Формула подстроена под вашу скорость по ровному.</p>
+    <p>На подъёмах время не бывает меньше, чем набор высоты, делённый на скорость подъёма. Привалы добавляются поверх.</p>
+    <p><b>Поправка на высоту.</b> Выше 2500 м время растёт на 10 % за каждые 500 м: на 3000 м на 10 %, на 4000 м на 30 %. Для акклиматизированных людей замедление меньше.</p>
+    <p><b>Несколько дней.</b> Ходовое время дня ограничено заданным числом часов. Где день заканчивается, ставится ночёвка, а утром движение продолжается.</p>
+  </details>
+  <p class="note">Темп общий для карты и маршрута и сохраняется вместе с маршрутом.</p>
+  <div class="dlg-foot"><button type="button" class="act primary" data-close>Готово</button></div>
+</dialog>
+<dialog id="moreDlg" aria-labelledby="moreTitle">
+  <div class="dlg-head"><h2 id="moreTitle">Действия с маршрутом</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
+  <div class="menu">
+    <button type="button" id="btnSave">Сохранить маршрут</button>
+    <button type="button" id="btnPack">Скачать для офлайна</button>
+    <button type="button" id="btnEdit">Изменить маршрут на карте</button>
+    <button type="button" id="btnNoteR">Добавить заметку на карте</button>
+    <button type="button" id="btnCard">Карточка безопасности</button>
+    <button type="button" id="btnGpx">Скачать GPX</button>
+    <button type="button" id="btnPoster">Сделать постер</button>
+    <button type="button" id="btnFact">Сравнить с пройденным треком</button>
+  </div>
+</dialog>
+<dialog id="recDlg" aria-labelledby="recTitle">
+  <div class="dlg-head"><h2 id="recTitle">Записанный трек</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
+  <p class="note" id="recInfo"></p>
+  <label class="dfld"><span>Название</span><input autocomplete="off" type="text" id="recName" maxlength="60"></label>
+  <div class="dlg-foot"><button type="button" class="act danger" id="recDrop">Не сохранять</button><button type="button" class="act" id="recGpx">Скачать GPX</button><button type="button" class="act primary" id="recSave">Сохранить в «Мои»</button></div>
+</dialog>
+<dialog id="noteDlg" aria-labelledby="noteTitle">
+  <div class="dlg-head"><h2 id="noteTitle">Заметка</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
+  <label class="dfld"><span>Текст</span><textarea autocomplete="off" id="ntText" rows="3" placeholder="Здесь родник, развилка — держаться левее"></textarea></label>
+  <div class="ntphoto"><img id="ntImg" alt="Фото к заметке" hidden><label class="act upl"><input type="file" id="ntPhoto" accept="image/*">Добавить фото</label></div>
+  <div class="dlg-foot"><button type="button" class="act danger" id="ntDel">Удалить</button><button type="button" class="act" data-close>Отмена</button><button type="button" class="act primary" id="ntSave">Сохранить</button></div>
 </dialog>
 <dialog id="packDlg" aria-labelledby="packTitle">
   <div class="dlg-head"><h2 id="packTitle">Скачать для офлайна</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
-  <p class="note">Сохраним маршрут, прогноз, точки воды и приютов и карту с рельефом в узкой полосе около 800 м вокруг маршрута. Тогда карту, 3D и навигацию можно открыть без интернета.</p>
+  <p class="note">Сохраним маршрут, прогноз, точки воды и приютов и карту с рельефом в полосе около 800 м вокруг маршрута. Тогда карту, 3D и навигацию можно открыть без интернета.</p>
   <label class="chk"><input type="checkbox" id="pkSat" checked> Спутниковые снимки</label>
   <label class="chk"><input type="checkbox" id="pkTopo" checked> Топокарта</label>
   <p class="note">Рельеф для 3D сохраняется всегда.</p>
@@ -643,10 +866,10 @@ dialog>.note,dialog>.pkest,dialog>p{margin-left:18px;margin-right:18px}
 <dialog id="cardDlg" aria-labelledby="cardTitle">
   <div class="dlg-head"><h2 id="cardTitle">Карточка безопасности</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>
   <p class="note">Оставьте её близким или в журнале выхода. Откроется окно печати: можно распечатать или выбрать «Сохранить как PDF».</p>
-  <label class="dfld"><span>Участники</span><textarea autocomplete="off" autocorrect="off" spellcheck="false" id="cdPeople" rows="2" placeholder="Имена, кто идёт"></textarea></label>
+  <label class="dfld"><span>Участники</span><textarea autocomplete="off" id="cdPeople" rows="2" placeholder="Имена, кто идёт"></textarea></label>
   <label class="dfld"><span>Телефон для связи в походе</span><input autocomplete="tel" type="tel" id="cdPhone" placeholder="+7 …"></label>
-  <label class="dfld"><span>Контрольное время возвращения</span><input autocomplete="off" autocorrect="off" spellcheck="false" type="datetime-local" id="cdCtrl"></label>
-  <label class="dfld"><span>Заметки (снаряжение, запасной путь, машина)</span><textarea autocomplete="off" autocorrect="off" spellcheck="false" id="cdNotes" rows="2"></textarea></label>
+  <label class="dfld"><span>Контрольное время возвращения</span><input autocomplete="off" type="datetime-local" id="cdCtrl"></label>
+  <label class="dfld"><span>Заметки (снаряжение, запасной путь, машина)</span><textarea autocomplete="off" id="cdNotes" rows="2"></textarea></label>
   <div class="dlg-foot"><button type="button" class="act" data-close>Отмена</button><button type="button" class="act primary" id="cdGo">Сформировать</button></div>
 </dialog>
 
@@ -1122,17 +1345,6 @@ $('inTrack').onchange=async e=>{
 };
 
 /* ---------- tabs ---------- */
-function setTab(t){
-  const plan=t==='plan';
-  $('tbPlan').setAttribute('aria-selected',String(plan));$('tbWx').setAttribute('aria-selected',String(!plan));
-  $('tabPlan').hidden=!plan;$('tabWx').hidden=plan;$('leadPlan').hidden=!plan;$('wxHero').hidden=plan;
-  if(plan){destroyWxMap();plInit()}
-  else{destroyPlMap();if(T&&T.cps&&T.cps[0].at)initMap()}
-}
-$('tbPlan').onclick=()=>setTab('plan');
-$('tbWx').onclick=()=>setTab('wx');
-$('tbPlan').parentElement.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=$('tbPlan').getAttribute('aria-selected')==='true'?'wx':'plan';setTab(n);$(n==='plan'?'tbPlan':'tbWx').focus()}});
-
 /* ---------- planner ---------- */
 const PL={located:false,touched:false,meLL:null,meMk:null,view:null,base:'topo',dim:'2d',wps:[],geom:null,mode:'trail',map:null,ready:false,markers:[],req:0,ignoreAt:0,timer:0,popup:null};
 function pStatus(t,err){$('pStatus').textContent=t||'';$('pStatus').classList.toggle('err',!!err);$('pStatus').hidden=!t}
@@ -1165,8 +1377,8 @@ function plInit(){
       const el=document.createElement('div');el.className='me small';el.setAttribute('aria-label','Вы здесь');PL.meMk=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([p.coords.longitude,p.coords.latitude]).addTo(PL.map);PL.meLL=[p.coords.longitude,p.coords.latitude]},
     ()=>{},{enableHighAccuracy:false,timeout:10000,maximumAge:600000})}
   else if(PL.meLL){const el=document.createElement('div');el.className='me small';PL.meMk=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat(PL.meLL).addTo(m)}
-  m.on('click',e=>{if(Date.now()-PL.ignoreAt<600)return;if(PL.popup){PL.popup.remove();PL.popup=null;return}
-    PL.wps.push({lat:e.lngLat.lat,lon:e.lngLat.lng});plChanged()});
+  m.on('click',e=>{if(Date.now()-PL.ignoreAt<600)return;if(PL.noteMode){PL.noteMode=false;show('pNoteBar',0);noteOpen('pl',{lat:e.lngLat.lat,lon:e.lngLat.lng});return}if(plInsert(e))return;if(PL.popup){PL.popup.remove();PL.popup=null;return}
+    PL.wps.push({lat:e.lngLat.lat,lon:e.lngLat.lng,id:newId()});plChanged()});
 }
 function destroyPlMap(){
   if(!PL.map)return;const m=PL.map;
@@ -1186,7 +1398,7 @@ function plMarkers(){
     const mk=new maplibregl.Marker({element:el,draggable:true,opacityWhenCovered:'1'}).setLngLat([w.lon,w.lat]).addTo(PL.map);
     let moved=false;
     mk.on('dragstart',()=>{moved=true});
-    mk.on('dragend',()=>{const ll=mk.getLngLat();PL.wps[i]={lat:ll.lat,lon:ll.lng};PL.ignoreAt=Date.now();plChanged()});
+    mk.on('dragend',()=>{const ll=mk.getLngLat();PL.wps[i]={lat:ll.lat,lon:ll.lng,id:newId()};PL.ignoreAt=Date.now();plChanged()});
     el.addEventListener('click',ev=>{ev.stopPropagation();PL.ignoreAt=Date.now();if(moved){moved=false;return}
       if(PL.popup)PL.popup.remove();
       const b=document.createElement('button');b.className='wpdel';b.type='button';b.textContent='Удалить точку '+(i+1);
@@ -1213,7 +1425,8 @@ async function plRoute(){
   if(n<2){PL.geom=null;plDraw();pStatus(n?'Поставьте следующую точку.':'Нажмите на карту, чтобы поставить первую точку.');return}
   pStatus('Прокладываю маршрут…');
   let g=null,warn='';
-  if(PL.mode==='trail'){
+  if(PL.cache&&PL.cache.size&&PL.wps.every(w=>w.id)){const rr=await plBuildCached(my);if(my!==PL.req)return;g=rr.g;warn=rr.warn}
+  else if(PL.mode==='trail'){
     try{
       const url='https://brouter.de/brouter?lonlats='+PL.wps.map(w=>w.lon.toFixed(6)+','+w.lat.toFixed(6)).join('|')+'&profile=hiking-mountain&alternativeidx=0&format=geojson';
       const r=await fetch(url);if(!r.ok)throw new Error('route');
@@ -1269,7 +1482,7 @@ $('pDim').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v||!PL.re
   if(v==='3d')check3d(PL.map,()=>{PL.dim='2d';plPress('pDim','2d');try{PL.map.setTerrain(null)}catch(_){}PL.map.easeTo({pitch:0,duration:300});NO3D=true;try{localStorage.setItem('no3d','1')}catch(e){}toast('3D-рельеф не отобразился на этом телефоне, поэтому включён режим 2D.',{bad:true})})};
 $('pUndo').onclick=()=>{PL.wps.pop();plChanged()};
 $('pRev').onclick=()=>{PL.wps.reverse();plChanged()};
-$('pLoop').onclick=()=>{if(PL.wps.length>1){PL.wps.push({...PL.wps[0]});plChanged()}};
+$('pLoop').onclick=()=>{if(PL.wps.length>1){PL.wps.push({...PL.wps[0],id:newId()});plChanged()}};
 $('pClear').onclick=()=>{PL.wps=[];if(PL.popup){PL.popup.remove();PL.popup=null}plChanged()};
 $('pSearch').onsubmit=async e=>{e.preventDefault();const q=$('pQuery').value.trim();if(!q)return;
   if(!PL.map){plInit();if(!PL.map)return}
@@ -1291,11 +1504,9 @@ $('pGpx').onclick=()=>{
 $('pGo').onclick=async()=>{
   if(!PL.geom)return;
   const t=analyze(PL.geom.map(p=>({lat:p.lat,lon:p.lon,ele:p.ele,time:null})),plName());
-  inFlat.value=$('pFlat').value;inClimb.value=$('pClimb').value;inBreak.value=$('pBreak').value;$('inAlt').checked=$('pAlt').checked;
   setTab('wx');window.scrollTo({top:0});
-  CUR={rid:PL.rid||null};await loadTrack(t,plName());
+  CUR={rid:PL.rid||null,notes:(PL.notes||[]).slice()};await loadTrack(t,plName());
 };
-['pFlat','pClimb','pBreak','pAlt'].forEach(id=>$(id).addEventListener('input',()=>{if(PL.geom)plDraw()}));
 
 /* ---------- shared helpers ---------- */
 let CUR={};
@@ -1310,7 +1521,7 @@ function openLib(){libRender().then(()=>$('libDlg').showModal())}
 function slug(s){return(String(s).toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-+|-+$/g,'')||'route')}
 function makeGpx(name,pts){
   return'<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Перевал" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>'+esc(name)+'</name></metadata>\n<trk><name>'+esc(name)+'</name><trkseg>\n'+
-    pts.map(p=>'<trkpt lat="'+p.lat.toFixed(6)+'" lon="'+p.lon.toFixed(6)+'">'+(p.ele!=null&&isFinite(p.ele)?'<ele>'+(+p.ele).toFixed(1)+'</ele>':'')+'</trkpt>').join('\n')+'\n</trkseg></trk>\n</gpx>\n';
+    pts.map(p=>'<trkpt lat="'+p.lat.toFixed(6)+'" lon="'+p.lon.toFixed(6)+'">'+(p.ele!=null&&isFinite(p.ele)?'<ele>'+(+p.ele).toFixed(1)+'</ele>':'')+(p.time?'<time>'+new Date(p.time).toISOString()+'</time>':'')+'</trkpt>').join('\n')+'\n</trkseg></trk>\n</gpx>\n';
 }
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)}
 function trackName(){return(T&&(T.name||T.label))||'Маршрут'}
@@ -1321,8 +1532,8 @@ document.querySelectorAll('dialog [data-close]').forEach(b=>b.addEventListener('
 const DB={db:null,ok:null,tiles:0};
 function dbOpen(){
   if(DB.db)return Promise.resolve(DB.db);
-  return new Promise((res,rej)=>{let rq;try{rq=indexedDB.open('pereval',1)}catch(e){DB.ok=false;return rej(e)}
-    rq.onupgradeneeded=()=>{const d=rq.result;d.createObjectStore('routes',{keyPath:'id'});const t=d.createObjectStore('tiles',{keyPath:'k'});t.createIndex('tk','tk');t.createIndex('rid','rid')};
+  return new Promise((res,rej)=>{let rq;try{rq=indexedDB.open('pereval',2)}catch(e){DB.ok=false;return rej(e)}
+    rq.onupgradeneeded=()=>{const d=rq.result;if(!d.objectStoreNames.contains('routes'))d.createObjectStore('routes',{keyPath:'id'});if(!d.objectStoreNames.contains('tiles')){const t=d.createObjectStore('tiles',{keyPath:'k'});t.createIndex('tk','tk');t.createIndex('rid','rid')}if(!d.objectStoreNames.contains('media'))d.createObjectStore('media',{keyPath:'id'})};
     rq.onsuccess=()=>{DB.db=rq.result;DB.ok=true;res(DB.db)};rq.onerror=()=>{DB.ok=false;rej(rq.error)}});
 }
 function tx(store,mode,fn){return dbOpen().then(d=>new Promise((res,rej)=>{const t=d.transaction(store,mode);const st=t.objectStore(store);let out;const r=fn(st);if(r)r.onsuccess=()=>{out=r.result};t.oncomplete=()=>res(out);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)}))}
@@ -1379,7 +1590,7 @@ function curRecord(base){
     pts:T.pts.map(p=>[+p.lat.toFixed(6),+p.lon.toFixed(6),p.ele!=null?Math.round(p.ele*10)/10:null]),
     pace:o,start:inStart.value,multi:{on:$('inMulti').checked,dayH:$('inDayH').value,ds:$('inDayStart').value},
     wx:WX?{fetched:T.offlineWx||Date.now(),data:WX,key:wxKey,days:T.daysData||null}:(base&&base.wx)||null,
-    pois:T.pois||(base&&base.pois)||null});
+    pois:T.pois||(base&&base.pois)||null,notes:T.notes||(base&&base.notes)||[]});
 }
 async function saveCurrent(silent){
   if(!T)return null;
@@ -1393,7 +1604,7 @@ $('pSave').onclick=async()=>{
   const g=PL.geom;let d=0;g.forEach((p,i)=>{if(i)d+=hav(g[i-1],p)});const M=plMetrics();
   try{const old=PL.rid?await dbRoute(PL.rid):null;
     const rec=Object.assign(old||{id:'r'+now,created:now},{name:plName(),updated:now,dist:d,gain:M.has?M.up:null,max:M.has?M.mx:null,
-      pts:g.map(p=>[+p.lat.toFixed(6),+p.lon.toFixed(6),p.ele!=null?Math.round(p.ele*10)/10:null]),pace:pace('plan'),wps:PL.wps.slice()});
+      pts:g.map(p=>[+p.lat.toFixed(6),+p.lon.toFixed(6),p.ele!=null?Math.round(p.ele*10)/10:null]),pace:pace('plan'),wps:PL.wps.slice(),notes:PL.notes||[]});
     await dbPutRoute(rec);PL.rid=rec.id;libCount();const chk=await dbRoute(rec.id);if(!chk)throw new Error('nosave');toast('Маршрут «'+rec.name+'» записан в «Мои маршруты»',{act:'Открыть',fn:openLib});flashBtn('pSave','Сохранено ✓')}
   catch(e){toast('Маршрут не сохранён: браузер не даёт хранить данные, когда приложение открыто как файл',{bad:true})}
 };
@@ -1438,7 +1649,7 @@ $('libDelTiles').onclick=async()=>{if(!confirm('Удалить все офлай
 $('libDelAll').onclick=async()=>{if(!confirm('Удалить все сохранённые маршруты и офлайн-карты? Это нельзя отменить.'))return;
   await dbClearTiles();const rs=await dbRoutes();for(const r of rs)await dbDelRoute(r.id);await dbTileCount();if(T)T.rid=null;libRender();libCount()};
 async function openRoute(r){
-  CUR={rid:r.id,snap:r.wx||null,pois:r.pois||null};
+  CUR={rid:r.id,snap:r.wx||null,pois:r.pois||null,notes:r.notes||[]};
   if(r.pace){inFlat.value=r.pace.flat;inClimb.value=r.pace.climb;inBreak.value=r.pace.br;$('inAlt').checked=!!r.pace.alt}
   if(r.start)inStart.value=r.start;
   if(r.multi){$('inMulti').checked=!!r.multi.on;$('inDayH').value=r.multi.dayH||7;$('inDayStart').value=r.multi.ds||'08:00';document.querySelectorAll('.mdf').forEach(e=>e.hidden=!r.multi.on)}
@@ -1606,6 +1817,7 @@ function onNavErr(e){if(!NAV)return;const t=e.code===1?'Нет доступа к
   $('navStats').innerHTML='<span class="navwait">'+t+'</span>';$('navDarkStats').innerHTML='<p class="navwait">'+t+'</p>'}
 function onNavPos(pos){
   if(!NAV||!T)return;
+  if(REC&&REC.on)recPush(pos);
   const now=Date.now(),c=pos.coords,q={lat:c.latitude,lon:c.longitude};NAV.lastQ=pos;
   /* battery: process at most every 4 s on the map and every 8 s on the dark screen, unless something forces a refresh */
   const gap=NAVOPT.dark?8000:4000;
@@ -1631,11 +1843,11 @@ function onNavPos(pos){
     cell(nf0.format(alt)+' м','высота')+cell('±'+Math.round(c.accuracy)+' м','точность GPS');
   if(NAVOPT.dark){
     /* dark screen: no map rendering at all, only text on black */
-    $('navDarkStats').innerHTML='<div class="dgrid">'+cells+'</div>'+(NAV.off?'<p class="doff">'+offTxt+'</p>':'')+'<p class="dnext">'+nxTxt+'</p><p class="dtime">Обновлено в '+new Date(now).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+'</p>';
+    $('navDarkStats').innerHTML='<div class="dgrid">'+cells+'</div>'+(NAV.off?'<p class="doff">'+offTxt+' '+backDir(q,r)+'</p>':'')+'<p class="dnext">'+nxTxt+'</p><p class="dtime">Обновлено в '+new Date(now).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+'</p>';
     return;
   }
   $('navStats').innerHTML=cells;
-  $('navOff').hidden=!NAV.off;if(NAV.off)$('navOff').textContent=offTxt;
+  $('navOff').hidden=!NAV.off;if(NAV.off)$('navOff').innerHTML=backHtml(q,r);backLine(NAV.off?q:null,r);
   $('navBot').innerHTML=nxTxt;$('navBot').hidden=false;
   if(!mapReady)return;
   if(!NAV.me){const el=document.createElement('div');el.className='me';el.setAttribute('aria-label','Вы здесь');NAV.me=new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([q.lon,q.lat]).addTo(map)}else NAV.me.setLngLat([q.lon,q.lat]);
@@ -1727,7 +1939,8 @@ $('btnInstall').onclick=async()=>{if(!installEv)return;installEv.prompt();try{aw
 window.addEventListener('appinstalled',()=>{$('btnInstall').hidden=true;toast('Перевал установлен. Иконка появилась на главном экране.')});
 if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
   let reloading=false;
-  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(reloading)return;reloading=true;location.reload()});
+  const hadCtrl=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(reloading||!hadCtrl)return;reloading=true;location.reload()});
   navigator.serviceWorker.register('./sw.js').then(reg=>{
     const ask=w=>toast('Вышла новая версия Перевала',{act:'Обновить',fn:()=>w.postMessage('skip')});
     if(reg.waiting&&navigator.serviceWorker.controller)ask(reg.waiting);
@@ -1748,6 +1961,312 @@ document.querySelectorAll('input[type=number]').forEach(inp=>{
   w.append(mk('−',-1,'Меньше'),inp,mk('+',1,'Больше'));
   inp.readOnly=true;inp.setAttribute('inputmode','none');inp.tabIndex=-1;
 });
+
+/* =================== v8: views and navigation between them =================== */
+const VIEWS={plan:'tabPlan',wx:'tabWx',lib:'tabLib',set:'tabSet'},TABS={plan:'tbPlan',wx:'tbWx',lib:'btnLib',set:'tbSet'};
+let VIEW='plan',fullMap=false,WXNOTE=false;
+function setTab(t){
+  if(fullMap)setFull(false);
+  VIEW=t;
+  Object.keys(VIEWS).forEach(v=>{$(VIEWS[v]).hidden=v!==t;const b=$(TABS[v]);if(v===t)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  if(t==='plan'){destroyWxMap();plInit()}
+  else{destroyPlMap();if(t==='wx'){if(T&&T.cps&&T.cps[0].at)initMap()}else destroyWxMap()}
+  if(t==='lib')libRender();
+  if(t==='set')setRender();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('#tabbar button').forEach(b=>{b.onclick=()=>setTab(b.dataset.v)});
+openLib=function(){setTab('lib')};
+$('eMap').onclick=()=>setTab('plan');$('eLib').onclick=()=>setTab('lib');
+
+/* full-screen map on the route view */
+function setFull(on,pop){
+  if(on===fullMap)return;fullMap=on;
+  const mb=document.querySelector('#mapCard .mapbox');mb.classList.toggle('full',on);document.body.classList.toggle('mapfull',on);
+  setTimeout(()=>{if(map)map.resize()},40);
+  if(on){try{history.pushState({pv:'full'},'')}catch(e){}}
+  else if(!pop&&history.state&&history.state.pv==='full'){try{history.back()}catch(e){}}
+}
+$('btnFull').onclick=()=>setFull(true);$('btnFullX').onclick=()=>setFull(false);
+addEventListener('popstate',()=>{if(fullMap)setFull(false,true)});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&fullMap)setFull(false)});
+
+/* bottom sheet on the map */
+function sheetOpen(o){$('pMore').hidden=!o;$('pHandle').setAttribute('aria-expanded',String(o));$('pHandleTxt').textContent=o?'Свернуть':'Инструменты маршрута';$('pSheet').classList.toggle('open',o)}
+$('pHandle').onclick=()=>sheetOpen($('pMore').hidden);
+(()=>{let y0=null;const h=$('pHandle');h.addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
+  h.addEventListener('touchend',e=>{if(y0==null)return;const dy=e.changedTouches[0].clientY-y0;if(dy<-30)sheetOpen(true);else if(dy>30)sheetOpen(false);y0=null},{passive:true})})();
+
+/* one pace for map and route */
+pace=function(){const v=id=>+$(id).value;return{flat:Math.max(0.5,v('inFlat')||4),climb:Math.max(50,v('inClimb')||400),br:Math.min(45,Math.max(0,v('inBreak')||0)),alt:$('inAlt').checked}};
+function fmtNum(x){return String(x).replace('.',',')}
+function paceTxt(){const o=pace();return fmtNum(o.flat)+' км/ч по ровному, подъём '+o.climb+' м/ч, привалы '+o.br+' мин в час'+(o.alt?', поправка на высоту включена':'')+($('inMulti').checked?', поход на несколько дней по '+fmtNum($('inDayH').value)+' ч':'')}
+function paceUi(){const o=pace();$('pPace').textContent='Темп '+fmtNum(o.flat);$('rPace').textContent='Темп '+fmtNum(o.flat)+' км/ч';$('setPaceTxt').textContent='Сейчас: '+paceTxt()+'.'}
+['pPace','rPace','setPace'].forEach(id=>{$(id).onclick=()=>$('paceDlg').showModal()});
+try{const p=JSON.parse(localStorage.getItem('pace')||'null');if(p){inFlat.value=p.f;inClimb.value=p.c;inBreak.value=p.b;$('inAlt').checked=!!p.a}}catch(e){}
+[inFlat,inClimb,inBreak,$('inAlt'),$('inMulti'),$('inDayH'),$('inDayStart')].forEach(el=>el.addEventListener('input',()=>{paceUi();if(PL.geom)plDraw();
+  try{localStorage.setItem('pace',JSON.stringify({f:inFlat.value,c:inClimb.value,b:inBreak.value,a:$('inAlt').checked}))}catch(e){}}));
+$('paceDlg').addEventListener('close',()=>{paceUi();if(PL.geom)plDraw()});
+
+/* "more" menu on the route view */
+$('btnMore').onclick=()=>$('moreDlg').showModal();
+$('moreDlg').addEventListener('click',e=>{if(e.target.closest('.menu button'))$('moreDlg').close()},true);
+$('btnFact').onclick=()=>{show('factCard',1);$('factCard').scrollIntoView({behavior:'smooth',block:'start'})};
+
+/* =================== difficulty and what to take =================== */
+function difficulty(d,gain,steep,max){
+  const f=[];let pts=0;const lv=(v,a,b,c)=>v<a?0:v<b?1:v<c?2:3;
+  const A=lv(d/1000,8,15,25);pts+=A;f.push(['длина '+km(d),A]);
+  if(gain!=null){const B=lv(gain,500,1000,1500);pts+=B;f.push(['набор '+nf0.format(gain)+' м',B])}
+  if(steep!=null){const C=steep<0.25?0:steep<0.4?1:2;pts+=C;f.push(['крутизна до '+pct(steep)+' ('+deg(steep)+')',C])}
+  if(max!=null&&isFinite(max)){const E=max<2000?0:max<3000?1:2;pts+=E;f.push(['высота до '+nf0.format(max)+' м',E])}
+  let k=pts<=2?1:pts<=5?2:3;if(steep!=null&&steep>=0.4&&k<2)k=2;const W=['почти не добавляет нагрузки','немного добавляет','заметно добавляет','сильно добавляет'],L=['','лёгкий','средний','сложный'];
+  return{k,label:L[k],html:'<div class="diff d'+k+'"><b>Маршрут '+L[k]+'.</b> Из чего сложилось:<ul>'+f.map(x=>'<li>'+x[0]+': '+W[x[1]]+'</li>').join('')+'</ul></div>'};
+}
+function renderVerdict(){
+  if(!T||!T.cps||!T.terr)return;const st=steepest(T.terr);
+  let h=difficulty(T.dist,T.gain,st?Math.abs(st.s):null,T.max).html;
+  const W=T.cps.map(c=>c.wx).filter(Boolean);
+  if(W.length){
+    const tmax=Math.max(...W.map(x=>x.t)),amin=Math.min(...W.map(x=>x.a)),gmax=Math.max(...W.map(x=>x.wg)),uv=Math.max(0,...W.map(x=>x.uv||0));
+    const rate=tmax>25?0.75:tmax>18?0.6:tmax<8?0.4:0.5,hrs=T.multi?T.dayH:T.totalH,L=Math.max(0.5,Math.round(hrs*rate*2)/2);
+    const it=[];
+    if(amin<0)it.push('тёплая куртка, шапка и перчатки');else if(amin<8)it.push('тёплый слой (флис)');
+    if(gmax>=10){const c=T.cps.find(c=>c.wx&&c.wx.wg>=10);it.push('ветровка'+(c&&c.summit?' для высшей точки':c&&c.camp?' для ночёвки':''))}
+    const rc=T.cps.find(c=>c.wx&&((c.wx.pp||0)>=40||(c.wx.pr||0)>=0.3));if(rc)it.push('дождевик'+(rc.start?'':' (осадки возможны после '+hhmm(rc.at)+')'));
+    if(T.cps.some(c=>c.wx&&c.wx.fz!=null&&c.wx.fz<T.pts[c.i].ele+200&&(c.wx.pp||0)>=40))it.push('непромокаемая обувь и гамаши: осадки могут быть снегом');
+    if(uv>=6)it.push('солнцезащитные очки, крем и кепка');
+    if(T.cps.some(c=>c.warn&&c.warn.includes('после заката'))||(T.sunrise&&T.cps[0].at<T.sunrise))it.push('фонарик');
+    if(T.multi){const nt=Math.min(...T.cps.filter(c=>c.camp&&c.wx).map(c=>c.wx.t));if(isFinite(nt))it.push('спальник с комфортом до '+Math.round(nt-3)+'°')}
+    h+='<div class="kit"><b>Что взять.</b> Воды около '+nf1.format(L).replace(',0','')+' л'+(T.multi?' на день':'')+'. '+(it.length?'Из одежды и снаряжения: '+it.join(', ')+'.':'Погода спокойная, хватит обычной походной одежды.')+'</div>';
+  }
+  $('verdict').innerHTML=h;
+}
+const _renderStats=renderStats;
+renderStats=function(){_renderStats();show('sumCard',1);$('rName').textContent=trackName();paceUi();renderVerdict()};
+const _plDraw=plDraw;
+plDraw=function(){_plDraw();
+  if(PL.geom&&PL.geom.length>1&&PL.wps.length>1){const M=plMetrics();const st=M.terr&&steepest(M.terr);
+    $('pDiff').innerHTML=difficulty(M.d,M.has?M.up:null,st?Math.abs(st.s):null,M.has?M.mx:null).html;
+    $('pHandleTxt').textContent=$('pMore').hidden?'Инструменты и сложность маршрута':'Свернуть'}
+  else $('pDiff').innerHTML='';
+};
+
+/* =================== storage: photos =================== */
+const dbPutMedia=m=>tx('media','readwrite',st=>st.put(m));
+const dbGetMedia=id=>tx('media','readonly',st=>st.get(id));
+const dbAllMedia=()=>tx('media','readonly',st=>st.getAll());
+
+/* =================== notes and photos =================== */
+let NOTE=null,noteMk=[];
+const nUrl={};
+async function mediaUrl(id){if(nUrl[id])return nUrl[id];try{const m=await dbGetMedia(id);if(m&&m.blob){nUrl[id]=URL.createObjectURL(m.blob);return nUrl[id]}}catch(e){}return null}
+function notesOf(w){if(w==='pl')return PL.notes||(PL.notes=[]);if(!T)return[];return T.notes||(T.notes=[])}
+async function noteOpen(where,note){
+  NOTE={where,note,blob:null};$('ntText').value=note.text||'';$('ntDel').hidden=!note.id;$('ntImg').hidden=true;
+  if(note.photo){const u=await mediaUrl(note.photo);if(u){$('ntImg').src=u;$('ntImg').hidden=false}}
+  $('noteDlg').showModal();
+}
+$('ntPhoto').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f||!NOTE)return;
+  try{const bmp=await createImageBitmap(f);const sc=Math.min(1,1280/Math.max(bmp.width,bmp.height));const c=document.createElement('canvas');c.width=Math.round(bmp.width*sc);c.height=Math.round(bmp.height*sc);
+    c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);NOTE.blob=await new Promise(r=>c.toBlob(r,'image/jpeg',0.78));$('ntImg').src=URL.createObjectURL(NOTE.blob);$('ntImg').hidden=false}
+  catch(err){toast('Это фото не открылось. Попробуйте другое.',{bad:true})}};
+$('ntSave').onclick=async()=>{
+  if(!NOTE)return;const n=NOTE.note;n.text=$('ntText').value.trim();
+  if(NOTE.blob){const id='m'+Date.now()+Math.random().toString(36).slice(2,6);try{persist();await dbPutMedia({id,blob:NOTE.blob});n.photo=id}catch(e){toast('Фото не сохранилось: хранилище недоступно',{bad:true})}}
+  if(!n.text&&!n.photo){toast('Добавьте текст или фото',{bad:true});return}
+  if(!n.id){n.id='n'+Date.now();n.created=Date.now();notesOf(NOTE.where).push(n)}
+  $('noteDlg').close();await notesChanged(NOTE.where);toast('Заметка сохранена');
+};
+$('ntDel').onclick=async()=>{if(!NOTE)return;const L=notesOf(NOTE.where),i=L.indexOf(NOTE.note);if(i>=0)L.splice(i,1);$('noteDlg').close();await notesChanged(NOTE.where)};
+async function notesChanged(where){
+  if(where==='pl'){plNotesDraw();return}
+  renderNotes();placeNotes();
+  if(T&&T.rid){try{const r=await dbRoute(T.rid);if(r){r.notes=T.notes;r.updated=Date.now();await dbPutRoute(r)}}catch(e){}}
+}
+function noteEl(n,click){const el=document.createElement('div');el.className='notem';el.textContent=n.photo?'📷':'📝';el.title=n.text||'Фото';
+  ['mousedown','touchstart'].forEach(ev=>el.addEventListener(ev,()=>{PL.ignoreAt=Date.now()},{passive:true}));
+  el.addEventListener('click',ev=>{ev.stopPropagation();PL.ignoreAt=Date.now();click()});return el}
+function plNotesDraw(){(PL.noteMk||[]).forEach(m=>m.remove());PL.noteMk=[];if(!PL.map)return;
+  (PL.notes||[]).forEach(n=>{PL.noteMk.push(new maplibregl.Marker({element:noteEl(n,()=>noteOpen('pl',n)),opacityWhenCovered:'1'}).setLngLat([n.lon,n.lat]).addTo(PL.map))})}
+function placeNotes(){noteMk.forEach(m=>m.remove());noteMk=[];if(!mapReady||!T)return;
+  (T.notes||[]).forEach(n=>{noteMk.push(new maplibregl.Marker({element:noteEl(n,()=>noteOpen('t',n)),opacityWhenCovered:'1'}).setLngLat([n.lon,n.lat]).addTo(map))})}
+async function renderNotes(){
+  const L=(T&&T.notes)||[];show('notesCard',L.length>0);if(!L.length){$('notesList').innerHTML='';return}
+  const rows=await Promise.all(L.map(async n=>{const u=n.photo?await mediaUrl(n.photo):null;const d=nearestOnRoute(n);
+    return'<li data-id="'+n.id+'">'+(u?'<img src="'+u+'" alt="">':'<span class="nic" aria-hidden="true">📝</span>')+'<span>'+esc(n.text||'Фото')+'<small>'+km(d.d)+' от старта'+(d.dist>50?', в '+Math.round(d.dist)+' м от маршрута':'')+'</small></span></li>'}));
+  $('notesList').innerHTML=rows.join('');
+}
+$('notesList').onclick=e=>{const li=e.target.closest('li');if(!li||!T)return;const n=(T.notes||[]).find(x=>x.id===li.dataset.id);if(n)noteOpen('t',n)};
+$('pNoteMode').onclick=()=>{PL.noteMode=true;show('pNoteBar',1);sheetOpen(false)};
+$('pNoteCancel').onclick=()=>{PL.noteMode=false;show('pNoteBar',0)};
+$('btnNoteR').onclick=()=>{if(!T)return;setFull(true);WXNOTE=true;toast('Нажмите на карту там, где нужна заметка')};
+$('navNote').onclick=()=>{if(!NAV)return;if(!NAV.lastQ){toast('Дождитесь сигнала GPS',{bad:true});return}const c=NAV.lastQ.coords;noteOpen('t',{lat:c.latitude,lon:c.longitude})};
+const _renderCards=renderCards;renderCards=function(){_renderCards();renderNotes()};
+const _placeMarkers=placeMarkers;placeMarkers=function(){_placeMarkers();placeNotes()};
+const _destroyWxMap=destroyWxMap;destroyWxMap=function(){noteMk.forEach(m=>m.remove());noteMk=[];_destroyWxMap()};
+const _destroyPlMap=destroyPlMap;destroyPlMap=function(){(PL.noteMk||[]).forEach(m=>m.remove());PL.noteMk=[];_destroyPlMap()};
+const _plMarkers=plMarkers;plMarkers=function(){_plMarkers();plNotesDraw()};
+const _loadTrack=loadTrack;loadTrack=async function(t,label){t.notes=t.notes||(CUR&&CUR.notes)||[];return _loadTrack(t,label)};
+
+/* =================== map extras: theme, notes, back-to-route line =================== */
+function applyMapTheme(m){if(!m||!m.getLayer)return;const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  ['sat','topo'].forEach(l=>{try{if(m.getLayer(l))m.setPaintProperty(l,'raster-brightness-max',dark?0.72:1)}catch(e){}})}
+const _initMap=initMap;
+initMap=function(){const had=!!map;_initMap();
+  if(map&&!had){const m=map;
+    m.on('load',()=>{try{m.addSource('back',{type:'geojson',data:lineGeo([])});m.addLayer({id:'back',type:'line',source:'back',layout:{'line-cap':'round'},paint:{'line-color':'#1A73E8','line-width':3,'line-dasharray':[1.5,1.5]}})}catch(e){}applyMapTheme(m);placeNotes()});
+    m.on('click',e=>{if(!WXNOTE)return;WXNOTE=false;noteOpen('t',{lat:e.lngLat.lat,lon:e.lngLat.lng})});
+  }};
+const _plInit=plInit;
+plInit=function(){const had=!!PL.map;_plInit();if(PL.map&&!had){const m=PL.map;m.on('load',()=>applyMapTheme(m))}};
+
+/* =================== editing an existing track on the map =================== */
+let WID=1;const newId=()=>'w'+(WID++);
+PL.cache=new Map();
+function simplifyIdx(P){
+  const k=Math.cos(P[0].lat*Math.PI/180),X=P.map(p=>[p.lon*111320*k,p.lat*110540]);let eps=15,keep,n;
+  do{keep=new Uint8Array(P.length);keep[0]=keep[P.length-1]=1;const st=[[0,P.length-1]];
+    while(st.length){const[a,b]=st.pop();const[ax,ay]=X[a],[bx,by]=X[b],dx=bx-ax,dy=by-ay,L=Math.hypot(dx,dy)||1;let md=0,mi=-1;
+      for(let i=a+1;i<b;i++){const d=Math.abs(dy*(X[i][0]-ax)-dx*(X[i][1]-ay))/L;if(d>md){md=d;mi=i}}
+      if(md>eps&&mi>0){keep[mi]=1;st.push([a,mi],[mi,b])}}
+    n=keep.reduce((s,v)=>s+v,0);eps*=1.4}while(n>40&&eps<3000);
+  const idx=[];keep.forEach((v,i)=>{if(v)idx.push(i)});return idx;
+}
+function plWhenReady(fn){if(PL.ready)fn();else if(PL.map)PL.map.once('load',()=>setTimeout(fn,0))}
+function loadIntoPlanner(pts,name,notes,rid){
+  if(!pts||pts.length<2)return;const idx=simplifyIdx(pts);PL.cache=new Map();
+  PL.wps=idx.map(i=>({lat:pts[i].lat,lon:pts[i].lon,id:newId()}));
+  for(let k=1;k<idx.length;k++)PL.cache.set(PL.wps[k-1].id+'>'+PL.wps[k].id,pts.slice(idx[k-1],idx[k]+1).map(p=>({lat:p.lat,lon:p.lon,ele:p.ele!=null&&isFinite(p.ele)?p.ele:null})));
+  $('pName').value=name||'';PL.notes=(notes||[]).slice();PL.rid=rid||null;
+  setTab('plan');plChanged();
+  plWhenReady(()=>{const b=new maplibregl.LngLatBounds([pts[0].lon,pts[0].lat],[pts[0].lon,pts[0].lat]);pts.forEach(p=>b.extend([p.lon,p.lat]));PL.map.fitBounds(b,{padding:{top:90,bottom:220,left:60,right:60},duration:0})});
+  toast('Трек открыт для правки: '+PL.wps.length+' опорных точек. Перетаскивайте их или нажмите на линию, чтобы добавить точку.');
+}
+$('pEdit').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{const t=await parseTrackFile(await f.arrayBuffer());loadIntoPlanner(t.pts,t.name||f.name.replace(/\.[^.]+$/,''),[],null)}
+  catch(err){toast((err&&err.message&&/[а-я]/i.test(err.message))?err.message:'Не получилось прочитать файл',{bad:true})}};
+$('btnEdit').onclick=()=>{if(T)loadIntoPlanner(T.pts,trackName(),T.notes,T.rid)};
+async function plBuildCached(my){
+  const out=[];let warn='';
+  for(let k=1;k<PL.wps.length;k++){const a=PL.wps[k-1],b=PL.wps[k],key=a.id+'>'+b.id;let seg=PL.cache.get(key);
+    if(!seg){
+      if(PL.mode==='trail'){try{const r=await fetch('https://brouter.de/brouter?lonlats='+a.lon.toFixed(6)+','+a.lat.toFixed(6)+'|'+b.lon.toFixed(6)+','+b.lat.toFixed(6)+'&profile=hiking-mountain&alternativeidx=0&format=geojson');
+        if(!r.ok)throw 0;const j=await r.json();seg=j.features[0].geometry.coordinates.map(x=>({lon:x[0],lat:x[1],ele:x.length>2&&isFinite(x[2])?x[2]:null}))}
+        catch(e){warn='Часть участков соединена напрямую: проложить их по тропам не получилось.'}}
+      if(!seg){const n=Math.max(1,Math.ceil(hav(a,b)/80));seg=[];for(let q=0;q<=n;q++)seg.push({lat:a.lat+(b.lat-a.lat)*q/n,lon:a.lon+(b.lon-a.lon)*q/n,ele:null})}
+      PL.cache.set(key,seg)}
+    if(my!==PL.req)return{g:null,warn};
+    seg.forEach((p,q)=>{if(k>1&&q===0)return;out.push({lat:p.lat,lon:p.lon,ele:p.ele})});
+  }
+  const known=out.filter(p=>p.ele!=null).length;if(known&&known<out.length&&known>=out.length*0.5)fillGaps(out);
+  return{g:out,warn};
+}
+function plInsert(e){
+  if(PL.wps.length<2||!PL.geom||!PL.ready)return false;
+  let f=[];try{f=PL.map.queryRenderedFeatures([[e.point.x-14,e.point.y-14],[e.point.x+14,e.point.y+14]],{layers:['pl']})}catch(err){}
+  if(!f.length)return false;
+  const g=PL.geom,q={lat:e.lngLat.lat,lon:e.lngLat.lng};let gi=0,bd=1e12;g.forEach((p,i)=>{const d=hav(p,q);if(d<bd){bd=d;gi=i}});
+  const wi=[];let s=0;PL.wps.forEach(w=>{let bi=s,b2=1e12;for(let i=s;i<g.length;i++){const d=hav(g[i],w);if(d<b2){b2=d;bi=i}}wi.push(bi);s=bi});
+  let k=0;for(let j=0;j<wi.length-1;j++)if(gi>=wi[j]&&gi<=wi[j+1]){k=j;break}
+  const a=PL.wps[k],b=PL.wps[k+1],nw={lat:g[gi].lat,lon:g[gi].lon,id:newId()},key=a.id+'>'+b.id,seg=PL.cache.get(key);
+  if(seg){let j=0,d2=1e12;seg.forEach((p,i)=>{const d=hav(p,nw);if(d<d2){d2=d;j=i}});PL.cache.delete(key);
+    if(j>0&&j<seg.length-1){PL.cache.set(a.id+'>'+nw.id,seg.slice(0,j+1));PL.cache.set(nw.id+'>'+b.id,seg.slice(j))}}
+  PL.wps.splice(k+1,0,nw);PL.ignoreAt=Date.now();plChanged();return true;
+}
+const _plChanged=plChanged;plChanged=function(){PL.wps.forEach(w=>{if(!w.id)w.id=newId()});_plChanged()};
+$('pRev').onclick=()=>{if(PL.cache.size){const nc=new Map();PL.cache.forEach((v,k)=>{const[a,b]=k.split('>');nc.set(b+'>'+a,v.slice().reverse())});PL.cache=nc}PL.wps.reverse();plChanged()};
+$('pClear').addEventListener('click',()=>{PL.cache=new Map();PL.rid=null});
+
+/* =================== track recording =================== */
+let REC=null,RECP=null;
+function recSaveLocal(){try{localStorage.setItem('rec',JSON.stringify({t0:REC.t0,pts:REC.pts.map(q=>[q.lat,q.lon,q.ele,q.time])}))}catch(e){}}
+function recUi(){const on=!!(REC&&REC.on),b=$('navRec');b.setAttribute('aria-pressed',String(on));b.textContent=on?'Остановить запись':'Запись трека';
+  $('recBadge').hidden=!on;if(on)$('recBadge').textContent='Идёт запись: '+km(REC.dist)+', '+durStr((Date.now()-REC.t0)/3600000)}
+function recStart(){REC={on:true,pts:[],t0:Date.now(),dist:0,saveT:0};
+  if(NAVOPT.gps!=='live'){NAVOPT.gps='live';saveNavOpt();navButtons();gpsStart()}
+  if(NAV&&NAV.lastQ)recPush(NAV.lastQ);recUi();recSaveLocal();
+  toast('Запись трека включена. Не оставляйте экран выключенным надолго: в фоне телефон может приостановить GPS.')}
+function recPush(pos){if(!REC||!REC.on)return;const c=pos.coords,p={lat:c.latitude,lon:c.longitude,ele:c.altitude!=null&&isFinite(c.altitude)?c.altitude:null,time:pos.timestamp||Date.now()};
+  const l=REC.pts[REC.pts.length-1];if(l){const d=hav(l,p),dt=Math.max(1,(p.time-l.time)/1000);if(d<5&&dt<15)return;if(c.accuracy>60&&d<c.accuracy)return;if(d/dt>40)return;REC.dist+=d}
+  REC.pts.push(p);if(Date.now()-REC.saveT>20000){REC.saveT=Date.now();recSaveLocal()}recUi()}
+function recStop(){if(!REC)return;REC.on=false;recSaveLocal();recUi();recDialog(REC.pts,REC.t0)}
+function recDialog(pts,t0){RECP={pts,t0};let d=0;pts.forEach((p,i)=>{if(i)d+=hav(pts[i-1],p)});const dur=pts.length>1?(pts[pts.length-1].time-pts[0].time)/3600000:0;
+  $('recInfo').textContent=pts.length>1?'Пройдено '+km(d)+' за '+durStr(dur)+'. Точек в треке: '+pts.length+'.':'В записи слишком мало точек: GPS почти не обновлялся.';
+  $('recName').value='Запись '+new Date(t0).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  $('recSave').disabled=$('recGpx').disabled=pts.length<2;$('recDlg').showModal()}
+$('navRec').onclick=()=>{if(!NAV)return;if(REC&&REC.on)recStop();else recStart()};
+function recClear(){REC=null;RECP=null;try{localStorage.removeItem('rec')}catch(e){}recUi()}
+$('recGpx').onclick=()=>{if(!RECP)return;download(slug($('recName').value||'track')+'.gpx',makeGpx($('recName').value||'Трек',RECP.pts),'application/gpx+xml')};
+$('recSave').onclick=async()=>{if(!RECP||RECP.pts.length<2)return;const P=RECP.pts,name=$('recName').value.trim()||'Записанный трек',now=Date.now();
+  const t=analyze(P.map(p=>({lat:p.lat,lon:p.lon,ele:p.ele,time:p.time})),name);
+  const rec={id:'r'+now,created:now,updated:now,name,kind:'rec',dist:t.dist,gain:t.hasEle?t.gain:null,max:t.hasEle?t.max:null,
+    pts:P.map(p=>[+p.lat.toFixed(6),+p.lon.toFixed(6),p.ele!=null?Math.round(p.ele*10)/10:null,p.time]),pace:pace(),start:inStart.value,notes:T&&T.notes?T.notes.slice():[]};
+  try{persist();await dbPutRoute(rec);$('recDlg').close();recClear();libCount();toast('Трек «'+name+'» сохранён в «Мои маршруты»',{act:'Открыть',fn:openLib})}
+  catch(e){toast('Не получилось сохранить трек. Скачайте его в GPX, чтобы не потерять.',{bad:true})}};
+$('recDrop').onclick=()=>{if(!confirm('Удалить записанный трек без сохранения?'))return;$('recDlg').close();recClear()};
+try{const r=JSON.parse(localStorage.getItem('rec')||'null');if(r&&r.pts&&r.pts.length>1)setTimeout(()=>toast('Есть несохранённая запись трека',{act:'Показать',fn:()=>recDialog(r.pts.map(a=>({lat:a[0],lon:a[1],ele:a[2],time:a[3]})),r.t0)}),1500)}catch(e){}
+
+/* =================== back to route: arrow and compass =================== */
+let HEAD=null,oriT=0;
+const DIRS=['север','северо-восток','восток','юго-восток','юг','юго-запад','запад','северо-запад'];
+function onOri(e){let h=null;if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;else if(e.absolute&&e.alpha!=null)h=(360-e.alpha)%360;if(h==null)return;HEAD=h;
+  const now=Date.now();if(now-oriT<200||!NAV||!NAV.off||!NAV.bk)return;oriT=now;const sv=$('navOff').querySelector('svg');if(sv)sv.style.transform='rotate('+Math.round(NAV.bk.b-HEAD)+'deg)'}
+function compassOn(){try{if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function')DeviceOrientationEvent.requestPermission().catch(()=>{})}catch(e){}
+  addEventListener('deviceorientationabsolute',onOri);addEventListener('deviceorientation',onOri)}
+function compassOff(){removeEventListener('deviceorientationabsolute',onOri);removeEventListener('deviceorientation',onOri);HEAD=null}
+function backInfo(q,r){const tg=pointAt(r.d),b=(brg(q,tg)+360)%360;return{tg,b,dir:DIRS[Math.round(b/45)%8]}}
+function backHtml(q,r){const k=backInfo(q,r);NAV.bk={b:k.b};const ref=HEAD!=null?HEAD:(mapReady?map.getBearing():0);
+  return'<svg width="44" height="44" viewBox="0 0 44 44" style="transform:rotate('+Math.round(k.b-ref)+'deg)" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="rgba(255,255,255,.2)"/><path d="M22 6l10 27-10-6-10 6z" fill="#fff"/></svg>'+
+    '<span><b>Назад к маршруту:</b> '+(r.dist<1000?Math.round(r.dist)+' м':km(r.dist))+' на '+k.dir+'. '+(HEAD!=null?'Стрелка показывает направление относительно телефона.':'Стрелка показывает направление на карте.')+'</span>'}
+function backDir(q,r){return'Идите на '+backInfo(q,r).dir+'.'}
+function backLine(q,r){if(!mapReady||!map.getSource('back'))return;if(!q){map.getSource('back').setData(lineGeo([]));return}const k=backInfo(q,r);map.getSource('back').setData(lineGeo([[q.lon,q.lat],[k.tg.lon,k.tg.lat]]))}
+const _startNav=startNav;startNav=function(){if(fullMap)setFull(false);_startNav();if(NAV){compassOn();recUi()}};
+const _stopNav=stopNav;stopNav=function(){const wasRec=!!(REC&&REC.on);compassOff();if(mapReady&&map.getSource('back'))map.getSource('back').setData(lineGeo([]));_stopNav();if(wasRec)recStop()};
+
+/* =================== backup =================== */
+function b64(buf){let s='';const a=new Uint8Array(buf);for(let i=0;i<a.length;i+=8192)s+=String.fromCharCode.apply(null,a.subarray(i,i+8192));return btoa(s)}
+function unb64(s){const b=atob(s),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+$('btnBackup').onclick=async()=>{
+  try{const rs=(await dbRoutes()).map(r=>Object.assign({},r,{pack:null}));let md=[];try{md=await dbAllMedia()}catch(e){}
+    const media=[];for(const m of md)media.push({id:m.id,type:m.blob.type||'image/jpeg',data:b64(await m.blob.arrayBuffer())});
+    download('pereval-backup-'+todayStr()+'.json',JSON.stringify({app:'pereval',v:1,created:Date.now(),routes:rs,media}),'application/json');
+    try{localStorage.setItem('lastBackup',String(Date.now()))}catch(e){}
+    toast('Резервная копия скачана: маршрутов '+rs.length+(media.length?', фото '+media.length:'')+'. Офлайн-карты в неё не входят, их можно скачать заново.');libRender()}
+  catch(e){toast('Не получилось сделать копию: хранилище недоступно',{bad:true})}};
+$('inRestore').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{const j=JSON.parse(await f.text());if(j.app!=='pereval'||!Array.isArray(j.routes))throw new Error('fmt');let n=0,sk=0;
+    for(const r of j.routes){const old=await dbRoute(r.id);if(old&&(old.updated||0)>=(r.updated||0)){sk++;continue}if(old&&old.pack)r.pack=old.pack;await dbPutRoute(r);n++}
+    for(const m of (j.media||[]))await dbPutMedia({id:m.id,blob:new Blob([unb64(m.data)],{type:m.type||'image/jpeg'})});
+    libCount();libRender();toast('Восстановлено маршрутов: '+n+(sk?', уже были на месте: '+sk:'')+(j.media&&j.media.length?', фото: '+j.media.length:''))}
+  catch(err){toast('Этот файл не похож на резервную копию Перевала',{bad:true})}};
+const _libRender=libRender;
+libRender=async function(){await _libRender();let lb=0;try{lb=+localStorage.getItem('lastBackup')||0}catch(e){}
+  const el=$('libSum');if(el&&el.textContent&&!/Маршрутов: 0/.test(el.textContent))el.textContent+=' '+(lb?'Последняя резервная копия: '+new Date(lb).toLocaleDateString('ru-RU',{day:'numeric',month:'long'})+'.':'Резервной копии пока нет.')};
+
+/* =================== settings, theme, onboarding =================== */
+async function setRender(){paceUi();let t='';try{if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();t='Сейчас приложение хранит '+mb(e.usage||0)+'.'}
+  if(navigator.storage&&navigator.storage.persisted&&await navigator.storage.persisted())t+=' Браузер обещал не удалять эти данные сам.'}catch(e){}$('setStore').textContent=t}
+function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'}catch(e){}pressSeg('themeSeg',t);
+  const dark=t==='dark'||(t==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.setAttribute('content',dark?'#10171C':'#F4F7F9');applyMapTheme(map);applyMapTheme(PL.map)}
+$('themeSeg').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;try{localStorage.setItem('theme',v)}catch(_){}applyTheme()};
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme)}catch(e){}
+applyTheme();
+const ONB=[['Карта','Постройте маршрут','Нажимайте на карту, чтобы ставить точки: путь проложится по тропам. Внизу панель с цифрами, а если потянуть её вверх, там все инструменты, оценка сложности, правка трека и заметки.'],
+  ['Маршрут','Погода, рельеф и что взять','Кнопка «Дальше: погода и рельеф» покажет прогноз в каждой точке, профиль, сложность и подсказку, сколько брать воды и что надеть. Карту можно открыть на весь экран и пролететь над маршрутом в 3D.'],
+  ['Навигация','Ведение по маршруту','«Начать навигацию» покажет, где вы, сколько осталось и что впереди. Если уйдёте с тропы, стрелка покажет путь назад. Там же можно записать трек и оставить заметку с фото.'],
+  ['Мои','Без интернета и без потерь','Сохраняйте маршруты и скачивайте карты для офлайна. Обновления приложения их не стирают, а резервная копия пригодится при смене телефона.']];
+let onbI=0;
+function onbShow(){const s=ONB[onbI];$('onbStep').textContent=(onbI+1)+' из '+ONB.length+'. '+s[0];$('onbTitle').textContent=s[1];$('onbText').textContent=s[2];$('onbNext').textContent=onbI<ONB.length-1?'Дальше':'Начать'}
+function tour(){onbI=0;onbShow();$('onb').hidden=false;$('onbNext').focus()}
+function onbEnd(){$('onb').hidden=true;try{localStorage.setItem('onb','1')}catch(e){}}
+$('onbNext').onclick=()=>{if(onbI<ONB.length-1){onbI++;onbShow()}else onbEnd()};$('onbSkip').onclick=onbEnd;$('btnTour').onclick=tour;
+try{if(!localStorage.getItem('onb'))setTimeout(tour,700)}catch(e){}
+paceUi();
+
+$('btnNav').onclick=()=>startNav();$('navExit').onclick=$('navExit2').onclick=()=>stopNav();
+persist();
 plButtons();
 setTab('plan');
 
