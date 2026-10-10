@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><clipPath id="c"><rect width="96" height="96" rx="22"/></clipPath></defs><g clip-path="url(#c)"><rect width="96" height="96" fill="#E4EDF3"/>
+<path d="M-2 82 L30 46 L40 54 L54 30 L76 58 L86 52 L98 62 L98 98 L-2 98Z" fill="#3F5D75"/>
+<path d="M54 30 L61 39 L57 38 L54 42 L50 38 L47 40Z" fill="#FFFFFF"/>
+<path d="M30 46 L34 50.5 L31 50 L28 52 L26.5 50.5Z" fill="#FFFFFF"/>
+<rect y="86" width="96" height="10" fill="#7F9D6B"/></g></svg>
