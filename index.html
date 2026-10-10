@@ -591,6 +591,42 @@ body.mapfull .tabbar,body.navmode .tabbar,body.mapfull .actions,body.navmode .ac
 :root[data-theme="dark"] .mapbox{background:#1A242C}
 :root[data-theme="dark"] .notem{background:#3A2C10;border-color:#18222A}
 
+/* v9 */
+.sheet{padding-bottom:0}
+.sheet-go{padding-bottom:12px}
+.navman{display:flex;align-items:center;gap:14px;background:#1C2A33;color:#fff;border-radius:16px;padding:10px 14px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.navman svg{flex:none;transition:transform .3s}
+.navman b{display:block;font-family:var(--disp);font-weight:500;font-size:24px;line-height:1.1}
+.navman span{display:block;font-size:15px;opacity:.9}
+.navman.dk{margin-bottom:12px}
+.navstats{grid-template-columns:repeat(3,1fr)!important;padding:8px 12px!important;gap:4px 10px!important}
+.navstats div b{font-size:17px!important}
+.navbottom{max-height:44vh}
+.navscroll{display:flex;flex-direction:column;gap:8px;max-height:44vh;overflow-y:auto;overscroll-behavior:contain;padding:10px 2px 12px;scrollbar-width:none}
+.navscroll::-webkit-scrollbar{display:none}
+.navmore{position:absolute;left:50%;transform:translateX(-50%);z-index:4;font-size:12px;font-weight:600;background:rgba(28,42,51,.82);color:#fff;border-radius:999px;padding:3px 12px;pointer-events:none;white-space:nowrap}
+.navmore.up{top:-8px}.navmore.dn{bottom:-8px}
+.navmore[hidden]{display:none}
+.navctl{display:flex!important;flex-wrap:wrap;gap:6px}
+.navctl[hidden]{display:none!important}
+.navgrp{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:rgba(255,255,255,.95);border-radius:16px;padding:4px 4px 4px 12px;box-shadow:0 2px 10px rgba(28,42,51,.2)}
+.navgrp>span{font-size:13px;font-weight:600;color:var(--ink)}
+.navgrp .seg{box-shadow:none;flex-wrap:wrap}
+.navtg.sos{background:#B3261E!important;color:#fff!important}
+#navExit{border:0;border-radius:999px;padding:8px 13px;font-weight:600;font-size:13px;background:#B3261E;color:#fff}
+.navsub{color:var(--sub);font-size:13px}
+.navbar{position:fixed;z-index:1300;left:10px;right:10px;top:calc(8px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:10px;background:#1C2A33;color:#fff;border-radius:14px;padding:8px 8px 8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.3);font-weight:600;font-size:14px}
+.navbar.off{background:#B3261E}
+.navbar span{flex:1}
+.navbar button{border:0;border-radius:999px;background:#fff;color:#1C2A33;font:inherit;font-weight:700;padding:7px 12px;cursor:pointer}
+.navbar[hidden]{display:none}
+.turnm{width:26px;height:26px;border-radius:50%;background:#1C2A33;border:2px solid #fff;display:grid;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.sunline{margin:10px 0 0;font-size:14px;color:var(--sub)}
+.linkbtn{border:0;background:none;padding:0;color:var(--blaze);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+.adjl{margin:10px 0 4px;font-size:13px;color:var(--sub)}
+#sosTxt{width:100%;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--page);color:var(--ink);margin-top:6px}
+.sosbtns a.act{text-decoration:none}
+.toast{cursor:pointer;touch-action:pan-y;user-select:none}
 </style>
 </head>
 <body>
@@ -779,7 +815,7 @@ body.mapfull .tabbar,body.navmode .tabbar,body.mapfull .actions,body.navmode .ac
   <div class="card2 setcard">
     <h2 class="sec">Приложение</h2>
     <div class="prow"><button type="button" class="act" id="btnTour">Показать обучение</button><button type="button" class="act primary" id="btnInstall" hidden>Установить приложение</button></div>
-    <p class="note">Перевал, версия 8. Карты © OpenStreetMap, OpenTopoMap (CC-BY-SA), снимки © Esri, Maxar, Earthstar Geographics. Рельеф: Mapzen Terrain Tiles. Погода: Open-Meteo. Маршруты по тропам: BRouter. Поиск: Nominatim. Фото: Stardancer, Wikimedia Commons, CC BY-SA 3.0.</p>
+    <p class="note">Перевал, версия 9.1. Карты © OpenStreetMap, OpenTopoMap (CC-BY-SA), снимки © Esri, Maxar, Earthstar Geographics. Рельеф: Mapzen Terrain Tiles. Погода: Open-Meteo. Маршруты по тропам: BRouter. Поиск: Nominatim. Фото: Stardancer, Wikimedia Commons, CC BY-SA 3.0.</p>
   </div>
 </section>
 </div>
@@ -874,6 +910,14 @@ body.mapfull .tabbar,body.navmode .tabbar,body.mapfull .actions,body.navmode .ac
 </dialog>
 
 <script>
+/* v9: every network call has a time limit and fails fast offline, so nothing hangs on a weak connection */
+(()=>{const of=window.fetch.bind(window);window.fetch=(u,o)=>{const url=typeof u==='string'?u:(u&&u.url)||'';
+  if(!/^https?:/i.test(url)||url.startsWith(location.origin))return of(u,o);
+  if(navigator.onLine===false)return Promise.reject(new TypeError('offline'));
+  o=Object.assign({},o||{});const ac=new AbortController(),ms=/terrarium|arcgis|opentopomap/.test(url)?15000:9000,t=setTimeout(()=>ac.abort(),ms);
+  if(o.signal){if(o.signal.aborted)ac.abort();else o.signal.addEventListener('abort',()=>ac.abort())}
+  o.signal=ac.signal;return of(u,o).finally(()=>clearTimeout(t))}})();
+
 /* ---------- GPX ---------- */
 function parseGpx(text){
   const doc=new DOMParser().parseFromString(text,'application/xml');
@@ -2264,6 +2308,343 @@ function onbEnd(){$('onb').hidden=true;try{localStorage.setItem('onb','1')}catch
 $('onbNext').onclick=()=>{if(onbI<ONB.length-1){onbI++;onbShow()}else onbEnd()};$('onbSkip').onclick=onbEnd;$('btnTour').onclick=tour;
 try{if(!localStorage.getItem('onb'))setTimeout(tour,700)}catch(e){}
 paceUi();
+
+
+/* =================== v9: field fixes =================== */
+const fmtT=ms=>new Date(ms).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+const fmtDist=m=>m<1000?(m<100?Math.round(m/5)*5:Math.round(m/10)*10)+' м':km(m);
+const nowNaive=()=>Date.now()-new Date().getTimezoneOffset()*60000;
+
+/* ---- toasts: shorter, tap or swipe to close ---- */
+function hideToast(){clearTimeout(toastT);show('toast',0)}
+toast=function(t,o){o=o||{};const el=$('toast');$('toastTxt').textContent=t;el.classList.toggle('bad',!!o.bad);el.querySelector('svg').style.display=o.bad?'none':'';
+  const b=$('toastAct');b.hidden=!o.act;if(o.act){b.textContent=o.act;b.onclick=ev=>{ev.stopPropagation();hideToast();o.fn()}}
+  el.style.transform='';el.style.opacity='';show('toast',1);clearTimeout(toastT);toastT=setTimeout(hideToast,o.act?6000:3500)};
+(()=>{const el=$('toast');let x0=null,dx=0;
+  el.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;x0=e.clientX;dx=0;try{el.setPointerCapture(e.pointerId)}catch(_){}});
+  el.addEventListener('pointermove',e=>{if(x0==null)return;dx=e.clientX-x0;el.style.transform='translateX(calc(-50% + '+dx+'px))';el.style.opacity=String(Math.max(0.2,1-Math.abs(dx)/220))});
+  const end=()=>{if(x0==null)return;x0=null;if(Math.abs(dx)>60||Math.abs(dx)<6)hideToast();else{el.style.transform='';el.style.opacity=''}};
+  el.addEventListener('pointerup',end);el.addEventListener('pointercancel',()=>{x0=null;el.style.transform='';el.style.opacity=''})})();
+
+/* ---- open routes instantly; network fills in later ---- */
+loadTrack=async function(t,label){
+  try{
+    t.notes=t.notes||(CUR&&CUR.notes)||[];
+    if(!t.hasEle){status('В треке нет высот, получаю их по карте…');
+      try{await fetchElevation(t)}catch(_){t.pts.forEach(p=>{if(p.ele==null)p.ele=0});t.hasEle=true;smoothEle(t);t.noEle=true;toast('Высоты не загрузились: время посчитано без учёта рельефа',{bad:true})}}
+    makeCheckpoints(t);t.label=label;t.rid=CUR.rid||null;t.pois=CUR.pois||null;t.fact=null;T=t;WX=null;wxKey='';$('fact').innerHTML='';
+    $('fTrack').querySelector('em').textContent=label;
+    if(fly)stopFly(false);
+    computeTimes();prepTurns();initMap();renderStats();
+    update();
+  }catch(err){status((err&&err.message&&/[а-я]/i.test(err.message))?err.message:'Не получилось обработать маршрут.',true)}
+};
+const _loadWeather9=loadWeather;
+loadWeather=async function(){const k=wxKey;await _loadWeather9();if(T&&(wxKey!==k||!T.wxAt))T.wxAt=T.offlineWx||Date.now()};
+addEventListener('online',()=>{if(NAV)navWx(true);else if(T&&!WX)update()});
+
+/* ---- turns along the route ---- */
+function prepTurns(){
+  if(!T||!T.pts||T.pts.length<3)return;const D=T.dist,st=10,N=Math.floor(D/st),pt=d=>pointAt(Math.max(0,Math.min(D,d)));
+  const ang=[];for(let k=0;k<=N;k++){const d=k*st;if(d<30||d>D-30){ang.push(0);continue}
+    const a=pt(d-25),b=pt(d),c=pt(d+25);if(hav(a,b)<15||hav(b,c)<15){ang.push(0);continue}ang.push(((brg(b,c)-brg(a,b)+540)%360)-180)}
+  const out=[];for(let k=1;k<ang.length-1;k++){const v=ang[k];if(Math.abs(v)<45||Math.abs(v)<Math.abs(ang[k-1])||Math.abs(v)<Math.abs(ang[k+1]))continue;
+    const d=k*st,l=out[out.length-1];if(l&&d-l.d<40){if(Math.abs(v)>Math.abs(l.a)){l.d=d;l.a=v}continue}out.push({d,a:v})}
+  out.forEach(t=>{const p=pt(t.d);t.lat=p.lat;t.lon=p.lon});T.turns=out;
+}
+function turnWord(a){const s=a>0?'направо':'налево';const aa=Math.abs(a);return aa<75?'держитесь '+(a>0?'правее':'левее'):aa<135?'поверните '+s:'крутой поворот '+s}
+function arrowSvg(a){a=Math.max(-150,Math.min(150,a||0));return'<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="transform:rotate('+Math.round(a)+'deg)"><path d="M20 36V12" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M10 18l10-12 10 12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+
+/* ---- voice prompts in Russian ---- */
+if(!('voice' in NAVOPT))NAVOPT.voice=true;
+function say(t){if(!NAVOPT.voice||!('speechSynthesis' in window))return;try{const u=new SpeechSynthesisUtterance(t);u.lang='ru-RU';
+  const v=(speechSynthesis.getVoices()||[]).find(v=>/^ru/i.test(v.lang));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function vib(p){try{navigator.vibrate&&navigator.vibrate(p||[200,100,200])}catch(e){}}
+try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}catch(e){}
+
+/* ---- snapping: never jump to the end of a loop at the start ---- */
+snapNav=function(q){
+  const P=T.pts,ky=110540,kx=111320*Math.cos(q.lat*Math.PI/180);
+  const scan=(i0,i1)=>{const c=[];let best=1e12;for(let i=Math.max(0,i0);i<Math.min(P.length-1,i1);i++){const a=P[i],b=P[i+1];
+    const ax=(a.lon-q.lon)*kx,ay=(a.lat-q.lat)*ky,bx=(b.lon-q.lon)*kx,by=(b.lat-q.lat)*ky;const dx=bx-ax,dy=by-ay,L2=dx*dx+dy*dy;
+    let t=L2?-(ax*dx+ay*dy)/L2:0;t=Math.max(0,Math.min(1,t));const dd=Math.hypot(ax+t*dx,ay+t*dy);c.push([dd,a.d+(b.d-a.d)*t,i]);if(dd<best)best=dd}return{c,best}};
+  let r=null;if(NAV.fixes>1){const w=scan(NAV.lastI-150,NAV.lastI+250);if(w.best<60)r=w}
+  if(!r)r=scan(0,P.length-1);
+  const cand=r.c.filter(x=>x[0]<=r.best+40);
+  const pick=NAV.t0==null?cand.reduce((a,x)=>x[1]<a[1]?x:a):cand.reduce((a,x)=>Math.abs(x[1]-NAV.lastD)<Math.abs(a[1]-NAV.lastD)?x:a);
+  return{dist:pick[0],d:pick[1],i:pick[2]};
+};
+
+/* ---- track recording: drop GPS jitter ---- */
+recPush=function(pos){if(!REC||!REC.on)return;const c=pos.coords,p={lat:c.latitude,lon:c.longitude,ele:c.altitude!=null&&isFinite(c.altitude)?c.altitude:null,time:pos.timestamp||Date.now()};
+  const l=REC.pts[REC.pts.length-1];
+  if(l){if(c.accuracy>30)return;const d=hav(l,p),dt=Math.max(1,(p.time-l.time)/1000);if(d<Math.max(8,(c.accuracy||10)*0.75))return;if(d/dt>4)return;REC.dist+=d}
+  else if(c.accuracy>50)return;
+  REC.pts.push(p);if(Date.now()-REC.saveT>20000){REC.saveT=Date.now();recSaveLocal()}recUi()};
+
+/* ---- GPS: continuous, every N minutes (waking earlier before a turn) or on demand ---- */
+const GPSOPT=[['live','Постоянно'],['30','30 с'],['60','1 мин'],['180','3 мин'],['300','5 мин'],['600','10 мин'],['manual','По кнопке']];
+gpsStart=function(){if(!NAV)return;try{navigator.geolocation.clearWatch(NAV.watch)}catch(e){}NAV.watch=null;clearTimeout(NAV.tick);
+  const g=NAVOPT.gps;
+  if(g==='live'){NAV.watch=navigator.geolocation.watchPosition(onNavPos,onNavErr,{enableHighAccuracy:true,maximumAge:3000,timeout:60000});return}
+  if(g==='manual'){locateOnce();return}
+  const once=()=>{if(!NAV||NAVOPT.gps!==g)return;NAV.nextAt=null;
+    navigator.geolocation.getCurrentPosition(p=>{if(!NAV)return;NAV.force=true;onNavPos(p);sched()},e=>{onNavErr(e);sched()},{enableHighAccuracy:true,timeout:45000,maximumAge:0})};
+  const sched=()=>{if(!NAV||NAVOPT.gps!==g)return;let ms=(+g)*1000;const ev=NAV.nextEvD,sp=Math.max(0.6,NAV.speed||0.9);
+    if(ev!=null)ms=Math.max(20000,Math.min(ms,(ev/sp-60)*1000));NAV.nextAt=Date.now()+ms;clearTimeout(NAV.tick);NAV.tick=setTimeout(once,ms)};
+  NAV.once=once;once()};
+document.addEventListener('visibilitychange',()=>{if(NAV&&document.visibilityState==='visible'&&NAV.once&&NAV.nextAt&&Date.now()>NAV.nextAt)NAV.once()});
+
+/* ---- weather follows the real day and pace while walking ---- */
+function navWx(force){if(!NAV||!T||navigator.onLine===false||T.multi)return;if(!force&&Date.now()-(NAV.wxAt||0)<20*60000)return;
+  NAV.wxAt=Date.now();const st=fromNaive(nowNaive()-hAtD(NAV.lastD)*3600000*(NAV.ratio||1));
+  if(!force&&Math.abs(naive(st)-naive(inStart.value))<10*60000)return;
+  inStart.value=st;update().then(()=>{if(NAV){NAV.force=true;if(NAV.lastQ)onNavPos(NAV.lastQ)}})}
+
+/* ---- sunset behind the ridges ---- */
+function sunPos(ms,lat,lon){const rad=Math.PI/180,d=ms/864e5-10957.5;
+  const M=rad*(357.5291+0.98560028*d),C=rad*(1.9148*Math.sin(M)+0.02*Math.sin(2*M)+0.0003*Math.sin(3*M)),L=M+C+rad*102.9372+Math.PI,e=rad*23.4397;
+  const dec=Math.asin(Math.sin(e)*Math.sin(L)),ra=Math.atan2(Math.sin(L)*Math.cos(e),Math.cos(L)),th=rad*(280.16+360.9856235*d)+rad*lon-ra,phi=rad*lat;
+  const alt=Math.asin(Math.sin(phi)*Math.sin(dec)+Math.cos(phi)*Math.cos(dec)*Math.cos(th));
+  const az=Math.atan2(Math.sin(th),Math.cos(th)*Math.sin(phi)-Math.tan(dec)*Math.cos(phi));return{alt:alt/rad,az:(az/rad+180+360)%360}}
+const DEMC=new Map();
+function demTile(z,x,y){const k=z+'/'+x+'/'+y;if(DEMC.has(k))return DEMC.get(k);
+  const pr=(async()=>{let buf=null;try{if(DB.tiles>0)buf=await dbTile('dem/'+k)}catch(e){}
+    if(!buf){const r=await fetch(TILE_URL.dem(z,x,y));if(!r.ok)throw new Error('dem');buf=await r.arrayBuffer()}
+    const bmp=await createImageBitmap(new Blob([buf]));const c=document.createElement('canvas');c.width=256;c.height=256;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(bmp,0,0);return g.getImageData(0,0,256,256).data})();
+  DEMC.set(k,pr);pr.catch(()=>DEMC.delete(k));if(DEMC.size>60)DEMC.delete(DEMC.keys().next().value);return pr}
+async function demEle(lat,lon,z){const n=2**z,xf=(lon+180)/360*n,r=lat*Math.PI/180,yf=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n,x=Math.floor(xf),y=Math.floor(yf);
+  const d=await demTile(z,x,y),px=Math.min(255,Math.floor((xf-x)*256)),py=Math.min(255,Math.floor((yf-y)*256)),i=(py*256+px)*4;return d[i]*256+d[i+1]+d[i+2]/256-32768}
+async function terrainSunset(lat,lon,dayMs){
+  const base=new Date(dayMs);base.setHours(12,0,0,0);const t0=base.getTime();let astro=null;
+  for(let m=0;m<720;m+=2){if(sunPos(t0+m*60000,lat,lon).alt<-0.833){astro=t0+m*60000;break}}
+  if(!astro)return null;
+  let h0;try{h0=await demEle(lat,lon,11)+2}catch(e){return{astro,ridge:null}}
+  const rad=Math.PI/180,hz={};
+  const horizon=async az=>{const k=Math.round(az);if(k in hz)return hz[k];let mx=-5;
+    for(let d=150;d<=20000;d*=1.12){const la=lat+d*Math.cos(k*rad)/110540,lo=lon+d*Math.sin(k*rad)/(111320*Math.cos(lat*rad));let e;
+      try{e=await demEle(la,lo,11)}catch(_){hz[k]=null;return null}const a=Math.atan((e-h0-d*d/(2*6371000)*0.87)/d)/rad;if(a>mx)mx=a}
+    hz[k]=mx;return mx};
+  for(let m=0;m<720;m+=3){const tt=t0+m*60000;if(tt>astro)break;const s=sunPos(tt,lat,lon);if(s.alt>30)continue;const hv=await horizon(s.az);if(hv==null)return{astro,ridge:null};if(s.alt<hv)return{astro,ridge:tt}}
+  return{astro,ridge:astro}}
+function sunText(res,now){if(!res)return'';if(res.ridge&&res.ridge<res.astro-5*60000){
+    return now&&now>res.ridge?'Солнце уже за хребтом. Закат за ровным горизонтом в '+fmtT(res.astro)+', темнеть начнёт после него.':'Солнце скроется за горами около '+fmtT(res.ridge)+(now?' (через '+durStr((res.ridge-now)/3600000)+')':'')+'. Закат за ровным горизонтом в '+fmtT(res.astro)+'.'}
+  return'Закат около '+fmtT(res.astro)+(res.ridge==null?'. Рельеф вокруг не загружен, поэтому время указано для ровного горизонта.':'. Горы здесь солнце не закрывают.')}
+
+/* ---- personal adjustments for water and clothes ---- */
+const ADJ=(()=>{const d={water:1,warm:0};try{return Object.assign(d,JSON.parse(localStorage.getItem('adj')||'{}'))}catch(e){return d}})();
+renderVerdict=function(){
+  if(!T||!T.cps||!T.terr)return;const st=steepest(T.terr);
+  let h=difficulty(T.dist,T.gain,st?Math.abs(st.s):null,T.max).html;
+  const W=T.cps.map(c=>c.wx).filter(Boolean);
+  if(W.length){
+    const tmax=Math.max(...W.map(x=>x.t)),amin=Math.min(...W.map(x=>x.a))-ADJ.warm,gmax=Math.max(...W.map(x=>x.wg)),uv=Math.max(0,...W.map(x=>x.uv||0));
+    const rate=(tmax>25?0.75:tmax>18?0.6:tmax<8?0.4:0.5)*ADJ.water,hrs=T.multi?T.dayH:T.totalH,L=Math.max(0.5,Math.round(hrs*rate*2)/2);
+    const it=[];
+    if(amin<0)it.push('тёплая куртка, шапка и перчатки');else if(amin<8)it.push('тёплый слой (флис)');
+    if(gmax>=10){const c=T.cps.find(c=>c.wx&&c.wx.wg>=10);it.push('ветровка'+(c&&c.summit?' для высшей точки':c&&c.camp?' для ночёвки':''))}
+    const rc=T.cps.find(c=>c.wx&&((c.wx.pp||0)>=40||(c.wx.pr||0)>=0.3));if(rc)it.push('дождевик'+(rc.start?'':' (осадки возможны после '+hhmm(rc.at)+')'));
+    if(T.cps.some(c=>c.wx&&c.wx.fz!=null&&c.wx.fz<T.pts[c.i].ele+200&&(c.wx.pp||0)>=40))it.push('непромокаемая обувь и гамаши: осадки могут быть снегом');
+    if(uv>=6)it.push('солнцезащитные очки, крем и кепка');
+    if(T.cps.some(c=>c.warn&&c.warn.includes('после заката'))||(T.sunrise&&T.cps[0].at<T.sunrise))it.push('фонарик');
+    if(T.multi){const nt=Math.min(...T.cps.filter(c=>c.camp&&c.wx).map(c=>c.wx.t));if(isFinite(nt))it.push('спальник с комфортом до '+Math.round(nt-3-ADJ.warm)+'°')}
+    const own=ADJ.water!==1||ADJ.warm!==0;
+    h+='<div class="kit"><b>Что взять.</b> Воды около '+nf1.format(L).replace(',0','')+' л'+(T.multi?' на день':'')+'. '+(it.length?'Из одежды и снаряжения: '+it.join(', ')+'.':'Погода спокойная, хватит обычной походной одежды.')+
+      (own?' <span class="note">С учётом ваших поправок.</span>':' <button type="button" class="linkbtn" id="adjLink">Подстроить под себя</button>')+'</div>';
+  }
+  h+='<p class="sunline" id="sunLine"></p>';
+  $('verdict').innerHTML=h;const al=$('adjLink');if(al)al.onclick=()=>setTab('set');
+  const fin=T.cps[T.cps.length-1],P=T.pts,p=P[fin.i],key=p.lat.toFixed(3)+p.lon.toFixed(3)+fin.at.slice(0,10);
+  const put=res=>{const el=$('sunLine');if(el&&res)el.textContent='В точке финиша: '+sunText(res).replace(/^./,c=>c.toLowerCase())};
+  if(T.sunKey===key&&T.sunRes)put(T.sunRes);
+  else terrainSunset(p.lat,p.lon,naive(fin.at)+new Date().getTimezoneOffset()*60000).then(res=>{if(!T)return;T.sunKey=key;T.sunRes=res;put(res)}).catch(()=>{});
+};
+(function adjUi(){
+  const card=document.createElement('div');card.className='card2 setcard';
+  card.innerHTML='<h2 class="sec">Мои поправки к рекомендациям</h2><p class="note">Все разные: подстройте подсказки о воде и одежде под себя.</p>'+
+    '<p class="adjl">Воды мне нужно</p><div class="seg light" id="adjWater" role="group" aria-label="Сколько воды"><button type="button" data-v="0.8">меньше</button><button type="button" data-v="1">как всем</button><button type="button" data-v="1.25">больше</button></div>'+
+    '<p class="adjl">По ощущениям я</p><div class="seg light" id="adjWarm" role="group" aria-label="Как переношу холод"><button type="button" data-v="4">мёрзну</button><button type="button" data-v="0">как все</button><button type="button" data-v="-4">мне жарко</button></div>';
+  const first=$('tabSet').querySelector('.setcard');first.after(card);
+  pressSeg('adjWater',String(ADJ.water));pressSeg('adjWarm',String(ADJ.warm));
+  const set=(id,k)=>$(id).onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(v==null)return;ADJ[k]=+v;pressSeg(id,v);try{localStorage.setItem('adj',JSON.stringify(ADJ))}catch(_){}if(T&&T.cps)renderVerdict()};
+  set('adjWater','water');set('adjWarm','warm');
+})();
+
+/* ---- message for rescuers ---- */
+function dms(v,pos,neg){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s=((a-d)*60-m)*60;return d+'°'+String(m).padStart(2,'0')+'′'+s.toFixed(1).replace('.',',')+'″ '+(v>=0?pos:neg)}
+async function sosText(pos){const c=pos.coords,la=c.latitude,lo=c.longitude;let bat='';try{if(navigator.getBattery){const b=await navigator.getBattery();bat='Заряд телефона: '+Math.round(b.level*100)+' %.'}}catch(e){}
+  const lines=['СООБЩЕНИЕ ДЛЯ СПАСАТЕЛЕЙ','Нужна помощь.','Координаты: '+la.toFixed(5)+', '+lo.toFixed(5),'('+dms(la,'с. ш.','ю. ш.')+', '+dms(lo,'в. д.','з. д.')+')',
+    'Точность около '+Math.round(c.accuracy)+' м'+(c.altitude!=null?', высота около '+Math.round(c.altitude)+' м':'')+'.','Время: '+new Date(pos.timestamp||Date.now()).toLocaleString('ru-RU',{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})+'.'];
+  if(T)lines.push('Маршрут «'+trackName()+'»'+(NAV&&NAV.lastD!=null?': пройдено '+km(NAV.lastD)+' из '+km(T.dist):'')+'.');
+  if(bat)lines.push(bat);lines.push('Карта: https://www.openstreetmap.org/?mlat='+la.toFixed(5)+'&mlon='+lo.toFixed(5)+'#map=16/'+la.toFixed(5)+'/'+lo.toFixed(5));return lines.join('\n')}
+(function sosUi(){const d=document.createElement('dialog');d.id='sosDlg';d.setAttribute('aria-labelledby','sosTitle');
+  d.innerHTML='<div class="dlg-head"><h2 id="sosTitle">Сообщение для спасателей</h2><button type="button" class="x" data-close aria-label="Закрыть">×</button></div>'+
+    '<p class="note" id="sosNote">Определяю координаты…</p><textarea id="sosTxt" rows="9" readonly></textarea>'+
+    '<div class="dlg-foot sosbtns"><a class="act primary" id="sosSms" href="#">Отправить SMS</a><button type="button" class="act" id="sosShare">Поделиться</button><button type="button" class="act" id="sosCopy">Скопировать</button><a class="act danger" href="tel:112">Позвонить 112</a></div>';
+  document.body.appendChild(d);d.querySelector('[data-close]').onclick=()=>d.close();
+  const fill=async pos=>{const t=await sosText(pos);$('sosTxt').value=t;$('sosSms').href='sms:?&body='+encodeURIComponent(t)};
+  window.openSos=()=>{d.showModal();$('sosNote').textContent='Определяю координаты…';
+    if(NAV&&NAV.lastQ)fill(NAV.lastQ);
+    navigator.geolocation.getCurrentPosition(p=>{fill(p);$('sosNote').textContent='Координаты обновлены. Отправьте текст близким или в службу спасения. SMS часто проходит там, где нет интернета.'},
+      ()=>{$('sosNote').textContent=NAV&&NAV.lastQ?'Свежие координаты получить не удалось, показаны последние известные.':'Не удаётся определить координаты. Выйдите на открытое место и попробуйте ещё раз.'},{enableHighAccuracy:true,timeout:20000,maximumAge:0})};
+  $('sosCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('sosTxt').value);toast('Текст скопирован')}catch(e){$('sosTxt').select();document.execCommand('copy');toast('Текст скопирован')}};
+  $('sosShare').onclick=async()=>{try{if(navigator.share)await navigator.share({text:$('sosTxt').value});else $('sosCopy').click()}catch(e){}};
+  const mb=document.createElement('button');mb.type='button';mb.id='btnSos';mb.textContent='Сообщение для спасателей';$('moreDlg').querySelector('.menu').appendChild(mb);mb.onclick=()=>{$('moreDlg').close();openSos()};
+})();
+
+/* ---- navigation screen: compact, map stays still, controls scroll ---- */
+(function navUi9(){
+  const top=$('navTop'),col=top.querySelector('.navcol'),ctl=$('navCtl'),btns=top.querySelector('.navbtns');
+  const man=document.createElement('div');man.className='navman';man.id='navMan';man.hidden=true;col.prepend(man);
+  const mk=(id,t,cls)=>{const b=document.createElement('button');b.type='button';b.id=id;b.className='navtg'+(cls?' '+cls:'');b.textContent=t;return b};
+  $('navGps').innerHTML=GPSOPT.map(o=>'<button type="button" data-v="'+o[0]+'">'+o[1]+'</button>').join('');
+  const gl=document.createElement('div');gl.className='navgrp';gl.innerHTML='<span>GPS:</span>';gl.appendChild($('navGps'));
+  const order=[$('navRec'),$('navNote'),$('navLocate'),mk('navSos','Сообщение для спасателей','sos'),$('navBase'),$('navWx'),$('nav3d'),mk('navVoice','Голос: вкл'),gl,
+    $('navFollow'),$('navDark'),$('navKeep'),mk('navMin','Свернуть навигацию'),$('navExit')];
+  order.forEach(el=>{if(el.tagName==='BUTTON')el.classList.add('navtg');ctl.appendChild(el)});btns.remove();
+  const nb=document.querySelector('.navbottom');const sc=document.createElement('div');sc.className='navscroll';sc.id='navScroll';
+  [...nb.children].forEach(el=>sc.appendChild(el));nb.appendChild(sc);
+  const up=document.createElement('div');up.className='navmore up';up.textContent='▲ выше ещё кнопки';const dn=document.createElement('div');dn.className='navmore dn';dn.textContent='▼ ниже ещё кнопки';
+  nb.prepend(up);nb.appendChild(dn);
+  const arrows=()=>{up.hidden=sc.scrollTop<6;dn.hidden=sc.scrollTop+sc.clientHeight>=sc.scrollHeight-6};sc.addEventListener('scroll',arrows,{passive:true});window.navArrows=arrows;
+  const bar=document.createElement('div');bar.className='navbar';bar.id='navBar';bar.hidden=true;bar.innerHTML='<span id="navBarTxt"></span><button type="button" id="navBarGo">Вернуться</button>';document.body.appendChild(bar);
+  $('navBarGo').onclick=()=>navRestore();
+  $('navSos').onclick=()=>openSos();
+  $('navMin').onclick=()=>navMinimize();
+  $('navVoice').onclick=()=>{NAVOPT.voice=!NAVOPT.voice;saveNavOpt();navButtons();if(NAVOPT.voice)say('Голосовые подсказки включены')};
+})();
+const _navButtons9=navButtons;
+navButtons=function(){_navButtons9();const b=$('navVoice');b.setAttribute('aria-pressed',String(!!NAVOPT.voice));b.textContent=NAVOPT.voice?'Голос: вкл':'Голос: выкл';
+  if(!GPSOPT.some(o=>o[0]===NAVOPT.gps)){NAVOPT.gps='live'}pressSeg('navGps',NAVOPT.gps);$('navLocate').hidden=NAVOPT.gps!=='manual';setTimeout(()=>window.navArrows&&window.navArrows(),30)};
+$('navGps').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v||!NAV||v===NAVOPT.gps)return;NAVOPT.gps=v;saveNavOpt();navButtons();gpsStart();
+  toast(v==='manual'?'GPS включается только по кнопке «Где я?». Подсказки о поворотах в этом режиме не приходят.':v==='live'?'GPS работает постоянно: подсказки о поворотах приходят вовремя.':'GPS проверяет положение раз в '+GPSOPT.find(o=>o[0]===v)[1]+' и раньше, если впереди поворот. Работает, пока приложение открыто.')};
+
+/* ---- navigation keeps running while you use the rest of the app ---- */
+function navMinimize(){if(!NAV)return;NAV.min=true;document.body.classList.remove('navmode');const mb=document.querySelector('#mapCard .mapbox');if(mb)mb.classList.remove('nav','dark');
+  ['navTop','navBot','navOff','navDarkPane','navCtl'].forEach(id=>{$(id).hidden=true});document.querySelector('.navbottom').classList.add('min');
+  $('navBar').hidden=false;navBarText();if(map)setTimeout(()=>map.resize(),40)}
+function navRestore(){if(!NAV)return;NAV.min=false;$('navBar').hidden=true;document.querySelector('.navbottom').classList.remove('min');
+  if(VIEW!=='wx')setTab('wx');if(fullMap)setFull(false);if(!map)initMap();
+  document.body.classList.add('navmode');document.querySelector('#mapCard .mapbox').classList.add('nav');$('navTop').hidden=false;$('navCtl').hidden=false;
+  navButtons();applyDark();NAV.first=true;NAV.lastCam=null;NAV.force=true;setTimeout(()=>{if(map)map.resize();if(NAV&&NAV.lastQ)onNavPos(NAV.lastQ)},80)}
+function navBarText(){if(!NAV)return;const b=$('navBar');b.classList.toggle('off',!!NAV.off);
+  $('navBarTxt').textContent=NAV.off?'Вы ушли с маршрута':NAV.lastQ?'Идёт навигация: осталось '+km(Math.max(0,T.dist-NAV.lastD))+(NAV.eta?', финиш около '+NAV.eta:''):'Идёт навигация: ищу GPS…'}
+const _destroyWx9=destroyWxMap;
+destroyWxMap=function(){if(NAV){const n=NAV;NAV=null;_destroyWx9();NAV=n;if(NAV.me){try{NAV.me.remove()}catch(e){}NAV.me=null}(NAV.turnMk||[]).forEach(m=>m.remove());NAV.turnMk=null;NAV.turnKey=null;if(!NAV.min)navMinimize()}else _destroyWx9()};
+
+const _startNav9=startNav;
+startNav=function(){if(NAV){navRestore();return}
+  if(T&&!T.turns)prepTurns();
+  _startNav9();if(!NAV)return;
+  NAV.t0=null;NAV.d0=0;NAV.ratio=null;NAV.speed=null;NAV.wxAt=0;NAV.min=false;$('navBar').hidden=true;
+  $('navMan').hidden=true;navButtons();say('Навигация начата');
+};
+const _stopNav9=stopNav;
+stopNav=function(){if(NAV){clearTimeout(NAV.tick);(NAV.turnMk||[]).forEach(m=>m.remove())}try{speechSynthesis.cancel()}catch(e){}$('navBar').hidden=true;
+  const nb=document.querySelector('.navbottom');if(nb)nb.classList.remove('min');_stopNav9()};
+
+function placeTurns(r){if(!mapReady||!T||!T.turns)return;if(!NAV.turnMk)NAV.turnMk=[];
+  const want=T.turns.filter(t=>t.d>r.d-50&&t.d<r.d+3000).slice(0,25);const key=want.map(t=>t.d).join(',');if(NAV.turnKey===key)return;NAV.turnKey=key;
+  NAV.turnMk.forEach(m=>m.remove());NAV.turnMk=want.map(t=>{const el=document.createElement('div');el.className='turnm';el.innerHTML=arrowSvg(t.a).replace('width="40" height="40"','width="18" height="18"');el.title=turnWord(t.a);
+    return new maplibregl.Marker({element:el,opacityWhenCovered:'1'}).setLngLat([t.lon,t.lat]).addTo(map)})}
+
+onNavPos=function(pos){
+  if(!NAV||!T)return;
+  if(REC&&REC.on)recPush(pos);
+  const now=Date.now(),c=pos.coords,q={lat:c.latitude,lon:c.longitude};NAV.lastQ=pos;
+  const gap=NAVOPT.dark||NAV.min?8000:3000;
+  if(!NAV.force&&NAV.fixes>1&&now-NAV.lastUi<gap)return;
+  NAV.force=false;NAV.lastUi=now;NAV.fixes++;
+  const r=snapNav(q);if(NAV.t0==null){NAV.t0=now;NAV.d0=r.d}
+  NAV.lastD=r.d;NAV.lastI=r.i;const P=T.pts;
+  const prog=r.d-NAV.d0,el=(now-NAV.t0)/1000;
+  if(prog>300&&el>300)NAV.speed=prog/el;
+  if(prog>500&&el>480){const ph=hAtD(r.d)-hAtD(NAV.d0);if(ph>0.05)NAV.ratio=Math.max(0.4,Math.min(2.5,(el/3600)/ph))}
+  const ratio=NAV.ratio||1;
+  const lt=NAV.trail[NAV.trail.length-1],moved=!lt||hav({lat:lt[1],lon:lt[0]},q)>10;if(moved)NAV.trail.push([q.lon,q.lat]);
+  const remain=Math.max(0,T.dist-r.d),remH=Math.max(0,T.totalH-hAtD(r.d))*ratio;NAV.eta=fmtT(now+remH*3600000);
+  const sg=T.sg[Math.min(P.length-1,r.i+1)],alt=c.altitude!=null?c.altitude:pointAt(r.d).e;
+  /* off route */
+  const off=r.dist>100&&c.accuracy<r.dist;
+  if(off&&!NAV.off){NAV.off=true;vib([300,150,300]);beep();const k=backInfo(q,r);say('Вы ушли с маршрута. До маршрута '+(r.dist<1000?Math.round(r.dist/10)*10+' метров':nf1.format(r.dist/1000)+' километра')+', направление на '+k.dir)}
+  if(r.dist<70&&NAV.off){NAV.off=false;say('Вы снова на маршруте')}
+  /* next turn and checkpoint */
+  const nt=(T.turns||[]).find(t=>t.d>r.d+5),ntd=nt?nt.d-r.d:null;
+  const nx=T.cps.find(cp=>P[cp.i].d>r.d+20),nxd=nx?P[nx.i].d-r.d:null,nk=nx?T.cps.indexOf(nx):-1;
+  NAV.nextEvD=Math.min(ntd==null?1e9:ntd,nxd==null?1e9:nxd);if(NAV.nextEvD>=1e9)NAV.nextEvD=null;
+  if(!NAV.off){
+    if(nt&&ntd<=80&&ntd>=20&&NAV.saidT!==nt.d+'a'){NAV.saidT=nt.d+'a';vib([150]);say('Через '+fmtDist(ntd).replace(' м',' метров')+' '+turnWord(nt.a))}
+    else if(nt&&ntd<20&&NAV.saidT!==nt.d+'b'){NAV.saidT=nt.d+'b';say(turnWord(nt.a).replace(/^./,x=>x.toUpperCase()))}
+    if(nx&&nxd<=40&&NAV.saidC!==nx.i){NAV.saidC=nx.i;vib([200,100,200]);say((nx.finish?'Финиш рядом':'Точка маршрута: '+cpName(nx,nk))+'. Высота '+Math.round(P[nx.i].ele)+' метров')}
+  }
+  /* sunset over the ridges, refreshed as you move */
+  if(!NAV.sunBusy&&(!NAV.sun||now-NAV.sun.at>15*60000||hav(NAV.sun,q)>400)){NAV.sunBusy=true;
+    terrainSunset(q.lat,q.lon,now).then(res=>{if(NAV){NAV.sun={at:Date.now(),lat:q.lat,lon:q.lon,res};NAV.sunBusy=false}}).catch(()=>{if(NAV)NAV.sunBusy=false})}
+  navWx(false);
+  if(NAV.min){navBarText();return}
+  /* texts */
+  const cell=(v,l)=>'<div><b>'+v+'</b><span>'+l+'</span></div>';
+  const cells=cell(km(r.d),'пройдено')+cell(km(remain),'осталось')+cell(T.multi?durStr(remH):NAV.eta,T.multi?'ходового впереди':'финиш около')+
+    cell(nf0.format(alt)+' м','высота')+(REC&&REC.on?cell(km(REC.dist),'записано'):cell('+'+nf0.format(sg)+' м','набор впереди'))+cell('±'+Math.round(c.accuracy)+' м','GPS');
+  let manH='';
+  if(!NAV.off){if(nt&&ntd<600)manH=arrowSvg(nt.a)+'<div><b>'+fmtDist(ntd)+'</b><span>'+turnWord(nt.a).replace(/^./,x=>x.toUpperCase())+'</span></div>';
+    else if(nx)manH=arrowSvg(0)+'<div><b>'+fmtDist(nxd)+'</b><span>до точки «'+cpName(nx,nk)+'»</span></div>'}
+  let nxTxt='<b>Финиш рядом.</b>';
+  if(nx){const dh=Math.max(0,P[nx.i].h-hAtD(r.d))*ratio,x=nx.wx;
+    nxTxt='<b>Дальше: '+cpName(nx,nk)+'</b> через '+km(nxd)+', около '+fmtT(now+dh*3600000)+', '+nf0.format(P[nx.i].ele)+' м'+
+      (x&&NAVOPT.wx?'<br>'+wmo(x.code)[1]+' '+Math.round(x.t)+'°, ветер '+Math.round(x.ws)+' м/с, порывы '+Math.round(x.wg)+(nx.warn&&nx.warn.length?'. <b class="wtxt">'+esc(nx.warn.join(', '))+'</b>':''):'')}
+  if(NAVOPT.wx&&T.wxAt)nxTxt+='<br><span class="navsub">'+(T.offlineWx?'Сохранённый прогноз от '+new Date(T.offlineWx).toLocaleString('ru-RU',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'. Обновится, когда появится сеть.':'Прогноз обновлён в '+fmtT(T.wxAt)+' на ваше реальное время.')+'</span>';
+  if(NAV.sun&&NAV.sun.res)nxTxt+='<br><span class="navsub">'+sunText(NAV.sun.res,now)+'</span>';
+  if(NAV.ratio)nxTxt+='<br><span class="navsub">Время считается по вашему фактическому темпу: '+(ratio<1?'вы идёте быстрее плана на '+Math.round((1-ratio)*100):'медленнее плана на '+Math.round((ratio-1)*100))+' %.</span>';
+  if(NAVOPT.gps==='manual')nxTxt+='<br><span class="navsub">Позиция на '+fmtT(now)+'. GPS выключен до нажатия «Где я?».</span>';
+  else if(NAVOPT.gps!=='live'&&NAV.nextAt)nxTxt+='<br><span class="navsub">Следующая проверка GPS около '+fmtT(NAV.nextAt)+'.</span>';
+  if(NAVOPT.dark){$('navDarkStats').innerHTML=(manH?'<div class="navman dk">'+manH+'</div>':'')+'<div class="dgrid">'+cells+'</div>'+(NAV.off?'<p class="doff">'+(r.dist<1000?'Вы ушли с маршрута на '+Math.round(r.dist)+' м':'До маршрута '+km(r.dist))+'. '+backDir(q,r)+'</p>':'')+'<p class="dnext">'+nxTxt+'</p><p class="dtime">Обновлено в '+new Date(now).toLocaleTimeString('ru-RU')+'</p>';return}
+  $('navStats').innerHTML=cells;
+  $('navMan').hidden=!manH;if(manH)$('navMan').innerHTML=manH;
+  $('navOff').hidden=!NAV.off;if(NAV.off)$('navOff').innerHTML=backHtml(q,r);backLine(NAV.off?q:null,r);
+  $('navBot').innerHTML=nxTxt;$('navBot').hidden=false;window.navArrows&&window.navArrows();
+  if(!mapReady)return;
+  if(!NAV.me){const e2=document.createElement('div');e2.className='me';e2.setAttribute('aria-label','Вы здесь');NAV.me=new maplibregl.Marker({element:e2,opacityWhenCovered:'1'}).setLngLat([q.lon,q.lat]).addTo(map)}else NAV.me.setLngLat([q.lon,q.lat]);
+  if(moved){map.getSource('trail').setData(lineGeo(NAV.trail));map.getSource('prog').setData(routeGeo(r.i+2))}
+  placeTurns(r);
+  if(NAV.follow){const ahead=pointAt(Math.min(T.dist,r.d+150));const b=NAVOPT.d3&&r.dist<100&&r.d<T.dist-20?brg(q,ahead):0;
+    const lc=NAV.lastCam;const need=NAV.first||!lc||hav(lc,q)>8||Math.abs(((b-lc.b+540)%360)-180)>12;
+    if(need){map.jumpTo({center:[q.lon,q.lat],bearing:b,pitch:NAVOPT.d3?55:0,zoom:NAV.first?15.5:map.getZoom()});NAV.lastCam={lat:q.lat,lon:q.lon,b};NAV.first=false}}
+};
+
+/* ---- small fixes ---- */
+const _paceUi9=paceUi;paceUi=function(){_paceUi9();const o=pace();$('pPace').textContent='Темп '+fmtNum(o.flat)+' км/ч'};
+
+
+/* =================== v9.1: plan vs actual finish =================== */
+const _computeTimes91=computeTimes;
+computeTimes=function(){_computeTimes91();if(T&&!T.navShift){T.planStart=inStart.value;T.planEnd=T.endAt;T.planH=T.totalH}};
+const _navWx91=navWx;
+navWx=function(force){if(NAV&&T)T.navShift=true;_navWx91(force)};
+function planFinishMs(){if(!T||!T.planEnd)return null;const tz=new Date().getTimezoneOffset()*60000,ps=naive(T.planStart)+tz,start=NAV&&NAV.t0?NAV.t0:Date.now();
+  if(Math.abs(ps-start)>6*3600000){NAV&&(NAV.planFromNow=true);return start+T.planH*3600000}NAV&&(NAV.planFromNow=false);return naive(T.planEnd)+tz}
+function planDiffTxt(etaMs){const pf=NAV&&NAV.planFin;if(!pf||!etaMs)return'';const m=Math.round((pf-etaMs)/60000);
+  if(Math.abs(m)<5)return'Идёте по плану.';return(m>0?'Опережаете план на ':'Отстаёте от плана на ')+durStr(Math.abs(m)/60)+'.'}
+const _startNav91=startNav;
+startNav=function(){const was=!!NAV;_startNav91();if(NAV&&!was){NAV.planFin=null}};
+const _onNavPos91=onNavPos;
+onNavPos=function(pos){_onNavPos91(pos);if(!NAV||!T||T.multi)return;
+  if(NAV.t0!=null&&NAV.planFin==null)NAV.planFin=planFinishMs();
+  const remH=Math.max(0,T.totalH-hAtD(NAV.lastD))*(NAV.ratio||1),eta=Date.now()+remH*3600000,pf=NAV.planFin;if(!pf)return;
+  const lab=(NAV.planFromNow?'по плану ':'план ')+fmtT(pf),diff=planDiffTxt(eta);
+  const fix=root=>{if(!root)return;root.querySelectorAll('div').forEach(d=>{const s=d.querySelector('span');if(s&&s.textContent==='финиш около')s.textContent='финиш около, '+lab})};
+  fix($('navStats'));fix($('navDarkStats'));
+  if(diff){const add='<br><span class="navsub plan">'+diff+' Финиш '+(NAV.planFromNow?'по плановому темпу от вашего старта':'по плану')+' в '+fmtT(pf)+'.</span>';
+    if(!NAV.min&&!NAVOPT.dark&&$('navBot').innerHTML.indexOf('class="navsub plan"')<0)$('navBot').innerHTML+=add;
+    if(!NAV.min&&NAVOPT.dark){const p=$('navDarkStats').querySelector('.dnext');if(p&&p.innerHTML.indexOf('class="navsub plan"')<0)p.innerHTML+=add}}
+  if(NAV.min&&$('navBarTxt').textContent.indexOf('план')<0){$('navBarTxt').textContent+=' (план '+fmtT(pf)+')'}
+};
+const _stopNav91=stopNav;
+stopNav=function(){const shifted=T&&T.navShift;_stopNav91();if(T&&shifted){T.navShift=false;if(T.planStart){inStart.value=T.planStart;update()}}};
+const _renderStats91=renderStats;
+renderStats=function(){_renderStats91();if(!T||!T.planEnd||!T.navShift||T.planEnd===T.endAt)return;
+  const st=$('stats');st.querySelectorAll('.fig span').forEach(s=>{if(s.textContent==='финиш')s.textContent='финиш, пересчитан'});
+  const d=document.createElement('div');d.className='fig';d.innerHTML='<b>'+(T.planEnd.slice(0,10)===T.endAt.slice(0,10)?hhmm(T.planEnd):dm(T.planEnd)+' '+hhmm(T.planEnd))+'</b><span>финиш по плану</span>';st.appendChild(d)};
 
 $('btnNav').onclick=()=>startNav();$('navExit').onclick=$('navExit2').onclick=()=>stopNav();
 persist();
